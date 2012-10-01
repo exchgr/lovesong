@@ -6,7 +6,7 @@ This project template provides a baseline for how any student government project
 
 * **[`admin` branch](tree/admin)** contains files related to the administration/management of the project
   * **[`notes` directory](tree/admin/notes)** contains notes about the project, such as from meetings
-  * **[`docs` directory*](tree/admin/docs)* contains documentation about/for the project, such as a proposal or budget
+  * **[`docs` directory](tree/admin/docs)** contains documentation about/for the project, such as a proposal or budget
   * **[`resources` directory](tree/admin/resources)** contains other resources used for the project, such as a design sketch
 * **[`master` branch](tree/admin/master)** contains code currently under active development
 * **[`beta` branch](tree/admin/beta)** contains code suitable for deployment to the beta server
