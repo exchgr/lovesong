@@ -12,5 +12,10 @@ var main = {
 			
 			placer.map( domObj, landmarks );
 		});
+	},
+	getCurrent: function() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(showPosition);
+		}
 	}
 }
