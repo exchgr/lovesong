@@ -13,4 +13,3 @@ This project template provides a baseline for how any student government project
 * **[`production` branch](tree/admin/production)** contains code suitable for deployment to the production
 * **[issues](issues)** are used for tracking project bugs, to do items, and features
   * **[milestones](issues/milestones)** are used for tracking milestones and project releases, with version numbers starting at 0.1
-reer
