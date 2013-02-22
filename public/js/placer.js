@@ -7,7 +7,7 @@ var placer = {
 	}
 	
 	// given landmark, and precision
-	// 	precision: 0 (low - general vicinity) or 1 (high - for directions)
+	// 	precision: 0 (low - general vicinity), 1 (high - for directions), o 2 (high -for very large one)
 	// passes an array of landmark objects — ranked by "landmarkiness" and "proximity"
 	getLandmarks: function( dest, precision, callback ) {
 		var landmarks = [
