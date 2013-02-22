@@ -1,24 +1,29 @@
-// Landmark object
-// 
-// Properties:
-//	* name
-//	* latlong (lat, long)
-// 	* importance
-//	* color
-
 var placer = {
 	
-	// given a latlong (lat, long)
+	// given a large thing
 	// returns a neighborhood
 	getNeighborhood: function( latlong ) {
 		return "Al Fujarah";
 	}
 	
-	// given a latlong( lat, long), and precision
+	// given landmark, and precision
 	// 	precision: 0 (low - general vicinity) or 1 (high - for directions)
-	// returns an array of landmark objects — ranked by "landmarkiness" and "proximity"
-	getLandmarks: function( latlong, precision ) {
+	// passes an array of landmark objects — ranked by "landmarkiness" and "proximity"
+	getLandmarks: function( dest, precision, callback ) {
+		var landmarks = [
+			{
+				name: "Bob Location",
+				latlong: {3943020, 3203203},
+				importance: 1 // very important
+			},
+			{
+				name: "Bob Samson",
+				latlong: [3943020, 3203203],
+				importance: 2 // less so
+			}
+		];
 		
+		callback( data, landmarks );
 	}
 	
 	// given a latilong( lat, long), and precision, returns the "best" landmark from getLandmarks
