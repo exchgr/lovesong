@@ -18,7 +18,7 @@ var placer = {
 	
 		var request = {
 			radius:50000, //just to make sure
-			location:new google.maps.LatLng(latlong[0],latlong[1]),
+			location:latlong,
 			rankby:'distance',
 		}
 		
@@ -46,7 +46,7 @@ var placer = {
 	// passes an array of landmark objects — ranked by "landmarkiness" and "proximity"
 	
 	//nextfunction - pass the name of the function that handles landmarks further
-	getLandmarks: function(dest, precision, nextfunction) {
+	getLandmarks: function(map, dest, precision, nextfunction, all) {
 	
 		var landmarks = [];
 	
@@ -76,7 +76,7 @@ var placer = {
 							case 0:
 								landmarks.push({
 								name:resource[i].name,
-								latlong: center,
+								latlong: google.maps.places.PlacesService(resource[i].lat,resource[i].lon),
 								importance: i //or i+1, Moiri seems to use 0
 								})	
 							break;
@@ -84,7 +84,7 @@ var placer = {
 								if (bigger.indexOf(resource[i].subclass) != -1) {
 									landmarks.push({
 									name:resource[i].name,
-									latlong: center,
+									latlong:google.maps.places.PlacesService(resource[i].lat,resource[i].lon),
 									importance: i //or i+1, Moiri seems to use 0
 									})
 									}
@@ -93,17 +93,18 @@ var placer = {
 								if (important.indexOf(resource[i].subclass) != -1){
 									landmarks.push({
 									name:resource[i].name,
-									latlong: center,
+									latlong: google.maps.places.PlacesService(resource[i].lat,resource[i].lon),
 									importance: i //or i+1, Moiri seems to use 0
 									})	
 									}
 							break;
 						}
+						
 						}
 					
 					}
-					
-					nextfunction(landmarks);
+					if (all) nextfunction(landmarks);
+					else nextfunction([landmarks[0]]);
 				}
 			
 			}
@@ -115,7 +116,7 @@ var placer = {
 	// given a latilong( lat, long), and precision, returns the "best" landmark from getLandmarks
 	// just returns the first one now
 	// Precision from 1 to 10, 1 - very precise
-	getLandmark: function( destlong, precision, nextfunction ) {
-		getLandmarks(destlong, precision, nextfunction);
+	getLandmark: function( map, destlong, precision, nextfunction, all) {
+		getLandmarks(map, destlong, precision, nextfunction, all);
 	}
 }
