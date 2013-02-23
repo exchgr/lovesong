@@ -16,7 +16,7 @@ var main = {
 		var center = new google.maps.LatLng(24.4700, 54.38);
 		
 		mapper.start( document.getElementById("map"), center, 13 );		
-		placer.getLandmarks(mapper.map, center, 1, true, mapper.addLandmarks);
+		// placer.getLandmarks(mapper.map, center, 1, true, mapper.addLandmarks);
 		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
 
 		var input = document.getElementById('search-query');
@@ -97,39 +97,34 @@ var main = {
 		// $('sms').submit( function() )
 	},
 	setDest: function( location, info ) {
-		console.log( 'something' );
+		if ( main.destination ) {
+	    main.destination.setPosition(location);
+	  } else {
+	    main.destination = mapper.addMarker( location, 4, "Destination" );
+			// main.destination.setVisible(false);
+		
+			$('p', main.infobox).html('Al Markaziyah');
+		}
+		
+		var infowindow = new google.maps.InfoWindow(
+			{
+				content: main.infobox.get(0),
+				size: new google.maps.Size(50,50)
+			}
+		);
+		
+		infowindow.open(mapper.map, main.destination);
+		google.maps.event.addListener(main.destination, 'click', function() {			
+			infowindow.open(mapper.map, main.destination);
+		});
+		
+		main.startNav();
 		
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
 			marker = mapper.addMarker( landmark.latlong, landmark.importantce, landmark.name );
+						
+			mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
 			
-			console.log( 'something' );
-			
-			if ( main.destination ) {
-		    main.destination.setPosition(location);
-		  } else {
-		    main.destination = mapper.addMarker( location, 4, "Destination" );
-				// main.destination.setVisible(false);
-			
-				$('p', main.infobox).html('Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah');
-			
-				mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
-			}
-			
-			var infowindow = new google.maps.InfoWindow(
-				{
-					content: main.infobox.get(0),
-					size: new google.maps.Size(50,50)
-				}
-			);
-
-			infowindow.open(mapper.map, main.destination);
-			google.maps.event.addListener(main.destination, 'click', function() {			
-				infowindow.open(mapper.map, main.destination);
-			});
-		
-			// console.log( destinator.get( mapper.map, main.destination, marker ) );
-			
-			main.startNav();
 		});
 	},
 	startNav: function() {
