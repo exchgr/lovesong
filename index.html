@@ -9,11 +9,11 @@
 	
  	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyC_CCb3QZEVi6VDLUJ8v3EgQvPe0ZWKD4o&sensor=false"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="public/js/infobox.js" type="text/javascript" charset="utf-8"></script>
 	<script src="public/js/placer.js" type="text/javascript" charset="utf-8"></script>
 	<script src="public/js/mapper.js" type="text/javascript" charset="utf-8"></script>
 	<script src="public/js/director.js" type="text/javascript" charset="utf-8"></script>
 	<script src="public/js/destinator.js" type="text/javascript" charset="utf-8"></script>
-	<script src="public/js/infobox.js" type="text/javascript"></script>
 	<script src="public/js/main.js" type="text/javascript" charset="utf-8"></script>
 	
 </head>
@@ -23,12 +23,18 @@
 			<div class="name pull-left">
 				<a class="brand pull-left" href="#">Landmarkr</a>
 			</div>
-			<ul class="nav pull-right">
-			  <li><a class="nav-current" href="#current">Use Current Location</a></li>
-			</ul>
+			<div class="switch pull-right">
+				<label class="desc" for="myonoffswitch">Choosing:</label>
+				<div class="onoffswitch">
+				    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
+				    <label class="onoffswitch-label" for="myonoffswitch">
+				        <div class="onoffswitch-inner"></div>
+				        <div class="onoffswitch-switch"></div>
+				    </label>
+				</div>
+			</div>
 			<div class="navbar-search">
-				<a id="change-origin" href="#" onclick="main.setOrigin('arbitrary')">Change origin</a>
-			  <input type="text" class="search-query" id="search-query" placeholder="Search for destination">
+				<input type="text" class="search-query" id="search-query" placeholder="Search for destination">
 			</div>
 		</div>
 	</div>
