@@ -6,6 +6,7 @@ var director = {
 		director.display = new google.maps.DirectionsRenderer(
 		{
 			preserveViewport: true,
+			suppressMarkers: true
 		});
         director.display.setMap(mapper.map);
         director.display.setPanel(document.getElementById('panel'));

@@ -69,7 +69,7 @@ var main = {
 				dataType: 'json',
 				data: {
 					'to': to,
-					'message': 'Sama tower!'
+					'message': 'Sama Tower, Across from Etisalat Towers, Al Markaziyah'
 					},
 				//url: '/landmarkr/public/js/1.json',
 			    url: '/sms',
@@ -112,15 +112,17 @@ var main = {
 					size: new google.maps.Size(50,50)
 				}
 			);
-			
-			
-		
+
 			infowindow.open(mapper.map, main.destination);
-			
+			google.maps.event.addListener(main.destination, 'click', function() {			
+				infowindow.open(mapper.map, main.destination);
+			})
 		}	},
 	startNav: function() {
 		$('#panel').show().animate( {width: '20%'} );
 		$('#map').animate( {width: '80%'} );
+		start = new google.maps.LatLng( 24.485079, 54.353435 );
+		mapper.addMarker(start, 3, "Origin");
 		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), main.destination.position );
 	},
 	selector: function() {
