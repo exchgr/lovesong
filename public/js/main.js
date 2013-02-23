@@ -28,7 +28,10 @@ var main = {
 		searchBox.bindTo('bounds', mapper.map);
 		//console.log(searchBox);
 		google.maps.event.addListener(searchBox, 'places_changed', function() {
-			main.setDest(searchBox.getPlaces()[0].geometry.location, "test"),
+			place = searchBox.getPlaces()[0];
+			console.log(place);
+			
+			main.setDest(place.geometry.location, "test"),
 			main.startNav()
 		}),
 		main.selector();
