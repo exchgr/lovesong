@@ -68,22 +68,22 @@ var main = {
 		
 		if ( main.destination ) {
 	    main.destination.setPosition(location);
-	  } else {
-	    main.destination = mapper.addMarker( location, 0, "Destination" );
-		var infowindow = new google.maps.InfoWindow(
-			{
-				content: this.infobox,
-				size: new google.maps.Size(50,50)
-			}
-		);
-		infowindow.open(mapper.map, main.destination);
-				
+		} else {
+			main.destination = mapper.addMarker( location, 0, "Destination" );
+			main.destination.setVisible(false);
+			var infowindow = new google.maps.InfoWindow(
+				{
+					content: this.infobox,
+					size: new google.maps.Size(50,50),
+				}
+			);
+			infowindow.open(mapper.map, main.destination);
 	  }
 	},
 	startNav: function() {
 		$('#panel').show().animate( {width: '20%'} );
 		$('#map').animate( {width: '80%'} );
-		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), main.destination );
+		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), main.destination.position );
 	},
 	selector: function() {
 		google.maps.event.addListener(mapper.map, 'click', function(event) {			
