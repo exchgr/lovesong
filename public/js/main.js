@@ -14,6 +14,7 @@ var main = {
 		// });
 		
 		var center = new google.maps.LatLng(24.4700, 54.38);
+		
 		mapper.start( document.getElementById("map"), center, 13 );		
 		placer.getLandmarks(mapper.map, center, 1, mapper.addLandmarks, true);
 		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
@@ -49,6 +50,8 @@ var main = {
 		director.init();
 		
 		main.smser();
+		start = new google.maps.LatLng( 24.485079, 54.353435 );
+		main.origin = mapper.addMarker(start, 3, "Origin");
 	},
 	smser: function() {
 		this.infobox = $('<p>');
@@ -69,7 +72,7 @@ var main = {
 	},
 	setDest: function( location, info ) {
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
-			mapper.addMarker( landmark.latlong, landmark.inmportance, landmark.name );
+			mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
 		} );
 		
 		if ( main.destination ) {
@@ -90,9 +93,24 @@ var main = {
 	startNav: function() {
 		$('#panel').show().animate( {width: '20%'} );
 		$('#map').animate( {width: '80%'} );
-		start = new google.maps.LatLng( 24.485079, 54.353435 );
-		mapper.addMarker(start, 3, "Origin");
-		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), main.destination.position );
+
+		director.getDirections( main.origin.position, main.destination.position );
+	},
+	setOrigin: function(type){
+		if (type=="current") {
+			;
+		} else if (type=="nearest") {
+			placer.getLandmark( mapper.map, location, 0, function( landmark ) {
+				main.origin = mapper.addMarker( landmark.latlong, 3, landmark.name );
+			} );
+			main.startNav();
+		} else if (type=="arbitrary") {
+			google.maps.event.clearListeners(mapper.map, 'click');
+			google.maps.event.addListener(mapper.map, 'click', function(event) {
+				main.origin.setPosition(event.latLng);
+				main.startNav();
+			});
+		}
 	},
 	selector: function() {
 		google.maps.event.addListener(mapper.map, 'click', function(event) {			
