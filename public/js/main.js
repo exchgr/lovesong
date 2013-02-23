@@ -50,7 +50,7 @@ var main = {
 		
 		director.init();
 
-		main.origin = mapper.addMarker( center, 3, "origin" );
+		// main.origin = mapper.addMarker( center, 3, "origin" );
 
 		main.smser();
 		//start = new google.maps.LatLng( 24.485079, 54.353435 );
@@ -101,7 +101,6 @@ var main = {
 	},
 	setDest: function( location, info ) {
 		if ( main.destination ) {
-		console.log("test");
 	    main.destination.setPosition(location);
 	  } else {
 	    main.destination = mapper.addMarker( location, 4, "Destination" );
@@ -116,13 +115,12 @@ var main = {
 				size: new google.maps.Size(50,50)
 			}
 		);
-		console.log("test2");
 		infobox.open(mapper.map, main.destination);
 		google.maps.event.addListener(main.destination, 'click', function() {			
 			infobox.open(mapper.map, main.destination);
 		});
 		}
-		main.startNav();
+		
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
 
 			marker = mapper.addMarker( landmark.latlong, landmark.importantce, landmark.name );
@@ -130,15 +128,14 @@ var main = {
 			$('p', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
 			
 		});
-	},
-	startNav: function() {
-		$('#panel').show().animate( {width: '20%'} );
-		$('#map').animate( {width: '80%'} );
-
-		director.getDirections( main.origin.position, main.destination.position );
+		
+		main.setOrigin( "arbitrary" );
+		
+		if( main.destination ) {
+			main.startNav();
+		}
 	},
 	setOrigin: function(type){
-
 		if (type=="current") {
 			;
 		} else if (type=="nearest") {
@@ -147,6 +144,7 @@ var main = {
 			} );
 			main.startNav();
 		} else if (type=="arbitrary") {
+			$('#myonoffswitch').prop('checked', true);
 			google.maps.event.clearListeners(mapper.map, 'click');
 			google.maps.event.addListener(mapper.map, 'click', function(event) {
 				if (main.origin){
@@ -154,11 +152,18 @@ var main = {
 				} else {
 					main.origin = mapper.addMarker(event.latLng, 3, 'Origin');
 				}
+				$('#myonoffswitch').prop('checked', false);
 				main.startNav();
 				google.maps.event.clearListeners(mapper.map, 'click');
 				main.selector();
 			});
 		}
+	},
+	startNav: function() {
+		$('#panel').show().animate( {width: '20%'} );
+		$('#map').animate( {width: '80%'} );
+
+		director.getDirections( main.origin.position, main.destination.position );
 	},
 	selector: function() {
 		google.maps.event.addListener(mapper.map, 'click', function(event) {			
