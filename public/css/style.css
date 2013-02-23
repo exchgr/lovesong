@@ -112,7 +112,24 @@ html, body, #map, #panel {
 
 /* ===MOBILE */
 @media (max-width: 767px) {
-	#map {
-		display: none;
+	.search-query {
+		width:400px;
 	}
+	
+	
+	.navbar-search  {
+		height:100px;
+	}
+	
+	.search-query {
+		min-height:40px;
+	}
+	
+	body {
+		font-size:150%
+	}
+	
+	
+	
 }
+
