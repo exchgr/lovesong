@@ -2,16 +2,19 @@
 	
 //take the map and the service definitions out, when connecting to Moiri's maps.Map!
 
+var bigger = ['AC', 'AC-a', 'AC-h', 'AC-r','BA', 'BU', 'CI', 'EM', 'EN', 'EN-c', 'ED-e', 'ED-h', 'ED-p', 'ED-u', 'EM', 'EN', 'EN-b', 'EN-c', 'EN-d', 'EN-p', 
+'GA', 'GO', 'HE','MA','MP','MU','PL','PO','PR','RE','RE-c','RE-i', 'RS', 'RS-a','RS-c','RS-d','RS-e','RS-f','RS-i','RS-j','RS-k','RS-m','RS-n','RS-s','RS-t','RS-v', 'SA',
+'SA-f','SA-m','SA-p', 'SD','SH','SH-m','SH-s','SP','SU','TR','TR-a','TR-b','TR-n','TR-m'];
+
+var important = ['BR', 'EM', 'GO', 'MA', 'PL', 'MU', 'PR', 'SH', 'SH-m', 'TR', 'TR-A','TR-h', 'TR-m', 'TR-h', 'HE', 'RE', 'RE-c', 'RE-i']; 
+
 var placer = {
 
 	// given a large thing
 	// returns a neighborhood
-	getNeighborhood: function(latlong, nextfunction) {
-		
-		var center = new google.maps.LatLng(latlong[0],latlong[1]);
+	getNeighborhood: function(map, latlong, nextfunction) {
 		
 		var service = new google.maps.places.PlacesService(map);
-
 	
 		var request = {
 			radius:50000, //just to make sure
@@ -51,17 +54,15 @@ var placer = {
 			$.ajax({
 				method: 'GET',
 				dataType: 'json',
-				/*data: {
+				data: {
 					'user_id':'TEST_USER',
 					'api_key':'EXAMPLE_KEY_3edaba1953abf86',
 					'count':20, //play with the value
 					'lat':dest[0],
 					'lon':dest[1]
 					},
-					*/
-				url: '1.json',
-				async: false,
-				//url: 'http://api.geckolandmarks.com/json',
+				
+			url: 'http://api.geckolandmarks.com/json',
 			success: function(data, status) {
 			//processing
 				alert('ads');
@@ -70,6 +71,7 @@ var placer = {
 					var resource = data[1];
 					
 					for (var i = 0; i < resource.length; i++) {
+						if (resource[i].class == 'P') {
 						switch (precision) {
 							case 0:
 								landmarks.push({
@@ -96,6 +98,7 @@ var placer = {
 									})	
 									}
 							break;
+						}
 						}
 					
 					}
