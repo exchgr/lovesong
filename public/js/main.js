@@ -45,7 +45,6 @@ var main = {
 		}
 		
 		director.init();
-		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), new google.maps.LatLng( 24.470041, 54.377382 ) );
 	},
 	setDest: function( location ) {
 		if ( main.destination ) {
@@ -54,9 +53,13 @@ var main = {
 	    main.destination = mapper.addMarker( location, 0, "Destination" );
 	  }
 	},
+	startNav: function() {
+		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), main.destination.position );
+	},
 	selector: function() {
 		google.maps.event.addListener(mapper.map, 'click', function(event) {
 			main.setDest(event.latLng);
+			main.startNav();
 		});
 	}
 }
