@@ -3,7 +3,10 @@
 var director = {
 	init: function() {
 		director.service = new google.maps.DirectionsService();
-    director.display = new google.maps.DirectionsRenderer({		preserveViewport: true});
+    director.display = new google.maps.DirectionsRenderer(
+		{preserveViewport: true,
+		suppressMarkers: true
+		});
 
     director.display.setMap(mapper.map);
     director.display.setPanel(document.getElementById('panel'));
@@ -21,22 +24,8 @@ var director = {
     return director.service.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {	
             director.display.setDirections(response);
-            var tmp = response['routes'][0]['overview_path'];
-            var arr = [];
-            for (var i = 0; i< tmp.length; i++){
-                arr.push({
-                    lat : tmp[i].lat(),
-                    lng : tmp[i].lng()
-                });
-            }
-
-            // shuffle(arr);
-
-						mapper.addMarker( new google.maps.LatLng(arr[0]['lat'], arr[0]['lng']), 1, "som");
-            // mapper.addMarker(arr[0]['lat'], arr[0]['lng'])
-            // mapper.addMarker(arr[1]['lat'], arr[1]['lng'])
-
-
+            var markerLatLngs = response['routes'][0]['overview_path'];
+			mapper.addMarker(markerLatLngs[0], 1, "som");
         }
     });
 	}
