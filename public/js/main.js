@@ -37,7 +37,7 @@ var main = {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
 					main.origin.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-					main.startNav();
+					if (main.destination) main.startNav();
 				});
 
 				return false;
