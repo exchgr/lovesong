@@ -13,9 +13,9 @@ var main = {
 		// 	placer.map( domObj, landmarks );
 		// });
 		
-		var center = new google.maps.LatLng(24.4700, 54.38);
+		var center = new google.maps.LatLng(24.485743,54.354086);
 		
-		mapper.start( document.getElementById("map"), center, 13 );		
+		mapper.start( document.getElementById("map"), center, 15 );		
 		// placer.getLandmarks(mapper.map, center, 1, true, mapper.addLandmarks);
 		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
 
