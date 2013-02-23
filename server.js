@@ -75,7 +75,7 @@ app.get('/sms', function( req, res ) {
 	// });
 	
 	var from = 'Landmarkr';
-	var to = req.query["to"];
+	var to = req.query["to"].replace(/[^0-9]/g, '');
 	var message = encodeURIComponent( req.query["message"] );
 	
 	var options = {
