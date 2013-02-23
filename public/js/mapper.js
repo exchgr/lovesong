@@ -3,19 +3,19 @@
 var markers = [];
 var img_array = [
 		{
-	    	url: 'public/images/marker0.png',
+	    	url: 'images/marker0.png',
 	    	size: new google.maps.Size(20, 32),
 	    	origin: new google.maps.Point(0,0),
 	    	anchor: new google.maps.Point(10, 32)
 		},
 		{
-	    	url: 'public/images/marker1.png',
+	    	url: 'images/marker1.png',
 	    	size: new google.maps.Size(20, 32),
 	    	origin: new google.maps.Point(0,0),
 	    	anchor: new google.maps.Point(10, 32)
 		},	
 		{
-	    	url: 'public/images/marker2.png',
+	    	url: 'images/marker2.png',
 	    	size: new google.maps.Size(20, 32),
 	    	origin: new google.maps.Point(0,0),
 	    	anchor: new google.maps.Point(10, 32)
@@ -25,7 +25,7 @@ var img_array = [
 var mapper = {
 	
 	
-	addMarker: function(location, importance, name) {
+	addMarker: function(location, importance, name) {		
 		marker = new google.maps.Marker({
 			position: location,
 			icon: img_array[importance],
@@ -64,6 +64,7 @@ var mapper = {
 	addLandmarks: function( landmarks ) {
 		for (i in landmarks) {
 			var lm = landmarks[i];
+			console.log( lm );
 			mapper.addMarker(lm.latlong, 1, lm.name);
 		}
 	},

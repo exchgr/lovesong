@@ -47,7 +47,10 @@ var main = {
 		director.init();
 	},
 	setDest: function( location, info ) {
-		placer.getLandmarks( mapper.map, location, 0, true, mapper.addLandmarks );
+		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
+			// console.log( landmark );
+			// mapper.addMarker( landmark.position );
+		} );
 		
 		if ( main.destination ) {
 	    main.destination.setPosition(location);
@@ -69,7 +72,8 @@ var main = {
 		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), main.destination.position );
 	},
 	selector: function() {
-		google.maps.event.addListener(mapper.map, 'click', function(event) {
+		
+		google.maps.event.addListener(mapper.map, 'click', function(event) {			
 			main.setDest(event.latLng);
 			main.startNav();
 		});

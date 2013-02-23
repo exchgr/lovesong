@@ -16,6 +16,10 @@ var express = require('express')
 //   console.log('Connected to DB');
 // });
 
+var nexmo = require('./lib/nexmo');
+
+nexmo.initialize( process.env.NEXMO_KEY, process.env.NEXMO_SECRET, 'http', true);
+
 var app = express();
 
 // configure Express
@@ -60,6 +64,34 @@ app.get('/json', function( req, res ) {
 	}).on("error", function(e){
 	  console.log("Got error: " + e.message);
 	});	
+});
+
+app.get('/sms', function( req, res ) {
+	nexmo.sendTextMessage('Landmarkr', '971501068203', req.query["message"], function( err, response ) {
+		console.log( response );
+		res.send( 'bob' );
+	});
+	
+	var options = {
+		host: 'rest.nexmo.com'
+	}
+	
+	http.post(options, function(response){
+	  var str = '';
+
+	  //another chunk of data has been recieved, so append it to `str`
+	  response.on('data', function (chunk) {
+	    str += chunk;
+	  });
+
+	  //the whole response has been recieved, so we just print it out here
+	  response.on('end', function () {
+	    res.send( str );
+	  });
+	}).on("error", function(e){
+	  console.log("Got error: " + e.message);
+	});
+	
 });
 
 app.listen( process.env.PORT , function() {
