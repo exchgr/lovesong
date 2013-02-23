@@ -49,6 +49,8 @@ var main = {
 		
 		director.init();
 
+		main.origin = mapper.addMarker( center, 4, "origin" );
+
 		main.smser();
 		//start = new google.maps.LatLng( 24.485079, 54.353435 );
 		//main.origin = mapper.addMarker(start, 3, "Origin");
