@@ -47,17 +47,19 @@ var placer = {
 	
 	//nextfunction - pass the name of the function that handles landmarks further
 	getLandmarks: function(map, dest, precision, all, nextfunction) {
+			console.log(dest);
 		$.ajax({
+
 			method: 'GET',
 			dataType: 'json',
 			data: {
 				'user_id':'TEST_USER',
 				'api_key':'EXAMPLE_KEY_3edaba1953abf86',
 				'count':20, //play with the value
-				'lat':dest.hb,
-				'lon':dest.ib
+				'lat':dest.lat(),
+				'lon':dest.lng()
 				},
-			//url: '1.json',
+			//url: '/landmarkr/public/js/1.json',
 		    url: '/json',
 		    success: function(data, status){
 					var status = 200;

@@ -23,8 +23,6 @@ var img_array = [
 	];
 
 var mapper = {
-	
-	
 	addMarker: function(location, importance, name) {		
 		marker = new google.maps.Marker({
 			position: location,
@@ -37,19 +35,15 @@ var mapper = {
 	},
 	
 	clearOverlays: function() {
-	  if (markers) {
-		for (i in markers) {
+		for (var i in markers) {
 		  markers[i].setMap(null);
 		}
-	  }
 	},
 	
 	showOverlays: function() {
-	  if (markers) {
-		for (i in markers) {
+		for (var i in markers) {
 		  markers[i].setMap(map);
 		}
-	  }
 	},
 	
 	deleteOverlays: function() {
