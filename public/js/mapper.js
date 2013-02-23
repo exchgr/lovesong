@@ -63,7 +63,7 @@ var mapper = {
 	deleteOverlays: function() {
 	  if (markers) {
 		for (i in markers) {
-		  if (markers[i] != 3 && markers [i] != 4) markers[i].setMap(null);
+		  if (markers[i].title != "Destination" && markers [i] != "Origin") markers[i].setMap(null);
 		}
 		markers.length = 0;
 	  }
