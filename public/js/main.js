@@ -15,7 +15,7 @@ var main = {
 		
 		var center = new google.maps.LatLng(24.4700, 54.38);
 		mapper.start( document.getElementById("map"), center, 13 );		
-		placer.getLandmarks(mapper.map, center, 1, mapper.addLandmarks, true);
+		placer.getLandmarks(mapper.map, center, 1, true, mapper.addLandmarks);
 		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
 
 		var input = document.getElementById('search-query');
@@ -47,7 +47,7 @@ var main = {
 		}
 		
 		director.init();
-		
+
 		main.smser();
 	},
 	smser: function() {
@@ -100,6 +100,13 @@ var main = {
 			main.startNav()
 		})
 	}
+}
+
+
+placer.getLandmarks(mapper.map, new google.maps.LatLng(24.4700, 54.38), 0, true, emptyFunct);
+
+function emptyFunct(i){
+    console.log(i);
 }
 
 $(document).ready( main.init );
