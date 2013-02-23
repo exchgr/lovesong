@@ -43,15 +43,15 @@ var main = {
 		{
 			$('.nav-current').hide();
 		}
+		
+		director.init();
+		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), new google.maps.LatLng( 24.470041, 54.377382 ) );
 	},
 	setDest: function( location ) {
 		if ( main.destination ) {
 	    main.destination.setPosition(location);
 	  } else {
-	    main.destination = new google.maps.Marker({
-	      position: location,
-	      map: map
-	    });
+	    main.destination = mapper.addMarker( location, 0, "Destination" );
 	  }
 	},
 	selector: function() {
