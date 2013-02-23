@@ -22,11 +22,24 @@ html, body, #map, #panel {
 	width: 500px;
 	margin: 0 auto;
 }
-.nav .name, .nav .switch {
-	width: 150px;
-}
-
 /* ==CHECKBOX */
+.switch {
+	position: relative;
+}
+.switch label.desc {
+	position: absolute;
+	left: 0;
+	top: 5px;
+	width: 95%;
+	margin-left: -100%;
+	text-align: right;
+}
+.switch label.desc, .onoffswitch-inner:before, .onoffswitch-inner:after {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 16px;
+	height: 28px;
+	line-height: 28px;
+}
 .onoffswitch {
     position: relative; width: 103px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
@@ -50,9 +63,7 @@ html, body, #map, #panel {
 .onoffswitch-inner:before, .onoffswitch-inner:after {
     float: left;
 		width: 50%;
-		height: 28px;
 		padding: 0;
-		line-height: 28px;
 		color: white;
 		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 		font-size: 16px;
@@ -75,7 +86,7 @@ html, body, #map, #panel {
     width: 30px; margin: 0px;
     background: #FFFFFF;
     border: 2px solid #666666; border-radius: 30px;
-    position: absolute; top: -2px; bottom: 2px; right: 69px;
+    position: absolute; top: -2px; bottom: -2px; right: 69px;
     -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
     -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
 }
@@ -100,19 +111,36 @@ html, body, #map, #panel {
 	width: 100%;
 }
 
-/* ==CONFLICTS */
+/* ==GMPAPS */
 #map label { width: auto; display:inline; }
 #map img, #panel img { max-width: none; }
 .adp-step, .adp-text, .adp-directions {
 	width: 100%;
 }
-/** {
-	display: none;
-}*/
+.gmnoprint {
+	margin-right: 20px !important;
+}
 
 /* ===MOBILE */
 @media (max-width: 767px) {
-	#map {
-		display: none;
+	.search-query {
+		width:400px;
 	}
+	
+	
+	.navbar-search  {
+		height:100px;
+	}
+	
+	.search-query {
+		min-height:40px;
+	}
+	
+	body {
+		font-size:150%
+	}
+	
+	
+	
 }
+
