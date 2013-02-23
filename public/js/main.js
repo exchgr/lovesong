@@ -95,29 +95,34 @@ var main = {
 	},
 	setDest: function( location, info ) {
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
-			mapper.addMarker( landmark.latlong, landmark.inmportance, landmark.name );
-		} );
+			marker = mapper.addMarker( landmark.latlong, landmark.inmportance, landmark.name );
 		
-		if ( main.destination ) {
-	    main.destination.setPosition(location);
-	  } else {
-	    main.destination = mapper.addMarker( location, 0, "Destination" );
-			main.destination.setVisible(false);
+			if ( main.destination ) {
+		    main.destination.setPosition(location);
+		  } else {
+		    main.destination = mapper.addMarker( location, 0, "Destination" );
+				main.destination.setVisible(false);
 			
-			$('p', this.infobox).html('Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah');
+				$('p', main.infobox).html('Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah');
 			
-			var infowindow = new google.maps.InfoWindow(
-				{
-					content: this.infobox.get(0),
-					size: new google.maps.Size(50,50)
-				}
-			);
+				var infowindow = new google.maps.InfoWindow(
+					{
+						content: main.infobox.get(0),
+						size: new google.maps.Size(50,50)
+					}
+				);
 
-			infowindow.open(mapper.map, main.destination);
-			google.maps.event.addListener(main.destination, 'click', function() {			
 				infowindow.open(mapper.map, main.destination);
-			})
-		}	},
+				google.maps.event.addListener(main.destination, 'click', function() {			
+					infowindow.open(mapper.map, main.destination);
+				})
+			}
+		
+			// console.log( destinator.get( mapper.map, main.destination, marker ) );
+			
+			main.startNav();
+		});
+	},
 	startNav: function() {
 		$('#panel').show().animate( {width: '20%'} );
 		$('#map').animate( {width: '80%'} );
@@ -127,8 +132,7 @@ var main = {
 	},
 	selector: function() {
 		google.maps.event.addListener(mapper.map, 'click', function(event) {			
-			main.setDest(event.latLng, "Destination"),
-			main.startNav()
+			main.setDest(event.latLng, "Destination");
 		})
 	}
 }

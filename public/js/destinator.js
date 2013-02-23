@@ -2,8 +2,10 @@ var destinator = {
 
 	get:function (map,dest, land) {
 	
+		desPos = dest.position;
+	
 		var geometry = google.maps.geometry.spherical;
-		var distance = Math.round(geometry.computeDistanceBetween(dest.location,land.location));
+		// var distance = Math.round(geometry.computeDistanceBetween(desPos, ));
 		
 		var result = '';
 		
