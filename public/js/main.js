@@ -43,9 +43,19 @@ var main = {
 		}
 		
 		director.init();
+		
+		mapper.smser();
 	},
 	smser: function() {
+		this.infobox = $('<p>');
+		this.infobox.html('Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah');
+		this.infobox.append('<form id="sms">');
+		// <p class="sms"><label for="sms">Send to</label><input type="text" id="sms" name="sms" placeholder="SMS"></p>';
+		// this.infobox.append('SAM');
 		
+		console.log( this.infobox );
+		
+		// $('sms').submit( function() )
 	},
 	setDest: function( location, info ) {
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
@@ -58,7 +68,7 @@ var main = {
 	    main.destination = mapper.addMarker( location, 0, "Destination" );
 		var infowindow = new google.maps.InfoWindow(
 			{
-				content: '<p>Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah</p><p class="sms"><label for="sms">Send to</label><input type="text" id="sms" name="sms" placeholder="SMS"></p>',
+				content: this.infobox,
 				size: new google.maps.Size(50,50)
 			}
 		);
