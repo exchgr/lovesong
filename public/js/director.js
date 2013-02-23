@@ -3,30 +3,28 @@
 var director = {
 	init: function() {
 		director.service = new google.maps.DirectionsService();
-    director.display = new google.maps.DirectionsRenderer(
-		{preserveViewport: true,
-		suppressMarkers: true
+		director.display = new google.maps.DirectionsRenderer(
+		{
+			preserveViewport: true,
+			suppressMarkers: true
 		});
-
     director.display.setMap(mapper.map);
     director.display.setPanel(document.getElementById('panel'));
 	},
-	// given a start latlong( lat, long) and an end latlong( lat, long)
-	// returns the landmark-based directions
+	
 	getDirections: function( start, finish ) {
 		var request = {
         origin:         start,
         destination:    finish,
         travelMode:     google.maps.DirectionsTravelMode.DRIVING
+		};
 
-    };
-
-    return director.service.route(request, function(response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {	
-            director.display.setDirections(response);
-            var markerLatLngs = response['routes'][0]['overview_path'];
-			mapper.addMarker(markerLatLngs[0], 1, "som");
-        }
-    });
+		return director.service.route(request, function(response, status) {
+			if (status == google.maps.DirectionsStatus.OK) {	
+				director.display.setDirections(response);
+				var markerLatLngs = response['routes'][0]['overview_path'];
+				mapper.addMarker(markerLatLngs[0], 1, "som");
+			}
+		});
 	}
 }
