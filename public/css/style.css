@@ -109,3 +109,10 @@ html, body, #map, #panel {
 /** {
 	display: none;
 }*/
+
+/* ===MOBILE */
+@media (max-width: 767px) {
+	#map {
+		display: none;
+	}
+}
