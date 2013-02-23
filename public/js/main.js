@@ -137,15 +137,10 @@ if (e.which == 13){
 			$('p', main.infobox).html('Al Markaziyah');
 		}
 		
-		var infobox = new InfoBox(
-			{
-				content: main.infobox.get(0),
-				size: new google.maps.Size(50,50)
-			}
-		);
-		infobox.open(mapper.map, main.destination);
+		var infowindow = new InfoBox({content:main.infobox.get(0)});
+		infowindow.open(mapper.map, main.destination);
 		google.maps.event.addListener(main.destination, 'click', function() {			
-			infobox.open(mapper.map, main.destination);
+			infowindow.open(mapper.map, main.destination);
 		});
 
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
