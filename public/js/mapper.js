@@ -18,8 +18,20 @@ var img_array = [
 	    	url: 'public/images/marker1.png',
 	    	size: new google.maps.Size(32, 37),
 	    	origin: new google.maps.Point(0,0),
-	    	anchor: new google.maps.Point(15, 37)
-		}	
+	    	anchor: new google.maps.Point(10, 37)
+		},
+		{
+	    	url: 'public/images/marker_start.png',
+	    	size: new google.maps.Size(20, 34),
+	    	origin: new google.maps.Point(0,0),
+	    	anchor: new google.maps.Point(10, 34)
+		},
+		{
+	    	url: 'public/images/marker_end.png',
+	    	size: new google.maps.Size(20, 34),
+	    	origin: new google.maps.Point(0,0),
+	    	anchor: new google.maps.Point(10, 34)
+		}
 	];
 
 var mapper = {
