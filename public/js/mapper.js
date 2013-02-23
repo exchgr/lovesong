@@ -80,9 +80,9 @@ var mapper = {
 	
 	// given a DOM Object, destination bject, and an array of landmark objects
 	// inserts a map with the destination and landmark pins to that DOM
-	start: function(obj, center) {
+	start: function(obj, center, zoom) {
 		var mapOptions = {
-			zoom: 12,
+			zoom: zoom,
 			center: center,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
