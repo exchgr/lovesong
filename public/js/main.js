@@ -48,8 +48,7 @@ var main = {
 	},
 	setDest: function( location, info ) {
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
-			// console.log( landmark );
-			// mapper.addMarker( landmark.position );
+			mapper.addMarker( landmark.latlong, 1, landmark.name );
 		} );
 		
 		if ( main.destination ) {

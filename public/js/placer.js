@@ -102,8 +102,10 @@ var placer = {
 	// just returns the first one now
 	// Precision from 1 to 10, 1 - very precise
 	getLandmark: function( map, destlong, precision, nextfunction) {
-		marks = placer.getLandmarks(map, destlong, precision, false, nextfunction);
-		return marks[0];
+		placer.getLandmarks(map, destlong, precision, false, function( landmarks ) {
+			// console.log( landmarks );
+			nextfunction( landmarks[0] );
+		});
 	}
 
 
