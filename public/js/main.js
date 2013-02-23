@@ -134,7 +134,7 @@ var main = {
 }
 
 
-placer.getLandmarks(mapper.map, new google.maps.LatLng(24.4700, 54.38), 0, true, emptyFunct);
+//placer.getLandmarks(mapper.map, new google.maps.LatLng(24.4700, 54.38), 0, true, emptyFunct);
 
 function emptyFunct(i){
     console.log(i);

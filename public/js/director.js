@@ -21,11 +21,27 @@ var director = {
 
 		return director.service.route(request, function(response, status) {
 			if (status == google.maps.DirectionsStatus.OK) {
-                var name = director.getName(response, 2);
-                console.log(name);
-                response = director.setName(response, 2, 'Hello');
+                var tmp = response['routes'][0]['legs'][0]['steps'];
+                for(var i = 0; i<tmp.length; i++){
+                    placer.getLandmarks(mapper.map, new google.maps.LatLng(tmp[i]['end_point']['hb'], tmp[i]['end_point']['ib']), 0, false,
+                        function(o){
+                            console.log(o);
+                            console.log(i);
 
-				director.display.setDirections(response);
+                            console.log('HERE IS A PROBLEM WITH A CLOSURES. I is always staying the same. Closure should be used.');
+
+//                            var name = director.getName(response, 2);
+//                            response = director.setName(response, 2, name+' You will see '+o[0]['name']+' nearby');
+                        }
+                    );
+
+
+                }
+
+                setTimeout(function() {
+                    director.display.setDirections(response);
+                },1000);
+
 				var markerLatLngs = response['routes'][0]['overview_path'];
 				//mapper.addMarker(markerLatLngs[0], 1, "som");
 			}
@@ -41,4 +57,3 @@ var director = {
         return response;
     }
 }
-
