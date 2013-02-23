@@ -62,13 +62,13 @@ var placer = {
 
 	//nextfunction - pass the name of the function that handles landmarks further
 
-	getLandmarks: function(dest, precision, nextfunction, all) {
+	getLandmarks: function(map, dest, precision, nextfunction, all) {
 
 		var landmarks = [];
 		
 		var service = new google.maps.places.PlacesService(map);
 		
-		var request = {location: center}
+		var request = {location: dest}
 		
 		switch(precision) { 
 			case 0:
