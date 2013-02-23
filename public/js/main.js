@@ -75,21 +75,23 @@ var main = {
 		if ( main.destination ) {
 	    main.destination.setPosition(location);
 	  } else {
-	    main.destination = mapper.addMarker( location, 0, "Destination" );
-			main.destination.setVisible(false);
+	    main.destination = mapper.addMarker( location, 4, "Destination" );
 			var infowindow = new google.maps.InfoWindow(
 				{
 					content: this.infobox.get(0),
 					size: new google.maps.Size(50,50)
 				}
 			);
-		
 			infowindow.open(mapper.map, main.destination);
-			
+			google.maps.event.addListener(main.destination, 'click', function() {			
+				infowindow.open(mapper.map, main.destination);
+			})
 		}	},
 	startNav: function() {
 		$('#panel').show().animate( {width: '20%'} );
 		$('#map').animate( {width: '80%'} );
+		start = new google.maps.LatLng( 24.485079, 54.353435 );
+		mapper.addMarker(start, 3, "Origin");
 		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), main.destination.position );
 	},
 	selector: function() {
