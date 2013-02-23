@@ -1,6 +1,5 @@
 //DOING EXACTLY WHAT THE FUNCTIONS ASK
 
-var map;
 var service;
 
 var local = ['beauty_salon','book_store','car_dealer','car_wash','clothing_store','food','furniture_store','gas_station',
@@ -19,13 +18,14 @@ var placer = {
 
 	// given a large thing
 	// returns a neighborhood
+	
 	getNeighborhood: function(latlong, nextfunction) {
 		
-		var pyrmont = new google.maps.LatLng(latlong[0],latlong[1]);
+		var center = new google.maps.LatLng(latlong[0],latlong[1]);
 	
 		var map = new google.maps.Map(document.getElementById('map'), { //CHANGE THIS ID TO WHAT MOIRI USED
 			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			center: pyrmont,
+			center: center,
 			zoom: 15
 		});
 		
@@ -59,40 +59,41 @@ var placer = {
 	// given landmark, and precision
 	// 	precision: 0 (low - general vicinity), 1 (high - for directions), or 2 (high -for very large one)
 	// passes an array of landmark objects — ranked by "landmarkiness" and "proximity"
-	
+
 	//nextfunction - pass the name of the function that handles landmarks further
-	getLandmarks: function(dest, precision, nextfunction) {
+
+	getLandmarks: function(dest, precision, nextfunction, all) {
 	
-		var pyrmont = new google.maps.LatLng(dest[0],dest[1]);
+		var center = new google.maps.LatLng(dest[0],dest[1]);
 	
-		var map = new google.maps.Map(document.getElementById('map'), { //CHANGE THIS ID TO WHAT MOIRI USED
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			center: pyrmont,
-			zoom: 15
-		});
+		// var map = new google.maps.Map(document.getElementById('map'), { //CHANGE THIS ID TO WHAT MOIRI USED
+			// mapTypeId: google.maps.MapTypeId.ROADMAP,
+			// center: center,
+			// zoom: 15
+		// });
 
 		var landmarks = [];
 		
 		var service = new google.maps.places.PlacesService(map);
 		
-		var request = {location: pyrmont}
+		var request = {location: center}
 		
 		switch(precision) { 
 			case 0:
 			    request.radius=700;
-				request.types=this.global;
+				request.types=global;
 				break;
 			case 1:
 			    request.radius=100;
-				request.types=this.local;
+				request.types=local;
 				break;				
 			case 2:
 			    request.radius=100;
-				request.types=this.global;
+				request.types=global;
 				break;			
 			default:
 			    request.radius=1500;
-				request.types=this.global;			
+				request.types=global;			
 			}
 		
 		service.nearbySearch(request, callback);
@@ -100,87 +101,31 @@ var placer = {
 		function callback (data, status) {
 			//process data here
 			//document.write(JSON.stringify(data));
+			
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
 				for (var i = 0; i < data.length; i++) {
 					landmarks.push({
 					name:data[i].name,
-					latlong: pyrmont,
+					latlong: center,
 					importance: i //or i+1, Moiri seems to use 0
-					})
+					});
 				}
-			
-			nextfunction(landmarks); //can use callback function to pass to next processor of the landmarks (mapper?)	
-			
 			}
+			
+			if (all) nextfunction(landmarks); //can use callback function to pass to next processor of the landmarks (mapper?)	
+			else nextfunction([landmarks[0]]);			
 			/*else {
 				return;
 			}*/
 			//should there be an empty return?
 			
-			
-			
-		};
-		
-		
-
-		/*var landmarks = [
-			{
-				name: "Bob Location",
-				latlong: {3943020, 3203203},
-				importance: 1 // very important
-			},
-			{
-				name: "Bob Samson",
-				latlong: [3943020, 3203203],
-				importance: 2 // less so
-			}
-		];
-		*/
+		}
 	},
 	
 	// given a latilong( lat, long), and precision, returns the "best" landmark from getLandmarks
 	// just returns the first one now
 	// Precision from 1 to 10, 1 - very precise
 	getLandmark: function( destlong, precision, nextfunction ) {
-	
-		var pyrmont = new google.maps.LatLng(destlong[0],destlong[1]);
-	
-		var map = new google.maps.Map(document.getElementById('map'), { //CHANGE THIS ID TO WHAT MOIRI USED
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			center: pyrmont,
-			zoom: 15
-		});
-
-		
-		var service = new google.maps.places.PlacesService(map);
-
-		if (precision <= 0) {
-			var precision = 1;
-		}
-		
-		var request = {
-			location: pyrmont,
-			radius: precision * 100
-			}
-			
-		if (precision <= 10) {
-			request.types = local;
-		}
-		else {
-			request.types = global;
-		}
-		
-		service.nearbySearch(request, callback);
-		
-		function callback (data, status) {
-			if (status == google.maps.places.PlacesServiceStatus.OK) {
-				nextfunction ({
-					name:data[0].name,
-					latlong: pyrmont,
-					importance: 0 //or precision
-					})
-			}
-		}
-		
+		placer.getLandmarks(destlong, precision, nextfunction, false);
 	}
 }
