@@ -3,7 +3,7 @@
 var director = {
 	init: function() {
 		director.service = new google.maps.DirectionsService();
-    director.display = new google.maps.DirectionsRenderer();
+    director.display = new google.maps.DirectionsRenderer({		preserveViewport: true});
 
     director.display.setMap(mapper.map);
     director.display.setPanel(document.getElementById('panel'));
@@ -13,9 +13,10 @@ var director = {
 	getDirections: function( start, finish ) {
 		console.log( start );
 		var request = {
-        origin:         start.hb + ',' + start.ib,
-        destination:    finish.hb + ',' + finish.ib,
+        origin:         start,
+        destination:    finish,
         travelMode:     google.maps.DirectionsTravelMode.DRIVING
+
     };
 
     return director.service.route(request, function(response, status) {
@@ -25,8 +26,8 @@ var director = {
             var arr = [];
             for (var i = 0; i< tmp.length; i++){
                 arr.push({
-                    lat : tmp[i]['hb'],
-                    lng : tmp[i]['ib']
+                    lat : tmp[i].lat(),
+                    lng : tmp[i].lng()
                 });
             }
 
