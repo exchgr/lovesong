@@ -14,12 +14,10 @@ var main = {
 		// });
 		
 		
-				
-		mapper.start( document.getElementById("map"), new google.maps.LatLng(24.4700, 54.38), 13 );		
-		
-		var defaultBounds = new google.maps.LatLngBounds(
-			new google.maps.LatLng(20.4700, 56.38),
-		  new google.maps.LatLng(30, 50));
+		var center = new google.maps.LatLng(24.4700, 54.38);
+		mapper.start( document.getElementById("map"), center, 13 );		
+		placer.getLandmarks(center, 1, mapper.addLandmarks, true);
+		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
 
 		var input = document.getElementById('search-query');
 
