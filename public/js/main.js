@@ -47,6 +47,8 @@ var main = {
 		director.init();
 	},
 	setDest: function( location, info ) {
+		placer.getLandmarks( mapper.map, location, 0, true, mapper.addLandmarks );
+		
 		if ( main.destination ) {
 	    main.destination.setPosition(location);
 	  } else {

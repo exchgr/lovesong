@@ -64,7 +64,7 @@ var mapper = {
 	addLandmarks: function( landmarks ) {
 		for (i in landmarks) {
 			var lm = landmarks[i];
-			mapper.addMarker(lm.latlong, lm.importance, lm.name);
+			mapper.addMarker(lm.latlong, 1, lm.name);
 		}
 	},
 	

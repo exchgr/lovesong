@@ -46,7 +46,7 @@ var placer = {
 	// passes an array of landmark objects — ranked by "landmarkiness" and "proximity"
 	
 	//nextfunction - pass the name of the function that handles landmarks further
-	getLandmarks: function(map, dest, precision, nextfunction, all) {
+	getLandmarks: function(map, dest, precision, all, nextfunction) {
 		$(document).ready(function() {
 			$.ajax({
 				method: 'GET',
@@ -55,11 +55,11 @@ var placer = {
 					'user_id':'TEST_USER',
 					'api_key':'EXAMPLE_KEY_3edaba1953abf86',
 					'count':20, //play with the value
-					'lat':dest[0],
-					'lon':dest[1]
+					'lat':dest.hb,
+					'lon':dest.ib
 					},
 				//url: '1.json',
-			    url: 'http://api.geckolandmarks.com/json',
+			    url: '/json',
 			    success: function(data, status){
                     callBackFunction(data,status, precision, all, nextfunction);
                 }
