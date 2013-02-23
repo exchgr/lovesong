@@ -6,7 +6,6 @@ var director = {
 		director.display = new google.maps.DirectionsRenderer(
 		{
 			preserveViewport: true,
-			suppressMarkers: true
 		});
     director.display.setMap(mapper.map);
     director.display.setPanel(document.getElementById('panel'));
@@ -23,7 +22,7 @@ var director = {
 			if (status == google.maps.DirectionsStatus.OK) {	
 				director.display.setDirections(response);
 				var markerLatLngs = response['routes'][0]['overview_path'];
-				mapper.addMarker(markerLatLngs[0], 1, "som");
+				//mapper.addMarker(markerLatLngs[0], 1, "som");
 			}
 		});
 	}
