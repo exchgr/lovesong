@@ -25,7 +25,7 @@ var main = {
 		});
 		
 		searchBox.bindTo('bounds', mapper.map);
-		console.log(searchBox);
+		//console.log(searchBox);
 		google.maps.event.addListener(searchBox, 'places_changed', function() {
 			main.setDest(searchBox.getPlaces()[0].geometry.location, "test"),
 			main.startNav()
@@ -35,7 +35,7 @@ var main = {
 		if (navigator.geolocation) {
 			$('.nav-current').click( function( ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
-					console.log( position.coords.latitude + " Longitude: " + position.coords.longitude);
+					//console.log( position.coords.latitude + " Longitude: " + position.coords.longitude);
 				});
 
 				return false;
@@ -48,20 +48,28 @@ var main = {
 		
 		director.init();
 	},
+	smser: function() {
+		
+	},
 	setDest: function( location, info ) {
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
 			mapper.addMarker( landmark.latlong, landmark.inmportance, landmark.name );
 		} );
-		main.destination = location;
+		console.log(main.destination);
 		if ( !main.destination ) {
-			main.destination.setPosition(location);
+			main.destination = location;
+			console.log("first");
 			var infowindow = new google.maps.InfoWindow(
 				{
-					content: info,
-					size: new google.maps.Size(50,50)
+					content: "TEST",//'<p>Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah</p><p class="sms"><label for="sms">Send to</label><input type="text" id="sms" name="sms" placeholder="SMS"></p>',
+					size: new google.maps.Size(50,50),
+					position: main.destination
 				}
 			);
-			infowindow.open(mapper.map, main.destination);
+			infowindow.open(mapper.map);
+		} else {
+			main.destination = location;
+			infowindow.setPosition(location);
 		}
 	},
 	startNav: function() {
@@ -70,7 +78,6 @@ var main = {
 		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), main.destination );
 	},
 	selector: function() {
-		
 		google.maps.event.addListener(mapper.map, 'click', function(event) {			
 			main.setDest(event.latLng, "Destination"),
 			main.startNav()

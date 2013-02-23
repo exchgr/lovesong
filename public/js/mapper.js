@@ -23,7 +23,7 @@ var img_array = [
 	];
 
 var mapper = {
-	
+
 	addMarker: function(location, importance, name) {		
 		marker = new google.maps.Marker({
 			position: location,
