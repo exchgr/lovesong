@@ -12,8 +12,6 @@ var main = {
 		// 	
 		// 	placer.map( domObj, landmarks );
 		// });
-        
-		
 		
 		var center = new google.maps.LatLng(24.4700, 54.38);
 		mapper.start( document.getElementById("map"), center, 13 );		
@@ -73,7 +71,7 @@ var main = {
 	selector: function() {
 		
 		google.maps.event.addListener(mapper.map, 'click', function(event) {			
-			main.setDest(event.latLng);
+			main.setDest(event.latLng, "Destination");
 			main.startNav();
 		});
 	}
