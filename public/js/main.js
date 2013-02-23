@@ -14,8 +14,9 @@ var main = {
 		// });
 		
 		var center = new google.maps.LatLng(24.4700, 54.38);
+		
 		mapper.start( document.getElementById("map"), center, 13 );		
-		placer.getLandmarks(mapper.map, center, 1, true, mapper.addLandmarks);
+		// placer.getLandmarks(mapper.map, center, 1, true, mapper.addLandmarks);
 		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
 
 		var input = document.getElementById('search-query');
@@ -48,7 +49,11 @@ var main = {
 		
 		director.init();
 
+		main.origin = mapper.addMarker( center, 4, "origin" );
+
 		main.smser();
+		//start = new google.maps.LatLng( 24.485079, 54.353435 );
+		//main.origin = mapper.addMarker(start, 3, "Origin");
 	},
 	smser: function() {
 		this.infobox = $('<div>');
@@ -94,50 +99,73 @@ var main = {
 		// $('sms').submit( function() )
 	},
 	setDest: function( location, info ) {
-		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
-			mapper.addMarker( landmark.latlong, landmark.inmportance, landmark.name );
-		} );
-		
 		if ( main.destination ) {
 	    main.destination.setPosition(location);
 	  } else {
-	    main.destination = mapper.addMarker( location, 0, "Destination" );
-			main.destination.setVisible(false);
-			
-			$('p', this.infobox).html('Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah');
-			
-			var infowindow = new google.maps.InfoWindow(
-				{
-					content: this.infobox.get(0),
-					size: new google.maps.Size(50,50)
-				}
-			);
-
+	    main.destination = mapper.addMarker( location, 4, "Destination" );
+			// main.destination.setVisible(false);
+		
+			$('p', main.infobox).html('Al Markaziyah');
+		}
+		
+		var infowindow = new google.maps.InfoWindow(
+			{
+				content: main.infobox.get(0),
+				size: new google.maps.Size(50,50)
+			}
+		);
+		
+		infowindow.open(mapper.map, main.destination);
+		google.maps.event.addListener(main.destination, 'click', function() {			
 			infowindow.open(mapper.map, main.destination);
-			google.maps.event.addListener(main.destination, 'click', function() {			
-				infowindow.open(mapper.map, main.destination);
-			})
-		}	},
+		});
+		
+		main.startNav();
+		
+		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
+			marker = mapper.addMarker( landmark.latlong, landmark.importantce, landmark.name );
+						
+			mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
+			
+			$('p', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
+			
+		});
+	},
 	startNav: function() {
 		$('#panel').show().animate( {width: '20%'} );
 		$('#map').animate( {width: '80%'} );
-		start = new google.maps.LatLng( 24.485079, 54.353435 );
-		mapper.addMarker(start, 3, "Origin");
-		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), main.destination.position );
+
+		director.getDirections( main.origin.position, main.destination.position );
+	},
+	setOrigin: function(type){
+
+		if (type=="current") {
+			;
+		} else if (type=="nearest") {
+			placer.getLandmark( mapper.map, location, 0, function( landmark ) {
+				main.origin = mapper.addMarker( landmark.latlong, 3, landmark.name );
+			} );
+			main.startNav();
+		} else if (type=="arbitrary") {
+			google.maps.event.clearListeners(mapper.map, 'click');
+			google.maps.event.addListener(mapper.map, 'click', function(event) {
+				if (main.origin){
+					main.origin.setPosition(event.latLng);
+				} else {
+					main.origin = mapper.addMarker(event.latLng, 3, 'Origin');
+				}
+				main.startNav();
+				google.maps.event.clearListeners(mapper.map, 'click');
+				main.selector();
+			});
+		}
 	},
 	selector: function() {
 		google.maps.event.addListener(mapper.map, 'click', function(event) {			
-			main.setDest(event.latLng, "Destination"),
-			main.startNav()
+			main.setDest(event.latLng, "Destination");
 		})
 	}
 }
 
-
-//placer.getLandmarks(mapper.map, new google.maps.LatLng(24.4700, 54.38), 0, true, emptyFunct);
-
-function emptyFunct(i){
-    console.log(i);
-}
 
 $(document).ready( main.init );

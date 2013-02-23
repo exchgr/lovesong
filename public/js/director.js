@@ -14,28 +14,30 @@ var director = {
 	
 	getDirections: function( start, finish ) {
 		var request = {
-        origin:         start,
-        destination:    finish,
-        travelMode:     google.maps.DirectionsTravelMode.DRIVING
+            origin:         start,
+            destination:    finish,
+            travelMode:     google.maps.DirectionsTravelMode.DRIVING
 		};
 
 		return director.service.route(request, function(response, status) {
-			if (status == google.maps.DirectionsStatus.OK) {
+			function getLandMarks(step){
+                placer.getLandmarks(mapper.map, step['end_point'], 0, false,
+                    function(landmarks){
+                        mapper.addMarker(landmarks[0].latlong, landmarks[0].importance, landmarks[0].name);
+
+//                        console.log(landmarks[0]);
+//                        console.log(i);
+
+                        var name = director.getName(step);
+                        director.setName(step, name+' You will see '+ landmarks[0]['name']+' nearby');
+                    }
+                );
+            }
+
+            if (status == google.maps.DirectionsStatus.OK) {
                 var tmp = response['routes'][0]['legs'][0]['steps'];
                 for(var i = 0; i<tmp.length; i++){
-                    placer.getLandmarks(mapper.map, new google.maps.LatLng(tmp[i]['end_point']['hb'], tmp[i]['end_point']['ib']), 0, false,
-                        function(o){
-                            console.log(o);
-                            console.log(i);
-
-                            console.log('HERE IS A PROBLEM WITH A CLOSURES. I is always staying the same. Closure should be used.');
-
-//                            var name = director.getName(response, 2);
-//                            response = director.setName(response, 2, name+' You will see '+o[0]['name']+' nearby');
-                        }
-                    );
-
-
+                    getLandMarks(tmp[i]);
                 }
 
                 setTimeout(function() {
@@ -48,12 +50,11 @@ var director = {
 		});
 	},
 
-    getName: function(response, position){
-        return response['routes'][0]['legs'][0]['steps'][position]['instructions'];
+    getName: function(step){
+        return step['instructions'];
     },
 
-    setName: function(response, position, name){
-        response['routes'][0]['legs'][0]['steps'][position]['instructions'] = name;
-        return response;
+    setName: function(step, name){
+        step['instructions'] = name;
     }
 }

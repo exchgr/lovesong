@@ -58,12 +58,13 @@ var placer = {
 				'lat':dest.lat(),
 				'lon':dest.lng()
 				},
-			url: '/landmarkr/public/js/1.json',
-		    //url: '/json',
+			// url: '/landmarkr/public/js/1.json',
+		    url: 'json',
 		    success: function(data, status){
 					var status = 200;
 			    if (status == 200) {
-			        var resource = data['landmarks'];
+			        var resource = data.landmarks;
+							// console.log( data.landmarks );
 			        var landmarks = [];
 			        for (var i = 0; i < resource.length; i++) {
 			            if (resource[i].class == 'P') {
