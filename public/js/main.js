@@ -37,8 +37,10 @@ var main = {
 		if (navigator.geolocation) {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
-					main.origin.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+						main.origin.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+						$('#myonoffswitch').prop('checked', false);
 					if (main.destination) main.startNav();
+					else main.selector();
 				});
 
 				return false;

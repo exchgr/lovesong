@@ -63,9 +63,9 @@ var mapper = {
 	deleteOverlays: function() {
 	  if (markers) {
 		for (i in markers) {
-		  if (markers[i].title != "Destination" && markers [i] != "Origin") markers[i].setMap(null);
+		  if (markers[i].title != "Destination" && markers[i].title != "Origin") markers[i].setMap(null);
 		}
-		markers.length = 0;
+		markers.length = 2;
 	  }
 	},
 	
