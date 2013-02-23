@@ -58,13 +58,8 @@ var placer = {
 				'lat':dest.lat(),
 				'lon':dest.lng()
 				},
-<<<<<<< HEAD
-			 url: '/landmarkr/public/js/1.json',
+			 url: 'public/js/1.json',
 		    //url: 'json',
-=======
-			// url: '/landmarkr/public/js/1.json',
-		    url: 'json',
->>>>>>> d95aa6b595caf64bf3bc97e6c4ac9244d5a564b4
 		    success: function(data, status){
 					var status = 200;
 			    if (status == 200) {
