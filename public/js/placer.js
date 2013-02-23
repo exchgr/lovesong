@@ -47,70 +47,66 @@ var placer = {
 	
 	//nextfunction - pass the name of the function that handles landmarks further
 	getLandmarks: function(map, dest, precision, all, nextfunction) {
-		$(document).ready(function() {
-			$.ajax({
-				method: 'GET',
-				dataType: 'json',
-				data: {
-					'user_id':'TEST_USER',
-					'api_key':'EXAMPLE_KEY_3edaba1953abf86',
-					'count':20, //play with the value
-					'lat':dest.hb,
-					'lon':dest.ib
-					},
-				//url: '1.json',
-			    url: '/json',
-			    success: function(data, status){
-                    callBackFunction(data,status, precision, all, nextfunction);
-                }
-			});
-		});
+		$.ajax({
+			method: 'GET',
+			dataType: 'json',
+			data: {
+				'user_id':'TEST_USER',
+				'api_key':'EXAMPLE_KEY_3edaba1953abf86',
+				'count':20, //play with the value
+				'lat':dest.hb,
+				'lon':dest.ib
+				},
+			//url: '1.json',
+		    url: '/json',
+		    success: function(data, status){
+					var status = 200;
+			    if (status == 200) {
+			        var resource = data['landmarks'];
+			        var landmarks = [];
+			        for (var i = 0; i < resource.length; i++) {
+			            if (resource[i].class == 'P') {
+			                // console.log(  resource[i].lat  );
+			                var obj = {
+			                    name:resource[i].name1,
+			                    latlong: new google.maps.LatLng(resource[i].lat,resource[i].lon),
+			                    importance: i //or i+1, Moiri seems to use 0
+			                };
+			                switch (precision) {
+			                    case 0:
+			                        landmarks.push(obj);
+			                        break;
+			                    case 1:
+			                        if (bigger.indexOf(resource[i].subclass) != -1) {
+			                            landmarks.push(obj);
+			                        }
+			                        break;
+			                    case 2:
+			                        if (important.indexOf(resource[i].subclass) != -1){
+			                            landmarks.push(obj);
+			                        }
+			                        break;
+			                    default :
+			                        console.log('problem with precision');
+			                }
+			            }
+			        }
+			        if (all) nextfunction(landmarks);
+			        else nextfunction([landmarks[0]]);
+			    }
+				}
+		});	
 	},
 	
 	// given a latilong( lat, long), and precision, returns the "best" landmark from getLandmarks
 	// just returns the first one now
 	// Precision from 1 to 10, 1 - very precise
-	getLandmark: function( map, destlong, precision, nextfunction, all) {
-		getLandmarks(map, destlong, precision, nextfunction, all);
+	getLandmark: function( map, destlong, precision, nextfunction) {
+		placer.getLandmarks(map, destlong, precision, false, function( landmarks ) {
+			// console.log( landmarks );
+			nextfunction( landmarks[0] );
+		});
 	}
 
 
-}
-
-function callBackFunction(data,status, precision, all, nextfunction){
-    var status = 200;
-    if (status == 200) {
-        var resource = data['landmarks'];
-        var landmarks = [];
-        for (var i = 0; i < resource.length; i++) {
-            if (resource[i].class == 'P') {
-                console.log(  resource[i].lat  );
-                var obj = {
-                    name:resource[i].name1,
-                    latlong: new google.maps.LatLng(resource[i].lat,resource[i].lon),
-                    importance: i //or i+1, Moiri seems to use 0
-                };
-                switch (precision) {
-                    case 0:
-                        landmarks.push(obj);
-                        break;
-                    case 1:
-                        if (bigger.indexOf(resource[i].subclass) != -1) {
-                            landmarks.push(obj);
-                        }
-                        break;
-                    case 2:
-                        if (important.indexOf(resource[i].subclass) != -1){
-                            landmarks.push(obj);
-                        }
-                        break;
-                    default :
-                        console.log('problem with precision');
-                }
-            }
-        }
-        console.log(landmarks);
-        if (all) nextfunction(landmarks);
-        else nextfunction([landmarks[0]]);
-    }
 }

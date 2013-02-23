@@ -25,7 +25,7 @@ var img_array = [
 var mapper = {
 	
 	
-	addMarker: function(location, importance, name) {
+	addMarker: function(location, importance, name) {		
 		marker = new google.maps.Marker({
 			position: location,
 			icon: img_array[importance],
@@ -64,6 +64,7 @@ var mapper = {
 	addLandmarks: function( landmarks ) {
 		for (i in landmarks) {
 			var lm = landmarks[i];
+			console.log( lm );
 			mapper.addMarker(lm.latlong, 1, lm.name);
 		}
 	},
