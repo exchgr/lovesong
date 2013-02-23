@@ -57,7 +57,6 @@ var main = {
 		});
 
 
-		main.origin = mapper.addMarker( center, 3, "origin" );
 $(input).keypress(function(e) {
 if (e.which == 13){
 			if($(input).val()=='SPQR'){
@@ -159,7 +158,7 @@ if (e.which == 13){
 		
 		main.setOrigin( "arbitrary" );
 		
-		if( main.destination ) {
+		if( main.origin ) {
 			main.startNav();
 		}
 	},
