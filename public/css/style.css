@@ -2,6 +2,15 @@ html, body, #map {
 	height: 100%;
 }
 
+/* ==CONTAINERS */
+html, body, #map, #panel {
+	height: 100%;
+}
+
+/* ==NAVBAR */
+.navbar {
+	margin-bottom: 0;
+}
 .navbar-search {
 	width: 500px;
 	margin-left: auto;
@@ -13,6 +22,20 @@ html, body, #map {
 	width: 500px;
 	margin: 0 auto;
 }
+
+/* ==PANEL */
+#panel {
+	width: 20%;
+	float: left;
+}
+
+/* ==MAP */
+#map {
+	float: left;
+	width: 80%;
+}
+#map label { width: auto; display:inline; }
+#map img { max-width: none; }
 
 /** {
 	display: none;

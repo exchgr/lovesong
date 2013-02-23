@@ -17,7 +17,7 @@ var main = {
 		
 		var center = new google.maps.LatLng(24.4700, 54.38);
 		mapper.start( document.getElementById("map"), center, 13 );		
-		placer.getLandmarks(center, 1, mapper.addLandmarks, true);
+		placer.getLandmarks(mapper.map, center, 1, mapper.addLandmarks, true);
 		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
 
 		var input = document.getElementById('search-query');
@@ -27,8 +27,6 @@ var main = {
 		});
 		
 		searchBox.bindTo('bounds', mapper.map);
-		
-		main.selector();
 		
 		if (navigator.geolocation) {
 			$('.nav-current').click( function( ev) {
@@ -43,24 +41,6 @@ var main = {
 		{
 			$('.nav-current').hide();
 		}
-		
-		director.init();
-	},
-	setDest: function( location ) {
-		if ( main.destination ) {
-	    main.destination.setPosition(location);
-	  } else {
-	    main.destination = mapper.addMarker( location, 0, "Destination" );
-	  }
-	},
-	startNav: function() {
-		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), main.destination.position );
-	},
-	selector: function() {
-		google.maps.event.addListener(mapper.map, 'click', function(event) {
-			main.setDest(event.latLng);
-			main.startNav();
-		});
 	}
 }
 
