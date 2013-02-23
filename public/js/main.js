@@ -127,6 +127,8 @@ var main = {
 						
 			mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
 			
+			$('p', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
+			
 		});
 	},
 	startNav: function() {
