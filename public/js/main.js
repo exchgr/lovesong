@@ -47,30 +47,38 @@ var main = {
 		}
 		
 		director.init();
+		
+		mapper.smser();
 	},
 	smser: function() {
+		this.infobox = $('<p>');
+		this.infobox.html('Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah');
+		this.infobox.append('<form id="sms">');
+		// <p class="sms"><label for="sms">Send to</label><input type="text" id="sms" name="sms" placeholder="SMS"></p>';
+		// this.infobox.append('SAM');
 		
+		console.log( this.infobox );
+		
+		// $('sms').submit( function() )
 	},
 	setDest: function( location, info ) {
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
 			mapper.addMarker( landmark.latlong, landmark.inmportance, landmark.name );
 		} );
-		console.log(main.destination);
-		if ( !main.destination ) {
-			main.destination = location;
-			console.log("first");
-			var infowindow = new google.maps.InfoWindow(
-				{
-					content: "TEST",//'<p>Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah</p><p class="sms"><label for="sms">Send to</label><input type="text" id="sms" name="sms" placeholder="SMS"></p>',
-					size: new google.maps.Size(50,50),
-					position: main.destination
-				}
-			);
-			infowindow.open(mapper.map);
-		} else {
-			main.destination = location;
-			infowindow.setPosition(location);
-		}
+		
+		if ( main.destination ) {
+	    main.destination.setPosition(location);
+	  } else {
+	    main.destination = mapper.addMarker( location, 0, "Destination" );
+		var infowindow = new google.maps.InfoWindow(
+			{
+				content: this.infobox,
+				size: new google.maps.Size(50,50)
+			}
+		);
+		infowindow.open(mapper.map, main.destination);
+				
+	  }
 	},
 	startNav: function() {
 		$('#panel').show().animate( {width: '20%'} );
