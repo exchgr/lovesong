@@ -122,11 +122,20 @@ var main = {
 		console.log("test");
 		main.startNav();
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
+<<<<<<< HEAD
 			console.log("test2");
 			marker = mapper.addMarker( landmark.latlong, 0, landmark.name );
 			console.log(landmark);
 		
 					
+=======
+			marker = mapper.addMarker( landmark.latlong, landmark.importantce, landmark.name );
+						
+			mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
+			
+			$('p', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
+			
+>>>>>>> 7e6797c4ac6626bf686cd4f56132f37bf56ca49d
 		});
 	},
 	startNav: function() {
@@ -165,11 +174,5 @@ var main = {
 	}
 }
 
-// 
-// placer.getLandmarks(mapper.map, new google.maps.LatLng(24.4700, 54.38), 0, true, emptyFunct);
-// 
-// function emptyFunct(i){
-//     console.log(i);
-// }
 
 $(document).ready( main.init );

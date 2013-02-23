@@ -47,8 +47,6 @@ var placer = {
 	
 	//nextfunction - pass the name of the function that handles landmarks further
 	getLandmarks: function(map, dest, precision, all, nextfunction) {
-			//console.log(dest);x.success placer.js:96
-        //console.log(nextfunction);
 		$.ajax({
 
 			method: 'GET',

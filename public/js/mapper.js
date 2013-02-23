@@ -71,7 +71,7 @@ var mapper = {
 	addLandmarks: function( landmarks ) {
 		for (i in landmarks) {
 			var lm = landmarks[i];
-			console.log( lm );
+			//console.log( lm );
 			mapper.addMarker(lm.latlong, lm.importance, lm.name);
 		}
 	},

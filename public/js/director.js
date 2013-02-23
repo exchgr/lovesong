@@ -14,31 +14,47 @@ var director = {
 	
 	getDirections: function( start, finish ) {
 		var request = {
-        origin:         start,
-        destination:    finish,
-        travelMode:     google.maps.DirectionsTravelMode.DRIVING
+            origin:         start,
+            destination:    finish,
+            travelMode:     google.maps.DirectionsTravelMode.DRIVING
 		};
 
 		return director.service.route(request, function(response, status) {
-			if (status == google.maps.DirectionsStatus.OK) {
-                var name = director.getName(response, 2);
-                console.log(name);
-                response = director.setName(response, 2, 'Hello');
+			function getLandMarks(step){
+                placer.getLandmarks(mapper.map, step['end_point'], 0, false,
+                    function(landmarks){
+                        mapper.addMarker(landmarks[0].latlong, landmarks[0].importance, landmarks[0].name);
 
-				director.display.setDirections(response);
+//                        console.log(landmarks[0]);
+//                        console.log(i);
+
+                        var name = director.getName(step);
+                        director.setName(step, name+' You will see '+ landmarks[0]['name']+' nearby');
+                    }
+                );
+            }
+
+            if (status == google.maps.DirectionsStatus.OK) {
+                var tmp = response['routes'][0]['legs'][0]['steps'];
+                for(var i = 0; i<tmp.length; i++){
+                    getLandMarks(tmp[i]);
+                }
+
+                setTimeout(function() {
+                    director.display.setDirections(response);
+                },1000);
+
 				var markerLatLngs = response['routes'][0]['overview_path'];
 				//mapper.addMarker(markerLatLngs[0], 1, "som");
 			}
 		});
 	},
 
-    getName: function(response, position){
-        return response['routes'][0]['legs'][0]['steps'][position]['instructions'];
+    getName: function(step){
+        return step['instructions'];
     },
 
-    setName: function(response, position, name){
-        response['routes'][0]['legs'][0]['steps'][position]['instructions'] = name;
-        return response;
+    setName: function(step, name){
+        step['instructions'] = name;
     }
 }
-
