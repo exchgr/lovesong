@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Landmarkr</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="placer.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function landmarks_handler (landmark) {
+		
+		console.log(JSON.stringify(landmark));
+		
+		};
+		
+		function neighborhood_handler (neighborhood) {
+		
+		console.log (neighborhood);
+		
+		}
+	</script>
+</head>
+<body>
+	<div id="map"></div>
+	<button onClick="console.log(placer.getLandmarks([24.483399, 54.360572], 0, landmarks_handler)); return false;">show landmarks in console</button>
+	<button onClick="console.log(placer.getNeighborhood([24.407685,54.550338], neighborhood_handler)); return false;">show neighborhood in console</button>
+	<button onClick="console.log(placer.getLandmark([24.407685,54.550338], 5, landmarks_handler)); return false;">show main landmark in console</button>
+	
+</body>
+</html>

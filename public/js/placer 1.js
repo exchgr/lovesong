@@ -1,8 +1,5 @@
 //DOING EXACTLY WHAT THE FUNCTIONS ASK
 
-
-
-
 var map;
 var service;
 
@@ -64,44 +61,81 @@ var placer = {
 	// passes an array of landmark objects — ranked by "landmarkiness" and "proximity"
 	
 	//nextfunction - pass the name of the function that handles landmarks further
-	getLandmarks: function(dest, nextfunction) {
+	getLandmarks: function(dest, precision, nextfunction) {
 	
+		var pyrmont = new google.maps.LatLng(dest[0],dest[1]);
+	
+		var map = new google.maps.Map(document.getElementById('map'), { //CHANGE THIS ID TO WHAT MOIRI USED
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			center: pyrmont,
+			zoom: 15
+		});
+
 		var landmarks = [];
-	
-		$(document).ready(function() {
 		
-			$.ajax({
-				method: 'GET',
-				dataType: 'json',
-				data: {
-					'user_id':'TEST_USER',
-					'api_key':'EXAMPLE_KEY_3edaba1953abf86',
-					'fields': 'items/summary,items/description,items/start,items/end,items/description',
-					'lat':dest[0],
-					'lon':dest[1]
-					},
-				url: 'http://api.geckolandmarks.com/',
-			success: function(data, status) {
-			//processing
-			
-				if (status == 200) {
-					
-					alert (data);
-					for (var i = 0; i < data.length; i++) {
-						landmarks.push({
-						name:data[i].name,
-						latlong: pyrmont,
-						importance: i //or i+1, Moiri seems to use 0
-						})	
-					
-					}
-				
+		var service = new google.maps.places.PlacesService(map);
+		
+		var request = {location: pyrmont}
+		
+		switch(precision) { 
+			case 0:
+			    request.radius=700;
+				request.types=this.global;
+				break;
+			case 1:
+			    request.radius=100;
+				request.types=this.local;
+				break;				
+			case 2:
+			    request.radius=100;
+				request.types=this.global;
+				break;			
+			default:
+			    request.radius=1500;
+				request.types=this.global;			
+			}
+		
+		service.nearbySearch(request, callback);
+		
+		function callback (data, status) {
+			//process data here
+			//document.write(JSON.stringify(data));
+			if (status == google.maps.places.PlacesServiceStatus.OK) {
+				for (var i = 0; i < data.length; i++) {
+					landmarks.push({
+					name:data[i].name,
+					latlong: pyrmont,
+					importance: i //or i+1, Moiri seems to use 0
+					})
 				}
 			
-			}
-			});
+			nextfunction(landmarks); //can use callback function to pass to next processor of the landmarks (mapper?)	
 			
-	});
+			}
+			/*else {
+				return;
+			}*/
+			//should there be an empty return?
+			
+			
+			
+		};
+		
+		
+
+		/*var landmarks = [
+			{
+				name: "Bob Location",
+				latlong: {3943020, 3203203},
+				importance: 1 // very important
+			},
+			{
+				name: "Bob Samson",
+				latlong: [3943020, 3203203],
+				importance: 2 // less so
+			}
+		];
+		*/
 	},
 	
 	// given a latilong( lat, long), and precision, returns the "best" landmark from getLandmarks
