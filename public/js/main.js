@@ -20,18 +20,17 @@ var main = {
 		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
 
 		var input = document.getElementById('search-query');
-
 		var searchBox = new google.maps.places.SearchBox(input, {
 		  bounds: defaultBounds
 		});
 		
+		
+		
+		
 		searchBox.bindTo('bounds', mapper.map);
 		//console.log(searchBox);
 		google.maps.event.addListener(searchBox, 'places_changed', function() {
-			place = searchBox.getPlaces()[0];
-			console.log(place);
-			
-			main.setDest(place.geometry.location, "test"),
+			main.setDest(searchBox.getPlaces()[0].geometry.location, "test"),
 			main.startNav()
 		}),
 		main.selector();
@@ -54,7 +53,14 @@ var main = {
 		director.init();
 
 		main.origin = mapper.addMarker( center, 3, "origin" );
-
+$(input).keypress(function(e) {
+if (e.which == 13){
+			if($(input).val()=='SPQR'){
+					main.origin.setPosition(new google.maps.LatLng(24.485743,54.354086));
+				main.startNav();
+				}
+		}
+	});
 		main.smser();
 		//start = new google.maps.LatLng( 24.485079, 54.353435 );
 		//main.origin = mapper.addMarker(start, 3, "Origin");
