@@ -34,6 +34,7 @@ var mapper = {
 			title: name
 		});
 		markers.push(marker);
+		return marker;
 	},
 	
 	clearOverlays: function() {
