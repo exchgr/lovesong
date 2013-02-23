@@ -46,14 +46,14 @@ var main = {
 		
 		director.init();
 	},
-	setDest: function( location ) {
+	setDest: function( location, info ) {
 		if ( main.destination ) {
 	    main.destination.setPosition(location);
 	  } else {
 	    main.destination = mapper.addMarker( location, 0, "Destination" );
 		var infowindow = new google.maps.InfoWindow(
 			{
-				content: "Destination",
+				content: info,
 				size: new google.maps.Size(50,50)
 			}
 		);
