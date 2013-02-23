@@ -1,6 +1,6 @@
 var destinator = {
 
-	get:function (map,dest, land) {
+	get:function (map, dest, land, nextfaction) {
 	
 		var geometry = google.maps.geometry.spherical;
 		var distance = Math.round(geometry.computeDistanceBetween(dest.location,land.location));
@@ -10,7 +10,10 @@ var destinator = {
 		if (dest.name) result += dest.name;
 		else result += 'Unknown location';
 		
-		result = result + ' is ' + distance.toString() + ' metres ';
+		if (distance > 700) {
+		distance /= 1000;
+		result = result + ' is ' + distance.toString() + ' km ';}
+		else result = result + ' is ' + distance.toString() + ' m ';
 		
 		var angle = geometry.computeHeading(land.location,dest.location);
 		
@@ -34,7 +37,11 @@ var destinator = {
 		
 		result = result + ' of ' + land.name;
 		
-		return(result);
+		console.log(result);
+		//return(result);
+	
+		
+	
 	}
 	
 
