@@ -1,6 +1,5 @@
 // This class is responsible for mapping everything
 
-var map;
 var markers = [];
 var img_array = [
 		{
@@ -30,7 +29,7 @@ var mapper = {
 		marker = new google.maps.Marker({
 			position: location,
 			icon: img_array[importance],
-			map: map,
+			map: mapper.map,
 			title: name
 		});
 		markers.push(marker);
