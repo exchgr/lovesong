@@ -74,10 +74,13 @@ var mapper = {
 	//   }
 	// },
 	
+	addLandmarks: function( landmarks ) {
+		
+	},
+	
 	// given a DOM Object, destination bject, and an array of landmark objects
 	// inserts a map with the destination and landmark pins to that DOM
-	start: function(obj) {
-		var center = new google.maps.LatLng(37.7699298, -122.4469157);
+	start: function(obj, center) {
 		var mapOptions = {
 			zoom: 12,
 			center: center,

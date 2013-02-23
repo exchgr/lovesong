@@ -14,6 +14,8 @@ var main = {
 		// });
 		
 		mapper.start( document.getElementById("map") );
+		var center = new google.maps.LatLng(37.7699298, -122.4469157);
+		
 		
 		// if (navigator.geolocation) {
 		// 			$('.nav-current').click( function( ev) {
