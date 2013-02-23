@@ -69,7 +69,6 @@ var main = {
 		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), main.destination.position );
 	},
 	selector: function() {
-		
 		google.maps.event.addListener(mapper.map, 'click', function(event) {			
 			main.setDest(event.latLng, "Destination");
 			main.startNav();
