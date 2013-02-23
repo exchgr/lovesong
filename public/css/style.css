@@ -1,3 +1,7 @@
+html, body, #map {
+	height 100%;
+}
+
 .navbar-search {
 	width: 500px;
 	margin-left: auto;
