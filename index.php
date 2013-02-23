@@ -11,7 +11,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="public/js/mapper.js" type="text/javascript" charset="utf-8"></script>
 	<script src="public/js/placer1.js" type="text/javascript" charset="utf-8"></script>
-	<script src="public/js/main2.js" type="text/javascript" charset="utf-8"></script>
+	<script src="public/js/main.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
 <body>

@@ -51,6 +51,14 @@ var main = {
 	    main.destination.setPosition(location);
 	  } else {
 	    main.destination = mapper.addMarker( location, 0, "Destination" );
+		var infowindow = new google.maps.InfoWindow(
+			{
+				content: "Destination",
+				size: new google.maps.Size(50,50)
+			}
+		);
+		infowindow.open(mapper.map, main.destination);
+				
 	  }
 	},
 	startNav: function() {

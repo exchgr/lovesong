@@ -37,13 +37,13 @@ var placer = {
 			location:new google.maps.LatLng(latlong[0],latlong[1]),
 			rankby:'distance',
 		}
-		
-		service.nearbySearch(request, callback);
+
 		
 		function callback (data, status) {
 			//process data here
-			
+			console.log("callback");
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
+				console.log("servicestatusok");
 				var i = 0;
 				while (i <= 20 && i <= data.length) { //search through the first page of results
 					if (data[i].vicinity) { //return first result that contains vicinity, otherwise - none
@@ -89,17 +89,21 @@ var placer = {
 			}
 		
 		service.nearbySearch(request, callback);
-		
+
+	
 		function callback (data, status) {
 			//process data here
 			//document.write(JSON.stringify(data));
-			
+						console.log("callback");
+						console.log(status);
+						console.log(google.maps.places.PlacesServiceStatus.OK);
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
+			console.log(data);
 				for (var i = 0; i < data.length; i++) {
 					landmarks.push({
 					name:data[i].name,
-					latlong: center,
-					importance: i //or i+1, Moiri seems to use 0
+					latlong: data[i].geometry.location,
+					importance: precision //or i+1, Moiri seems to use 0
 					});
 				}
 			}
