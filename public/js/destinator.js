@@ -1,10 +1,12 @@
 var destinator = {
 
 	get:function (map, dest, land) {
-	
+
 		destPos = dest.latlong;
 		landPos= land.latlong;
-	
+		
+		var service = new google.maps.places.PlacesService(map);
+
 		var geometry = google.maps.geometry.spherical;
 		var distance = Math.round(geometry.computeDistanceBetween(destPos, landPos));
 		
