@@ -44,6 +44,9 @@ var main = {
 		
 		director.init();
 	},
+	smser: function() {
+		
+	},
 	setDest: function( location, info ) {
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
 			mapper.addMarker( landmark.latlong, 1, landmark.name );
@@ -55,7 +58,7 @@ var main = {
 	    main.destination = mapper.addMarker( location, 0, "Destination" );
 		var infowindow = new google.maps.InfoWindow(
 			{
-				content: info,
+				content: '<p>Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah</p><p class="sms"><label for="sms">Send to</label><input type="text" id="sms" name="sms" placeholder="SMS"></p>',
 				size: new google.maps.Size(50,50)
 			}
 		);

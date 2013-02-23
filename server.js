@@ -75,13 +75,13 @@ app.get('/sms', function( req, res ) {
 	// });
 	
 	var from = 'Landmarkr';
-	var to = '971501068203';
-	var message = 'some_string which I love to, send, to you!!';
+	var to = encodeURIComponent( req.query["to"] )
+	var message = encodeURIComponent( req.query["message"] );
 	
 	var options = {
 		host: 'rest.nexmo.com',
 		port: '80',
-		path: '/sms/json?api_key=' + process.env.NEXMO_KEY + '&api_secret=' + process.env.NEXMO_SECRET + '&from=' + from + '&to=' + to +'&text=' + encodeURIComponent( message ),
+		path: '/sms/json?api_key=' + process.env.NEXMO_KEY + '&api_secret=' + process.env.NEXMO_SECRET + '&from=' + from + '&to=' + to +'&text=' + message,
 		method: 'POST'
 	}
 		
