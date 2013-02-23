@@ -44,16 +44,22 @@ var main = {
 		
 		director.init();
 		
-		mapper.smser();
+		main.smser();
 	},
 	smser: function() {
 		this.infobox = $('<p>');
 		this.infobox.html('Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah');
-		this.infobox.append('<form id="sms">');
-		// <p class="sms"><label for="sms">Send to</label><input type="text" id="sms" name="sms" placeholder="SMS"></p>';
-		// this.infobox.append('SAM');
 		
-		console.log( this.infobox );
+		form = this.infobox.append('<form id="sms">');
+		form.append('<label for="sms">Send to</label>');
+		form.append('<input type="text" id="sms" name="sms" placeholder="SMS">');		
+		
+		form.submit( function( ev ) {
+			console.log( 'sick' );
+			console.log( this );
+		});
+				
+		// console.log( this.infobox );
 		
 		// $('sms').submit( function() )
 	},
@@ -66,15 +72,19 @@ var main = {
 	    main.destination.setPosition(location);
 	  } else {
 	    main.destination = mapper.addMarker( location, 0, "Destination" );
-		var infowindow = new google.maps.InfoWindow(
-			{
-				content: this.infobox,
-				size: new google.maps.Size(50,50)
-			}
-		);
-		infowindow.open(mapper.map, main.destination);
+			console.log( main.infobox );
+			console.log( 'bob' );
+			var infowindow = new google.maps.InfoWindow(
+				{
+					content: this.infobox.get(0),
+					size: new google.maps.Size(50,50)
+				}
+			);
+		
+			infowindow.open(mapper.map, main.destination);
+			
+		}
 				
-	  }
 	},
 	startNav: function() {
 		$('#panel').show().animate( {width: '20%'} );
