@@ -7,15 +7,12 @@
       		body { height: 100%; margin: 0; padding: 0 }
       		#map_canvas { height: 100% }
     	</style>
-    	<script type="text/javascript"
-      		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_CCb3QZEVi6VDLUJ8v3EgQvPe0ZWKD4o&sensor=false">
-    	</script>
-		<script type="text/javascript"
-			src="mapper.js">
-		</script>
+    	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_CCb3QZEVi6VDLUJ8v3EgQvPe0ZWKD4o&sensor=false"></script>
+		<script type="text/javascript" src="mapper.js"></script>
 		<script type="text/javascript">
 			function initialise(){
-				mapper.map(document.getElementById("map_canvas"), landmarks);
+				center = new google.maps.LatLng(37.77, -122.45);
+				mapper.start(document.getElementById("map_canvas"), center);
 			}
 		</script>
   	</head>
