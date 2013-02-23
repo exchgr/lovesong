@@ -54,6 +54,8 @@ var main = {
 	  }
 	},
 	startNav: function() {
+		$('#panel').show().animate( {width: '20%'} );
+		$('#map').animate( {width: '80%'} );
 		director.getDirections( new google.maps.LatLng( 24.485079, 54.353435 ), main.destination.position );
 	},
 	selector: function() {
