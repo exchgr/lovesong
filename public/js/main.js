@@ -17,7 +17,7 @@ var main = {
 		
 		var center = new google.maps.LatLng(24.4700, 54.38);
 		mapper.start( document.getElementById("map"), center, 13 );		
-		placer.getLandmarks(center, 1, mapper.addLandmarks, true);
+		placer.getLandmarks(mapper.map, center, 1, mapper.addLandmarks, true);
 		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
 
 		var input = document.getElementById('search-query');
