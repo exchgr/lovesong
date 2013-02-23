@@ -63,14 +63,6 @@ var placer = {
 	//nextfunction - pass the name of the function that handles landmarks further
 
 	getLandmarks: function(dest, precision, nextfunction, all) {
-	
-		var center = new google.maps.LatLng(dest[0],dest[1]);
-	
-		// var map = new google.maps.Map(document.getElementById('map'), { //CHANGE THIS ID TO WHAT MOIRI USED
-			// mapTypeId: google.maps.MapTypeId.ROADMAP,
-			// center: center,
-			// zoom: 15
-		// });
 
 		var landmarks = [];
 		
