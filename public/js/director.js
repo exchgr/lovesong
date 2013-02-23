@@ -11,7 +11,6 @@ var director = {
 	// given a start latlong( lat, long) and an end latlong( lat, long)
 	// returns the landmark-based directions
 	getDirections: function( start, finish ) {
-		console.log( start );
 		var request = {
         origin:         start,
         destination:    finish,
