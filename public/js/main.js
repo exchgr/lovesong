@@ -100,13 +100,14 @@ var main = {
 	},
 	setDest: function( location, info ) {
 		if ( main.destination ) {
+		console.log("test");
 	    main.destination.setPosition(location);
 	  } else {
 	    main.destination = mapper.addMarker( location, 4, "Destination" );
 			// main.destination.setVisible(false);
 		
 			$('p', main.infobox).html('Al Markaziyah');
-		}
+		
 		
 		var infowindow = new google.maps.InfoWindow(
 			{
@@ -114,12 +115,12 @@ var main = {
 				size: new google.maps.Size(50,50)
 			}
 		);
-		
+		console.log("test2");
 		infowindow.open(mapper.map, main.destination);
 		google.maps.event.addListener(main.destination, 'click', function() {			
 			infowindow.open(mapper.map, main.destination);
 		});
-		console.log("test");
+		}
 		main.startNav();
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
 
