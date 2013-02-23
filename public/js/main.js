@@ -24,9 +24,6 @@ var main = {
 		  bounds: defaultBounds
 		});
 		
-		
-		
-		
 		searchBox.bindTo('bounds', mapper.map);
 		//console.log(searchBox);
 		google.maps.event.addListener(searchBox, 'places_changed', function() {
@@ -56,14 +53,14 @@ var main = {
 		});
 
 
-$(input).keypress(function(e) {
-if (e.which == 13){
-			if($(input).val()=='SPQR'){
-					main.origin.setPosition(new google.maps.LatLng(24.485743,54.354086));
-				main.startNav();
+		$(input).keypress(function(e) {
+		if (e.which == 13){
+					if($(input).val()=='SPQR'){
+							main.origin.setPosition(new google.maps.LatLng(24.485743,54.354086));
+						main.startNav();
+						}
 				}
-		}
-	});
+			});
 
 		main.smser();
 		//start = new google.maps.LatLng( 24.485079, 54.353435 );
@@ -71,6 +68,8 @@ if (e.which == 13){
 	},
 	smser: function() {
 		this.infobox = $('<div>');
+		
+		this.infobox.popover({content: 'sam'});
 		
 		this.infobox.append('<p>Smith</p>');
 		
@@ -145,7 +144,7 @@ if (e.which == 13){
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
 
 			marker = mapper.addMarker( landmark.latlong, landmark.importantce, landmark.name );
-									
+			
 			$('p', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
 			
 		});
