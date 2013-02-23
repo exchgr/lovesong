@@ -51,17 +51,43 @@ var main = {
 		main.smser();
 	},
 	smser: function() {
-		this.infobox = $('<p>');
-		this.infobox.html('Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah');
+		this.infobox = $('<div>');
 		
-		form = this.infobox.append('<form id="sms">');
-		form.append('<label for="sms">Send to</label>');
-		form.append('<input type="text" id="sms" name="sms" placeholder="SMS">');		
+		this.infobox.append('<p>Smith</p>');
 		
+		this.infobox.append('<form id="sms">');
+		form = $('form', this.infobox)
+		
+		form.append('<label for="sms">Send to:</label>');
+		form.append('<input type="text" id="sms" name="sms" placeholder="SMS">');
+				
 		form.submit( function( ev ) {
-			console.log( 'sick' );
-			console.log( this );
+			to = $('input', this).val();
+			
+			$.ajax({
+				method: 'GET',
+				dataType: 'json',
+				data: {
+					'to': to,
+					'message': 'Sama tower!'
+					},
+				//url: '/landmarkr/public/js/1.json',
+			    url: '/sms',
+			    success: function(data, status){
+						console.log( $('#sms').val() );
+						var status = 200;
+				    if (status == 200) {
+				        console.log( status );
+				    }
+					}
+			});
+			return false;
 		});
+		
+		// $('form', this.infobox).submit( function( ev ) {
+		// 	console.log( 'sick' );
+		// 	console.log( this );
+		// });
 				
 		// console.log( this.infobox );
 		
@@ -77,12 +103,17 @@ var main = {
 	  } else {
 	    main.destination = mapper.addMarker( location, 0, "Destination" );
 			main.destination.setVisible(false);
+			
+			$('p', this.infobox).html('Sama Tower<br>Across from Etisalat Towers<br>Al Markaziyah');
+			
 			var infowindow = new google.maps.InfoWindow(
 				{
 					content: this.infobox.get(0),
 					size: new google.maps.Size(50,50)
 				}
 			);
+			
+			
 		
 			infowindow.open(mapper.map, main.destination);
 			
