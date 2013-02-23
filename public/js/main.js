@@ -28,6 +28,8 @@ var main = {
 		
 		searchBox.bindTo('bounds', mapper.map);
 		
+		main.selector();
+		
 		if (navigator.geolocation) {
 			$('.nav-current').click( function( ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
@@ -41,6 +43,21 @@ var main = {
 		{
 			$('.nav-current').hide();
 		}
+	},
+	setDest: function( location ) {
+		if ( main.destination ) {
+	    main.destination.setPosition(location);
+	  } else {
+	    main.destination = new google.maps.Marker({
+	      position: location,
+	      map: map
+	    });
+	  }
+	},
+	selector: function() {
+		google.maps.event.addListener(mapper.map, 'click', function(event) {
+			main.setDest(event.latLng);
+		});
 	}
 }
 
