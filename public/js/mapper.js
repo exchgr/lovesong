@@ -37,19 +37,15 @@ var mapper = {
 	},
 	
 	clearOverlays: function() {
-	  if (markers) {
-		for (i in markers) {
+		for (var i in markers) {
 		  markers[i].setMap(null);
 		}
-	  }
 	},
 	
 	showOverlays: function() {
-	  if (markers) {
-		for (i in markers) {
+		for (var i in markers) {
 		  markers[i].setMap(map);
 		}
-	  }
 	},
 	
 	deleteOverlays: function() {
