@@ -27,7 +27,7 @@ app.configure(function() {
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.session({ secret: 'keyboard cat' })); // CHANGE THIS SECRET!
+  app.use(express.session({ secret: process.env.SECRET })); // CHANGE THIS SECRET!
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
   // app.use(passport.initialize());
