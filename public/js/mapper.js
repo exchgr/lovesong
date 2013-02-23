@@ -4,25 +4,26 @@ var markers = [];
 var img_array = [
 		{
 	    	url: 'public/images/marker0.png',
-	    	size: new google.maps.Size(20, 32),
+	    	size: new google.maps.Size(32, 37),
 	    	origin: new google.maps.Point(0,0),
-	    	anchor: new google.maps.Point(10, 32)
+	    	anchor: new google.maps.Point(15, 37)
 		},
 		{
 	    	url: 'public/images/marker1.png',
-	    	size: new google.maps.Size(20, 32),
+	    	size: new google.maps.Size(32, 37),
 	    	origin: new google.maps.Point(0,0),
-	    	anchor: new google.maps.Point(10, 32)
-		},	
+	    	anchor: new google.maps.Point(15, 37)
+		},
 		{
-	    	url: 'public/images/marker2.png',
-	    	size: new google.maps.Size(20, 32),
+	    	url: 'public/images/marker1.png',
+	    	size: new google.maps.Size(32, 37),
 	    	origin: new google.maps.Point(0,0),
-	    	anchor: new google.maps.Point(10, 32)
-		}							
+	    	anchor: new google.maps.Point(15, 37)
+		}	
 	];
 
 var mapper = {
+
 	addMarker: function(location, importance, name) {		
 		marker = new google.maps.Marker({
 			position: location,
@@ -59,7 +60,7 @@ var mapper = {
 		for (i in landmarks) {
 			var lm = landmarks[i];
 			console.log( lm );
-			mapper.addMarker(lm.latlong, 1, lm.name);
+			mapper.addMarker(lm.latlong, lm.importance, lm.name);
 		}
 	},
 	
