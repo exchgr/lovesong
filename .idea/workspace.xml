@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8f996513-7f7b-4b31-8b7b-f4e3c23e1c89" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/placer.js" afterPath="$PROJECT_DIR$/public/js/placer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/placer_test.html" afterPath="$PROJECT_DIR$/public/js/placer_test.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/index.js" afterPath="$PROJECT_DIR$/js/index.js" />
     </list>
     <ignored path="landmarkr.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,35 +25,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="placer.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/js/placer.js">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="61" column="56" selection-start="2168" selection-end="2168" vertical-scroll-proportion="0.44833624">
-              <folding>
-                <element signature="e#140#545#0" expanded="false" />
-                <element signature="e#706#728#0" expanded="false" />
-                <element signature="e#811#1476#0" expanded="false" />
-                <element signature="e#1481#1513#0" expanded="false" />
-                <element signature="e#2330#2423#0" expanded="false" />
-                <element signature="e#2573#2638#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="placer1.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/placer1.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="67" selection-start="1258" selection-end="1304" vertical-scroll-proportion="0.0">
+            <state line="7" column="47" selection-start="388" selection-end="388" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="placer_test.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/placer_test.html">
+      <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="108" selection-start="818" selection-end="818" vertical-scroll-proportion="-15.0">
+            <state line="73" column="24" selection-start="2137" selection-end="2137" vertical-scroll-proportion="0.90604025">
               <folding />
             </state>
           </provider>
@@ -73,10 +56,13 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/public/js/main.js" />
         <option value="$PROJECT_DIR$/public/js/placer_test1.html" />
         <option value="$PROJECT_DIR$/public/js/placer_test.html" />
         <option value="$PROJECT_DIR$/public/js/placer.js" />
+        <option value="$PROJECT_DIR$/public/js/director.js" />
+        <option value="$PROJECT_DIR$/public/js/main.js" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/js/index.js" />
       </list>
     </option>
   </component>
@@ -192,6 +178,28 @@
     </servers>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method>
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote">
+      <JSRemoteDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSRemoteDebuggerConfigurationSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server" server_id="c74484d2-0101-413a-a8ff-b90583f9ea41" server_name="test">
+      <method>
+        <option name="FtpUpload" enabled="false">
+          <server_id />
+          <server_name />
+        </option>
+        <option name="PhingTarget" enabled="false" />
+      </method>
+    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -211,7 +219,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25338647" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25737053" sideWeight="0.670418" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -220,7 +228,8 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -281,13 +290,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="4" selection-start="214" selection-end="214" vertical-scroll-proportion="0.18356644" />
@@ -298,59 +300,57 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="8" selection-start="421" selection-end="421" vertical-scroll-proportion="0.05033557">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/placer_test1.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="163" selection-start="81" selection-end="240" vertical-scroll-proportion="0.13416816">
+        <state line="5" column="163" selection-start="81" selection-end="240" vertical-scroll-proportion="0.13416816" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/placer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="56" selection-start="2168" selection-end="2168" vertical-scroll-proportion="0.025728988" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/placer1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="67" selection-start="1258" selection-end="1304" vertical-scroll-proportion="0.025728988" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/placer_test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="108" selection-start="818" selection-end="818" vertical-scroll-proportion="0.5706619" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/mapper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="18" selection-start="434" selection-end="440" vertical-scroll-proportion="-0.4043716" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="35" selection-start="618" selection-end="618" vertical-scroll-proportion="0.4661017" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/director.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="26" selection-start="1041" selection-end="1041" vertical-scroll-proportion="0.87212276" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="47" selection-start="388" selection-end="388" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="7" selection-start="190" selection-end="326" vertical-scroll-proportion="0.0">
+        <state line="73" column="24" selection-start="2137" selection-end="2137" vertical-scroll-proportion="0.90604025">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="46" selection-start="387" selection-end="387" vertical-scroll-proportion="0.18356644">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/placer_test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="108" selection-start="818" selection-end="818" vertical-scroll-proportion="-15.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/placer1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="67" selection-start="1258" selection-end="1304" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/placer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="56" selection-start="2168" selection-end="2168" vertical-scroll-proportion="0.44833624">
-          <folding>
-            <element signature="e#140#545#0" expanded="false" />
-            <element signature="e#706#728#0" expanded="false" />
-            <element signature="e#811#1476#0" expanded="false" />
-            <element signature="e#1481#1513#0" expanded="false" />
-            <element signature="e#2330#2423#0" expanded="false" />
-            <element signature="e#2573#2638#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>

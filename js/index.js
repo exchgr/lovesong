@@ -1,3 +1,6 @@
+function p(el){
+    console.log(el);
+}
 
 $(document).ready(function(){
     var directionsService = new google.maps.DirectionsService();
@@ -31,7 +34,17 @@ $(document).ready(function(){
 
         return directionsService.route(request, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
+
+
+                var name = getName(response, 2);
+                p(name);
+                response = setName(response, 2, 'Hello');
+
                 directionsDisplay.setDirections(response);
+
+                var directions = response['routes'][0]['legs'][0]['steps'];
+                p(directions);
+
                 var tmp = response['routes'][0]['overview_path'];
                 var arr = [];
                 for (var i = 0; i< tmp.length; i++){
@@ -49,6 +62,16 @@ $(document).ready(function(){
 
             }
         });
+    }
+
+
+    function getName(response, position){
+        return response['routes'][0]['legs'][0]['steps'][position]['instructions'];
+    }
+
+    function setName(response, position, name){
+        response['routes'][0]['legs'][0]['steps'][position]['instructions'] = name;
+        return response;
     }
 
     function addMarker(lat, lng) {
