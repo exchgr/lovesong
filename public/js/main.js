@@ -34,9 +34,9 @@ var main = {
 		main.selector();
 		
 		if (navigator.geolocation) {
-			$('.nav-current').click( function( ev) {
+			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
-					//console.log( position.coords.latitude + " Longitude: " + position.coords.longitude);
+					main.origin.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
 				});
 
 				return false;
