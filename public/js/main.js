@@ -117,14 +117,14 @@ var main = {
 		google.maps.event.addListener(main.destination, 'click', function() {			
 			infowindow.open(mapper.map, main.destination);
 		});
-		
+		console.log("test");
 		main.startNav();
-		
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
-			marker = mapper.addMarker( landmark.latlong, landmark.importantce, landmark.name );
-						
-			mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
-			
+			console.log("test2");
+			marker = mapper.addMarker( landmark.latlong, 0, landmark.name );
+			console.log(landmark);
+		
+					
 		});
 	},
 	startNav: function() {
