@@ -37,7 +37,7 @@ var main = {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
 					main.origin.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-					main.startNav();
+					if (main.destination) main.startNav();
 				});
 
 				return false;
@@ -110,16 +110,16 @@ var main = {
 			$('p', main.infobox).html('Al Markaziyah');
 		
 		
-		var infowindow = new google.maps.InfoWindow(
+		var infobox = new InfoBox(
 			{
 				content: main.infobox.get(0),
 				size: new google.maps.Size(50,50)
 			}
 		);
 		console.log("test2");
-		infowindow.open(mapper.map, main.destination);
+		infobox.open(mapper.map, main.destination);
 		google.maps.event.addListener(main.destination, 'click', function() {			
-			infowindow.open(mapper.map, main.destination);
+			infobox.open(mapper.map, main.destination);
 		});
 		}
 		main.startNav();
