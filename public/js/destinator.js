@@ -10,9 +10,7 @@ var destinator = {
 		desPos = dest.position;
 =======
 	get:function (map, dest, land) {
->>>>>>> a8477e91e23ad503e20b4caa9a77f64f30491dac
-	
->>>>>>> d95aa6b595caf64bf3bc97e6c4ac9244d5a564b4
+
 		var geometry = google.maps.geometry.spherical;
 		var distance = Math.round(geometry.computeDistanceBetween(dest.location,land.location));
 		
