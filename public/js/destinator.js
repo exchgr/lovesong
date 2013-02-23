@@ -1,21 +1,16 @@
 var destinator = {
 
-	get:function (map, dest, land, nextfaction) {
-	
-		desPos = dest.position;
+	get:function (map, dest, land) {
 	
 		var geometry = google.maps.geometry.spherical;
-		// var distance = Math.round(geometry.computeDistanceBetween(desPos, ));
+		var distance = Math.round(geometry.computeDistanceBetween(dest.location,land.location));
 		
 		var result = '';
 		
 		if (dest.name) result += dest.name;
 		else result += 'Unknown location';
 		
-		if (distance > 700) {
-		distance /= 1000;
-		result = result + ' is ' + distance.toString() + ' km ';}
-		else result = result + ' is ' + distance.toString() + ' m ';
+		result = result + ' is ' + distance.toString() + ' metres ';
 		
 		var angle = geometry.computeHeading(land.location,dest.location);
 		
@@ -39,11 +34,7 @@ var destinator = {
 		
 		result = result + ' of ' + land.name;
 		
-		console.log(result);
-		//return(result);
-	
-		
-	
+		return(result);
 	}
 	
 
