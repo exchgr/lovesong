@@ -47,9 +47,6 @@ var placer = {
 	
 	//nextfunction - pass the name of the function that handles landmarks further
 	getLandmarks: function(map, dest, precision, nextfunction, all) {
-	
-		var landmarks = [];
-	
 		$(document).ready(function() {
 			$.ajax({
 				method: 'GET',
@@ -61,56 +58,13 @@ var placer = {
 					'lat':dest[0],
 					'lon':dest[1]
 					},
-				
-			url: 'http://api.geckolandmarks.com/json',
-			success: function(data, status) {
-			//processing
-				alert('ads');
-				if (status == 200) {
-					
-					var resource = data[1];
-					
-					for (var i = 0; i < resource.length; i++) {
-						if (resource[i].class == 'P') {
-						switch (precision) {
-							case 0:
-								landmarks.push({
-								name:resource[i].name,
-								latlong: google.maps.places.PlacesService(resource[i].lat,resource[i].lon),
-								importance: i //or i+1, Moiri seems to use 0
-								})	
-							break;
-							case 1:
-								if (bigger.indexOf(resource[i].subclass) != -1) {
-									landmarks.push({
-									name:resource[i].name,
-									latlong:google.maps.places.PlacesService(resource[i].lat,resource[i].lon),
-									importance: i //or i+1, Moiri seems to use 0
-									})
-									}
-							break;
-							case 2:
-								if (important.indexOf(resource[i].subclass) != -1){
-									landmarks.push({
-									name:resource[i].name,
-									latlong: google.maps.places.PlacesService(resource[i].lat,resource[i].lon),
-									importance: i //or i+1, Moiri seems to use 0
-									})	
-									}
-							break;
-						}
-						
-						}
-					
-					}
-					if (all) nextfunction(landmarks);
-					else nextfunction([landmarks[0]]);
-				}
-			
-			}
+				//url: '1.json',
+			    url: 'http://api.geckolandmarks.com/json',
+			    success: function(data, status){
+                    callBackFunction(data,status, precision, all, nextfunction);
+                }
 			});
-			
-	});
+		});
 	},
 	
 	// given a latilong( lat, long), and precision, returns the "best" landmark from getLandmarks
@@ -119,4 +73,44 @@ var placer = {
 	getLandmark: function( map, destlong, precision, nextfunction, all) {
 		getLandmarks(map, destlong, precision, nextfunction, all);
 	}
+
+
+}
+
+function callBackFunction(data,status, precision, all, nextfunction){
+    var status = 200;
+    if (status == 200) {
+        var resource = data['landmarks'];
+        var landmarks = [];
+        for (var i = 0; i < resource.length; i++) {
+            if (resource[i].class == 'P') {
+                console.log(  resource[i].lat  );
+                var obj = {
+                    name:resource[i].name1,
+                    latlong: new google.maps.LatLng(resource[i].lat,resource[i].lon),
+                    importance: i //or i+1, Moiri seems to use 0
+                };
+                switch (precision) {
+                    case 0:
+                        landmarks.push(obj);
+                        break;
+                    case 1:
+                        if (bigger.indexOf(resource[i].subclass) != -1) {
+                            landmarks.push(obj);
+                        }
+                        break;
+                    case 2:
+                        if (important.indexOf(resource[i].subclass) != -1){
+                            landmarks.push(obj);
+                        }
+                        break;
+                    default :
+                        console.log('problem with precision');
+                }
+            }
+        }
+        console.log(landmarks);
+        if (all) nextfunction(landmarks);
+        else nextfunction([landmarks[0]]);
+    }
 }
