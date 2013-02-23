@@ -37,6 +37,7 @@ var main = {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
 					main.origin.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+					main.startNav();
 				});
 
 				return false;
@@ -49,7 +50,7 @@ var main = {
 		
 		director.init();
 
-		main.origin = mapper.addMarker( center, 4, "origin" );
+		main.origin = mapper.addMarker( center, 3, "origin" );
 
 		main.smser();
 		//start = new google.maps.LatLng( 24.485079, 54.353435 );
