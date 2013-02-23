@@ -12,6 +12,7 @@ var main = {
 		// 	
 		// 	placer.map( domObj, landmarks );
 		// });
+        
 		
 		
 				
