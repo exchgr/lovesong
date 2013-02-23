@@ -33,7 +33,7 @@ var placer = {
 					if (data[i].vicinity) { //return first result that contains vicinity, otherwise - none
 						nextfunction(data[i].vicinity);
 						i++;
-						return false;
+						return false
 					}
 				}
 				return 'No neighborhood data';
@@ -47,7 +47,8 @@ var placer = {
 	
 	//nextfunction - pass the name of the function that handles landmarks further
 	getLandmarks: function(map, dest, precision, all, nextfunction) {
-			//console.log(dest);
+			//console.log(dest);x.success placer.js:96
+        //console.log(nextfunction);
 		$.ajax({
 
 			method: 'GET',
@@ -59,7 +60,7 @@ var placer = {
 				'lat':dest.lat(),
 				'lon':dest.lng()
 				},
-			//url: '/landmarkr/public/js/1.json',
+			// url: '/landmarkr/public/js/1.json',
 		    url: '/json',
 		    success: function(data, status){
 					var status = 200;
@@ -77,7 +78,7 @@ var placer = {
 			                switch (precision) {
 			                    case 0:
 			                        landmarks.push(obj);
-			                        break;
+			                       	 break;
 			                    case 1:
 			                        if (bigger.indexOf(resource[i].subclass) != -1) {
 			                            landmarks.push(obj);
