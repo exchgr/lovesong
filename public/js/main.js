@@ -169,6 +169,9 @@ if (e.which == 13){
 		}
 	},
 	startNav: function() {
+	
+		mapper.deleteOverlays();
+		
 		$('#panel').show().animate( {width: '20%'} );
 		$('#map').animate( {width: '80%'} );
 
