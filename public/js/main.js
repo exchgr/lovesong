@@ -1,48 +1,29 @@
 var main = {
 	init: function() {
-		// var dest = {
-		// 	name: "Bob Home",
-		// 	latlong: {Latitude: 91384149, Longitude: 934245},
-		// 	importance: 1 // very important
-		// };
-		// placer.getLandmarks( dest, 0, function( data, landmarks ) {
-		// 	neighborhood = placer.getNeighborhood( data );
-		// 	
-		// 	console.log( dest.name + " in " + neighborhood );
-		// 	
-		// 	placer.map( domObj, landmarks );
-		// });
 		
 		var center = new google.maps.LatLng(24.485743,54.354086);
+		mapper.start( document.getElementById("map"), center, 15 );	
 		
-		mapper.start( document.getElementById("map"), center, 15 );		
-		// placer.getLandmarks(mapper.map, center, 1, true, mapper.addLandmarks);
 		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
-
 		var input = document.getElementById('search-query');
 		var searchBox = new google.maps.places.SearchBox(input, {
 		  bounds: defaultBounds
 		});
-		
-		
-		
-		
 		searchBox.bindTo('bounds', mapper.map);
-		//console.log(searchBox);
+
 		google.maps.event.addListener(searchBox, 'places_changed', function() {
 			main.setDest(searchBox.getPlaces()[0].geometry.location, "test")
 		}),
-		main.selector();
+		main.enterMode( 'dest' );
 		
 		if (navigator.geolocation) {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
-						main.origin.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-						$('#myonoffswitch').prop('checked', false);
+					main.origin.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+					$('#myonoffswitch').prop('checked', false);
 					if (main.destination) main.startNav();
-					else main.selector();
+					else main.enterMode( 'dest' );
 				});
-
 				return false;
 			});
 		}
@@ -58,19 +39,18 @@ var main = {
 		});
 
 
-$(input).keypress(function(e) {
-if (e.which == 13){
-			if($(input).val()=='SPQR'){
+		$(input).keypress(function(e) {
+			if (e.which == 13){
+				if($(input).val()=='SPQR'){
 					main.origin.setPosition(new google.maps.LatLng(24.485743,54.354086));
-				main.startNav();
+					main.startNav();
 				}
-		}
-	});
+			}
+		});
 
 		main.smser();
-		//start = new google.maps.LatLng( 24.485079, 54.353435 );
-		//main.origin = mapper.addMarker(start, 3, "Origin");
 	},
+	
 	smser: function() {
 		this.infobox = $('<div>');
 		
@@ -105,13 +85,16 @@ if (e.which == 13){
 			return false;
 		});
 	},
+	
 	enterMode: function( mode ) {
 		google.maps.event.clearListeners(mapper.map, 'click');
 		
 		if( mode == 'dest' )
 		{
 			$('#myonoffswitch').prop('checked', false);
-			main.selector();
+			google.maps.event.addListener(mapper.map, 'click', function(event) {			
+				main.setDest(event.latLng, "Destination");
+			});
 		}
 		else
 		{
@@ -128,6 +111,7 @@ if (e.which == 13){
 			});
 		}
 	},
+	
 	setDest: function( location, info ) {
 		if ( main.destination ) {
 	    main.destination.setPosition(location);
@@ -152,24 +136,13 @@ if (e.which == 13){
 			
 		});
 		
-		main.setOrigin( "arbitrary" );
+		main.enterMode( 'origin' );
 		
 		if( main.origin ) {
 			main.startNav();
 		}
 	},
-	setOrigin: function(type){
-		if (type=="current") {
-			;
-		} else if (type=="nearest") {
-			placer.getLandmark( mapper.map, location, 0, function( landmark ) {
-				main.origin = mapper.addMarker( landmark.latlong, 3, landmark.name );
-			} );
-			main.startNav();
-		} else if (type=="arbitrary") {
-			main.enterMode( 'origin' );
-		}
-	},
+	
 	startNav: function() {
 	
 		mapper.deleteOverlays();
@@ -179,12 +152,6 @@ if (e.which == 13){
 
 		director.getDirections( main.origin.position, main.destination.position );
 	},
-	selector: function() {
-		google.maps.event.addListener(mapper.map, 'click', function(event) {			
-			main.setDest(event.latLng, "Destination");
-		})
-	}
 }
-
 
 $(document).ready( main.init );
