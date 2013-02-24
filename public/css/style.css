@@ -19,14 +19,14 @@ html, body, #map, #panel {
 }
 
 .navbar-search {
-	width: 500px;
+	width: 600px;
 	margin-left: auto;
 	margin-right: auto;
 	float: none;
 	clear: none;
 }
 .search-query {
-	width: 500px;
+	width: 400px;
 	margin: 0 auto;
 }
 
@@ -34,24 +34,29 @@ html, body, #map, #panel {
 	display: block;
 	width: 25px;
 	height: 25px;
-	position: absolute;
-	left: -30px;
-	top: 5px;
+	margin-top:2px;
 	background: url('../images/locator.png') no-repeat left top;
-	text-indent: -1000px;
+	text-indent: -5000px;
 }
 .navbar #use-current:hover {
 	background-position: -25px 0px;
 }
 
+.btn {
+	position: absolute;
+	top: 0px;
+	right: 10px;
+}
+
 /* ==CHECKBOX */
 .switch {
 	position: relative;
+	padding-right:10px;
 }
 .switch label.desc {
 	position: absolute;
 	left: 0;
-	top: 5px;
+	/*top: 5px;*/
 	width: 95%;
 	margin-left: -100%;
 	text-align: right;
@@ -59,13 +64,13 @@ html, body, #map, #panel {
 .switch label.desc, .onoffswitch-inner:before, .onoffswitch-inner:after {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 16px;
-	height: 28px;
-	line-height: 28px;
+	height: 26px;
+	line-height: 26px;
 }
 .onoffswitch {
-    position: relative; width: 103px;
+    position: relative; width: 123px;
     -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
-		margin-top: 5px;
+		/*margin-top: 5px;*/
 }
 .onoffswitch-checkbox {
     display: none;
@@ -94,12 +99,12 @@ html, body, #map, #panel {
 }
 
 .onoffswitch-inner:before {
-    content: "Start";
+    content: "Origin";
     padding-left: 15px;
     background-color: #6BB2ED; color: #FFFFFF;
 }
 .onoffswitch-inner:after {
-    content: "Finish";
+    content: "Destination";
     padding-right: 15px;
     background-color: #FFFFFF; color: #666666;
     text-align: right;
@@ -108,7 +113,7 @@ html, body, #map, #panel {
     width: 30px; margin: 0px;
     background: #FFFFFF;
     border: 2px solid #666666; border-radius: 30px;
-    position: absolute; top: -2px; bottom: -2px; right: 69px;
+    position: absolute; top: -2px; bottom: -2px; right: 89px;
     -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
     -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
 }
