@@ -5,7 +5,7 @@ var director = {
 		director.service = new google.maps.DirectionsService();
 		director.display = new google.maps.DirectionsRenderer(
 		{
-			preserveViewport: true,
+			preserveViewport: false,
 			suppressMarkers: true
 		});
         director.display.setMap(mapper.map);
