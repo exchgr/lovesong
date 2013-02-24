@@ -73,7 +73,6 @@ var placer = {
 	
 	//nextfunction - pass the name of the function that handles landmarks further
 	getLandmarks: function(map, dest, precision, all, nextfunction) {
-		console.log('Are we here');
 		var resource;
 		if (placer.count == 1 || placer.count == 2) {
 			// Return data 1

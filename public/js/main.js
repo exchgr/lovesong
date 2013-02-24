@@ -18,13 +18,21 @@ var main = {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
 					console.log( $('#myonoffswitch').val() );
-					main.setDest(new google.maps.LatLng( position.coords.latitude, position.coords.longitude ), "Destination");
-					if ($('#myonoffswitch').is(':checked')){
-						$('#myonoffswitch').prop('checked', false);
-						main.enterMode( 'origin' );
-					} else {
-					$('#myonoffswitch').prop('checked', true);
-						main.enterMode( 'dest' );
+					
+                    var pos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude);
+
+                    if (!$('#myonoffswitch').is(':checked')){
+                        main.setDest(pos, "Destination");
+                    } else {
+
+
+                        if(main.origin)main.origin.setPosition(pos);
+                        else main.origin = mapper.addMarker(pos, 4, 'Origin');
+
+                        main.startNav();
+
+                        main.enterMode('dest');
+
 					}
 				});
 				return false;
@@ -86,7 +94,9 @@ var main = {
 				}
 			}
 		});
-
+		$('#clearAll').click(function(){
+			mapper.deleteAllMarkers();
+		})
 		main.smser();
 	},
 	
@@ -194,9 +204,7 @@ var main = {
 		director.getDirections( main.origin.position, main.destination.position );
 	},
 }
-$('#clearAll').click(function(){
-	
-})
+
 function getLatLong(address){
       var geo = new google.maps.Geocoder;
       geo.geocode({'address':address},function(results, status){
