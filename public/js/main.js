@@ -21,10 +21,10 @@ var main = {
 		if (navigator.geolocation) {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
-					main.origin.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-					$('#myonoffswitch').prop('checked', false);
-					if (main.destination) main.startNav();
-					else main.enterMode( 'dest' );
+					console.log( $('#myonoffswitch').val() );
+					main.setDest(new google.maps.LatLng( position.coords.latitude, position.coords.longitude ), "Destination");
+					$('#myonoffswitch').prop('checked', true);
+					main.enterMode( 'origin' );
 				});
 				return false;
 			});

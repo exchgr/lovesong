@@ -26,6 +26,21 @@ html, body, #map, #panel {
 	width: 500px;
 	margin: 0 auto;
 }
+
+.navbar #use-current {
+	display: block;
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	left: -30px;
+	top: 5px;
+	background: url('../images/locator.png') no-repeat left top;
+	text-indent: -1000px;
+}
+.navbar #use-current:hover {
+	background-position: -25px 0px;
+}
+
 /* ==CHECKBOX */
 .switch {
 	position: relative;
@@ -108,6 +123,11 @@ html, body, #map, #panel {
 	width: 0%;
 	float: left;
 	overflow-y:auto;
+}
+
+#panel .nearby {
+	font-size: 90%;
+	display: block;
 }
 
 /* ==MAP */
