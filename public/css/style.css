@@ -1,10 +1,14 @@
-html, body, #map {
+html, body, #map , .wrapper{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
 	height: 100%;
+	overflow:hidden;
 }
 
 /* ==CONTAINERS */
 html, body, #map, #panel {
 	height: 100%;
+	
 }
 
 /* ==NAVBAR */
@@ -103,6 +107,7 @@ html, body, #map, #panel {
 	display: none;
 	width: 0%;
 	float: left;
+	overflow-y:auto;
 }
 
 /* ==MAP */
@@ -127,7 +132,7 @@ html, body, #map, #panel {
 }
 
 /* ===MOBILE */
-@media (max-width: 767px) {
+@media (max-width: 1137px) {
 	.search-query {
 		width:400px;
 	}

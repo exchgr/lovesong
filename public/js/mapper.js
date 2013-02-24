@@ -49,7 +49,7 @@ var mapper = {
 	
 	clearOverlays: function() {
 		for (var i in markers) {
-		  markers[i].setMap(null);
+		  if (markers[i].title != "Destination" && markers[i].title != "Origin") markers[i].setMap(null);
 		}
 	},
 	
@@ -59,12 +59,13 @@ var mapper = {
 		}
 	},
 	
+	//don't delete the function
 	deleteOverlays: function() {
 	  if (markers) {
 		for (i in markers) {
-		  markers[i].setMap(null);
+		  if (markers[i].title != "Destination" && markers[i].title != "Origin") markers[i].setMap(null);
 		}
-		markers.length = 0;
+		markers.length = 2;
 	  }
 	},
 	
