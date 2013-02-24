@@ -89,7 +89,7 @@ var mapper = {
 		var mapOptions = {
 			zoom: zoom,
 			center: center,
-			draggableCursor:"url(public/images/logo.png) 16 32, default",
+			draggableCursor:"url(public/images/logo1.png) 16 32, default",
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 		mapper.map = new google.maps.Map(obj, mapOptions);
