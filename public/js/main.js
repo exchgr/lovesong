@@ -1,3 +1,7 @@
+function p(a){
+    console.log(a);
+}
+
 var main = {
 	init: function() {
 		
@@ -18,13 +22,20 @@ var main = {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
 					console.log( $('#myonoffswitch').val() );
-					main.setDest(new google.maps.LatLng( position.coords.latitude, position.coords.longitude ), "Destination");
-					if ($('#myonoffswitch').is(':checked')){
-						$('#myonoffswitch').prop('checked', false);
-						main.enterMode( 'origin' );
-					} else {
-					$('#myonoffswitch').prop('checked', true);
-						main.enterMode( 'dest' );
+
+                    var pos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude);
+
+                    if (!$('#myonoffswitch').is(':checked')){
+                        main.setDest(pos, "Destination");
+                    } else {
+
+
+                        if(main.origin)main.origin.setPosition(pos);
+                        else main.origin = mapper.addMarker(pos, 4, 'Origin');
+
+                        main.startNav();
+
+                        main.enterMode('dest');
 					}
 				});
 				return false;
@@ -53,6 +64,7 @@ var main = {
 					} else {
 						if(main.origin)main.origin.setPosition(pos);
 						else main.origin = mapper.addMarker(pos, 4, 'Origin');
+
 						main.enterMode('dest');
 					}
 					if(main.destination && main.origin) main.startNav();
@@ -131,7 +143,6 @@ var main = {
 		
 		if( mode == 'dest' )
 		{
-			console.log("dest");
 			$('#myonoffswitch').prop('checked', false);
 			google.maps.event.addListener(mapper.map, 'click', function(event) {			
 				main.setDest(event.latLng, "Destination");
