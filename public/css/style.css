@@ -13,6 +13,11 @@ html, body, #map, #panel {
 .navbar {
 	margin-bottom: 0;
 }
+
+.navbar-inner img.pull-left {
+	margin-top:5px;
+}
+
 .navbar-search {
 	width: 500px;
 	margin-left: auto;
