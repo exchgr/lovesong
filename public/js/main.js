@@ -166,9 +166,9 @@ var main = {
 	
 	setDest: function( location, info ) {
 		if ( main.destination ) {
-	    main.destination.setPosition(location);
-	  } else {
-	    main.destination = mapper.addMarker( location, 4, "Destination" );
+			main.destination.setPosition(location);
+		} else {
+			main.destination = mapper.addMarker( location, 4, "Destination" );
 			// main.destination.setVisible(false);
 		
 			$('p', main.infobox).html('Al Markaziyah');
@@ -182,7 +182,7 @@ var main = {
 
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
 
-			marker = mapper.addMarker( landmark.latlong, landmark.importantce, landmark.name );
+			marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
 			
 			$('p', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
 			

@@ -153,7 +153,6 @@ var placer = {
 	// Precision from 1 to 10, 1 - very precise
 	getLandmark: function( map, destlong, precision, nextfunction) {
 		placer.getLandmarks(map, destlong, precision, false, function( landmarks ) {
-			// console.log( landmarks );
 			nextfunction( landmarks[0] );
 		});
 	}
