@@ -10,16 +10,17 @@ var main = {
 		var searchBox = new google.maps.places.Autocomplete(input, {
 		  bounds: defaultBounds
 		});
+
 		searchBox.bindTo('bounds', mapper.map);
 		main.enterMode( 'dest' );
 		
 		if (navigator.geolocation) {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
-					main.origin.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-					$('#myonoffswitch').prop('checked', false);
-					if (main.destination) main.startNav();
-					else main.enterMode( 'dest' );
+					console.log( $('#myonoffswitch').val() );
+					main.setDest(new google.maps.LatLng( position.coords.latitude, position.coords.longitude ), "Destination");
+					$('#myonoffswitch').prop('checked', true);
+					main.enterMode( 'origin' );
 				});
 				return false;
 			});
@@ -90,6 +91,8 @@ var main = {
 	smser: function() {
 		this.infobox = $('<div>');
 		
+		// this.infobox.popover({content: 'sam'});
+		
 		this.infobox.append('<p>Smith</p>');
 		
 		this.infobox.append('<form id="sms">');
@@ -136,7 +139,7 @@ var main = {
 		else
 		{
 			$('#myonoffswitch').prop('checked', true);
-			console.log("origin");
+
 			google.maps.event.addListener(mapper.map, 'click', function(event) {
 				if (main.origin){
 					main.origin.setPosition(event.latLng);
@@ -168,7 +171,7 @@ var main = {
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
 
 			marker = mapper.addMarker( landmark.latlong, landmark.importantce, landmark.name );
-									
+			
 			$('p', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
 			
 		});
