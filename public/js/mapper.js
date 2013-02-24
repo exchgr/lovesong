@@ -4,9 +4,9 @@ var markers = [];
 var img_array = [
 		{
 	    	url: 'images/marker0.png',
-	    	size: new google.maps.Size(32, 37),
+	    	size: new google.maps.Size(16,16),
 	    	origin: new google.maps.Point(0,0),
-	    	anchor: new google.maps.Point(15, 37)
+	    	anchor: new google.maps.Point(8,8)
 		},
 		{
 	    	url: 'images/marker1.png',
@@ -51,10 +51,12 @@ var mapper = {
 	},
 	
 	deleteAllMarkers: function() {
+		console.log(markers);
 		for (var i in markers) {
 		  markers[i].setMap(null);
 		}
 		markers.length = 0;
+		console.log(markers);
 	},
 	
 	showOverlays: function() {

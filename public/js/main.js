@@ -26,9 +26,8 @@ var main = {
 			      main.setDest(pos, "Destination");
 			  } else {
 
-
 			      if(main.origin)main.origin.setPosition(pos);
-			      else main.origin = mapper.addMarker(pos, 4, 'Origin');
+			      else main.origin = mapper.addMarker(pos, 3, 'Origin');
 
 			      main.startNav();
 

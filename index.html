@@ -34,8 +34,9 @@
 				<img src='public/images/logo.png' class='pull-left' alt='landmarkr'/>
 				<a class="brand pull-left" href="#">Landmarkr</a>
 			</div>
-			<div class="switch pull-right">
-				<label class="desc" for="myonoffswitch">Choosing:</label>
+			<div class="navbar-search">
+				<div class="switch pull-left">
+				<label class="desc" for="myonoffswitch">Pick:</label>
 				<div class="onoffswitch">
 				    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
 				    <label class="onoffswitch-label" for="myonoffswitch">
@@ -43,12 +44,11 @@
 				        <div class="onoffswitch-switch"></div>
 				    </label>
 				</div>
-			</div>
-			<div class="navbar-search">
-				<a href="#current" id="use-current" class="nav-current">Use Current Location</a>
+				</div>
+				<a href="#current" id="use-current" class="nav-current pull-right"></a>
 				<input type="text" class="search-query" id="search-query" placeholder="Search for destination">
 			</div>
-			<button class="btn" id="clearAll">Clear all</button>
+			<div class="pull-right"><button class="btn" id="clearAll">Clear all</button></div>
 		</div>
 	</div>
 	<div id="panel"></div>
