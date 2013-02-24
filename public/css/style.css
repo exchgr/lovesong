@@ -126,6 +126,7 @@ html, body, #map, #panel {
 #panel .nearby {
 	font-size: 90%;
 	display: block;
+	color: #336699;
 }
 
 /* ==MAP */
@@ -190,7 +191,13 @@ html, body, #map, #panel {
 }
 
 .infoBox form {
-  padding: 9px 14px;
+  padding: 9px 14px 0px 14px;
+	margin: 0;
+}
+
+.infoBox p.code {
+	text-align: right;
+	font-weight: bold;
 }
 
 .infoBox .arrow,

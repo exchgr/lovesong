@@ -1,6 +1,8 @@
 var main = {
 	init: function() {
 		
+		main.i = 0;
+		
 		var center = new google.maps.LatLng(24.485743,54.354086);
 		mapper.start( document.getElementById("map"), center, 15 );	
 		
@@ -17,7 +19,6 @@ var main = {
 		if (navigator.geolocation) {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
-					console.log( $('#myonoffswitch').val() );
 					main.setDest(new google.maps.LatLng( position.coords.latitude, position.coords.longitude ), "Destination");
 					if ($('#myonoffswitch').is(':checked')){
 						$('#myonoffswitch').prop('checked', false);
@@ -47,7 +48,8 @@ var main = {
 			if (e.which == 13){
 				//console.log($(input).val());
 				if($(input).val()=='SPQR'){
-					pos = new google.maps.LatLng(24.485743,54.354086);
+					pos = new google.maps.LatLng(24.477657769266397,54.37314033508301); // 24.477657769266397, lon: 54.37314033508301
+					// Your destination is 234 metres W of Al Falah Plaza
 					if ($('#myonoffswitch').is(':checked')==false){
 						main.setDest(pos)
 					} else {
@@ -93,15 +95,18 @@ var main = {
 		this.infobox = $('<div>');
 		
 		// this.infobox.popover({content: 'sam'});
+				
+		this.infobox.append('<p class="location">Smith</p>');
 		
-		this.infobox.append('<p>Smith</p>');
 		
 		this.infobox.append('<form id="sms">');
 		form = $('form', this.infobox)
 		
 		form.append('<label for="sms">Send to:</label>');
 		form.append('<input type="text" id="sms" name="sms" placeholder="SMS">');
-				
+		
+		this.infobox.append( '<p class="code">STAD</p>' );
+		
 		form.submit( function( ev ) {
 			to = $('input', this).val();
 			
@@ -122,6 +127,8 @@ var main = {
 				    }
 					}
 			});
+			
+			
 			return false;
 		});
 	},
@@ -159,7 +166,7 @@ var main = {
 	    main.destination = mapper.addMarker( location, 4, "Destination" );
 			// main.destination.setVisible(false);
 		
-			$('p', main.infobox).html('Al Markaziyah');
+			$('p.location', main.infobox).html('Al Markaziyah');
 		}
 		
 		var infowindow = new InfoBox({content:main.infobox.get(0)});
@@ -167,14 +174,43 @@ var main = {
 		google.maps.event.addListener(main.destination, 'click', function() {			
 			infowindow.open(mapper.map, main.destination);
 		});
+		
+		if( main.i < 3 ) {
+			if( main.i == 0 ) {
+				$('p.location', main.infobox).html('<strong class="destination">Sama Tower</strong> is by <strong class="landmark">NMC Hospital</strong>, across from <strong>Etisalat Headquaters Building A</strong>.');
 
-		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
+				landmark = {
+					latlong: new google.maps.LatLng( 24.484062194824219, 54.359064102172852),
+					importance: 2,
+					name: "Etisalat Headquaters Building A"
+				}
+				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );	
+			}
+			else if( main.i == 1 ) {
+				$('p.location', main.infobox).html('<strong class="destination">Your destination</strong> is <strong class="distance">129 metres E</strong> of <strong class="landmark">Al Falah Plaza</a>.');
+				$('p.code', main.infobox).html('SPQR');
 
-			marker = mapper.addMarker( landmark.latlong, landmark.importantce, landmark.name );
-			
-			$('p', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
-			
-		});
+				landmark = {
+					latlong: new google.maps.LatLng( 24.478054046630859, 54.371938705444336),
+					importance: 2,
+					name: "Al Falah Plaza"
+				}
+				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
+			}
+		}
+		// 24.486914231203183, lon: 54.36957836151123
+		else
+		{
+			placer.getLandmark( mapper.map, location, 0, function( landmark ) {
+
+				marker = mapper.addMarker( landmark.latlong, landmark.importantce, landmark.name );
+
+				$('p.location', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
+
+			});
+		}
+		
+		main.i++;
 		
 		main.enterMode( 'origin' );
 		
