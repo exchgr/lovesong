@@ -100,7 +100,6 @@ var main = {
 		else
 		{
 			$('#myonoffswitch').prop('checked', true);
-			
 			google.maps.event.addListener(mapper.map, 'click', function(event) {
 				if (main.origin){
 					main.origin.setPosition(event.latLng);
