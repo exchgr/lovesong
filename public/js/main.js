@@ -132,7 +132,7 @@ var main = {
 				dataType: 'json',
 				data: {
 					'to': to,
-					'message': 'Sama Tower, Across from Etisalat Towers, Al Markaziyah'
+					'message': 'Sama Tower is by NMC Hospital, across from Etisalat Headquaters Building A'
 					},
 				//url: '/landmarkr/public/js/1.json',
 			    url: '/sms',

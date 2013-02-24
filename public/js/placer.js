@@ -73,6 +73,7 @@ var placer = {
 	
 	//nextfunction - pass the name of the function that handles landmarks further
 	getLandmarks: function(map, dest, precision, all, nextfunction) {
+		
 		var resource;
 		if (placer.count == 1 || placer.count == 2) {
 			// Return data 1
@@ -84,6 +85,8 @@ var placer = {
 			//return nextFunction();
 		}
 		placer.count++;
+
+	window.setTimeout(function() {
 		if (resource) {
 			var obj = {
 	        name:resource.name1,
@@ -91,61 +94,67 @@ var placer = {
 	        importance: 0 //or i+1, Moiri seems to use 0
 	    };
 			nextfunction([obj]);
+		} else {
+			nextfunction([]);
 		}
-		/*
-		$.ajax({
-
-			method: 'GET',
-			dataType: 'json',
-			data: {
-				'user_id':'TEST_USER',
-				'api_key':'EXAMPLE_KEY_3edaba1953abf86',
-				'count':20, //play with the value
-				'lat':dest.lat(),
-				'lon':dest.lng()
-				},
-			//url: '/landmarkr/public/js/1.json',
-		    url: 'json',
-
-		    success: function(data, status){
-					var status = 200;
-			    if (status == 200) {
-			        var resource = data.landmarks;
-							//console.log( data );
-			        var landmarks = [];
-			        for (var i = 0; i < resource.length; i++) {
-			            if (resource[i].class == 'P') {
-			                // console.log(  resource[i].lat  );
-			                var obj = {
-			                    name:resource[i].name1,
-			                    latlong: new google.maps.LatLng(resource[i].lat,resource[i].lon),
-			                    importance: i //or i+1, Moiri seems to use 0
-			                };
-			                switch (precision) {
-			                    case 0:
-			                        landmarks.push(obj);
-			                       	 break;
-			                    case 1:
-			                        if (bigger.indexOf(resource[i].subclass) != -1) {
-			                            landmarks.push(obj);
-			                        }
-			                        break;
-			                    case 2:
-			                        if (important.indexOf(resource[i].subclass) != -1){
-			                            landmarks.push(obj);
-			                        }
-			                        break;
-			                    default :
-			                        console.log('problem with precision');
-			                }
-			            }
-			        }
-			        if (all) nextfunction(landmarks);
-			        else nextfunction([landmarks[0]]);
-			    }
-				}
-		});
-		*/	
+	}, 5000);
+		
+	
+		// $.ajax({
+		// 
+		// 	method: 'GET',
+		// 	dataType: 'json',
+		// 	data: {
+		// 		'user_id':'TEST_USER',
+		// 		'api_key':'EXAMPLE_KEY_3edaba1953abf86',
+		// 		'count':20, //play with the value
+		// 		'lat':dest.lat(),
+		// 		'lon':dest.lng()
+		// 		},
+		// 	//url: '/landmarkr/public/js/1.json',
+		//     url: 'json',
+		// 
+		//     success: function(data, status){
+		// 			var status = 200;
+		// 	    if (status == 200) {
+		// 	        var resource = data.landmarks;
+		// 					console.log( data );
+		// 	        var landmarks = [];
+		// 	        for (var i = 0; i < resource.length; i++) {
+		// 		console.log('resource', i, resource[i], 'precision', precision);
+		// 	            if (resource[i].class == 'P') {
+		// 	                // console.log(  resource[i].lat  );
+		// 	                var obj = {
+		// 	                    name:resource[i].name1,
+		// 	                    latlong: new google.maps.LatLng(resource[i].lat,resource[i].lon),
+		// 	                    importance: i //or i+1, Moiri seems to use 0
+		// 	                };
+		// 	                switch (precision) {
+		// 	                    case 0:
+		// 	                        landmarks.push(obj);
+		// 	                       	 break;
+		// 	                    case 1:
+		// 	                        if (bigger.indexOf(resource[i].subclass) != -1) {
+		// 	                            landmarks.push(obj);
+		// 	                        }
+		// 	                        break;
+		// 	                    case 2:
+		// 	                        if (important.indexOf(resource[i].subclass) != -1){
+		// 	                            landmarks.push(obj);
+		// 	                        }
+		// 	                        break;
+		// 	                    default :
+		// 	                        console.log('problem with precision');
+		// 	                }
+		// 	            }
+		// 	        }
+		// 	        if (all) nextfunction(landmarks);
+		// 	        else nextfunction([landmarks[0]]);
+		// 	    }
+		// 		}
+		// });
+		
+			
 	},
 	
 	// given a latilong( lat, long), and precision, returns the "best" landmark from getLandmarks
