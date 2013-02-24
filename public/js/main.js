@@ -121,7 +121,7 @@ var main = {
 				dataType: 'json',
 				data: {
 					'to': to,
-					'message': 'Sama Tower, Across from Etisalat Towers, Al Markaziyah'
+					'message': 'Sama Tower, by Etisalat Towers, Al Markaziyah'
 					},
 				//url: '/landmarkr/public/js/1.json',
 			    url: '/sms',
