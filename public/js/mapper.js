@@ -4,9 +4,9 @@ var markers = [];
 var img_array = [
 		{
 	    	url: 'public/images/marker0.png',
-	    	size: new google.maps.Size(16,16),
+	    	size: new google.maps.Size(24,24),
 	    	origin: new google.maps.Point(0,0),
-	    	anchor: new google.maps.Point(8,8)
+	    	anchor: new google.maps.Point(12,12)
 		},
 		{
 	    	url: 'public/images/marker1.png',
