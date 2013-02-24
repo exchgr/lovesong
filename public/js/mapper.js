@@ -6,7 +6,7 @@ var img_array = [
 	    	url: 'images/marker0.png',
 	    	size: new google.maps.Size(16,16),
 	    	origin: new google.maps.Point(0,0),
-	    	anchor: new google.maps.Point(8,8)
+	    	anchor: new google.maps.Point(12,12)
 		},
 		{
 	    	url: 'images/marker1.png',
