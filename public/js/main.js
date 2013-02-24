@@ -52,7 +52,7 @@ var main = {
 						main.setDest(pos)
 					} else {
 						if(main.origin)main.origin.setPosition(pos);
-						else main.origin = mapper.addMarker(pos, 4, 'Origin');
+						else main.origin = mapper.addMarker(pos, 3, 'Origin');
 						main.enterMode('dest');
 					}
 					if(main.destination && main.origin) main.startNav();
@@ -71,7 +71,7 @@ var main = {
 									main.setDest(pos)
 								} else {
 									if(main.origin)main.origin.setPosition(pos);
-									else main.origin = mapper.addMarker(pos, 4, 'Origin');
+									else main.origin = mapper.addMarker(pos, 3, 'Origin');
 									main.enterMode('dest');
 								}
 								if(main.destination && main.origin) main.startNav();
