@@ -195,6 +195,12 @@ html, body, #map, #panel {
 	margin: 0;
 }
 
+.infoBox p.directions {
+	padding-top: 2px;
+	padding-bottom: 0px;
+	background: #FFFFFF;
+}
+
 .infoBox p.code {
 	text-align: right;
 	font-weight: bold;

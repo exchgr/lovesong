@@ -99,6 +99,12 @@ var main = {
 				
 		this.infobox.append('<p class="location">Smith</p>');
 		
+		this.infobox.append('<p class="directions"><a href="#directions">Get directions to here</a></p>');
+		
+		$('p.directions a', this.infobox).click( function( ev ) {
+			main.enterMode('origin');
+			return false;
+		});
 		
 		this.infobox.append('<form id="sms">');
 		form = $('form', this.infobox)
