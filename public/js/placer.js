@@ -41,12 +41,59 @@ var placer = {
 		}
 	},
 	
+	count: 0,
+	fakeData: [{
+	      "ccode": "AE",
+	      "class": "P",
+	      "dist": 0.16964427405665916,
+	      "id": "478605",
+	      "lat": 24.482645988464355,
+	      "lon": 54.36206817626953,
+	      "name1": "Ghanem Bin Hamooda Mosque",
+	      "name2": "Abu Dhabi City",
+	      "name3": "Abu Dhabi",
+	      "subclass": "RE-i"
+	    },
+	    {
+	      "ccode": "AE",
+	      "class": "P",
+	      "dist": 0.1736284095147284,
+	      "id": "475944",
+	      "lat": 24.48406219482422,
+	      "lon": 54.35906410217285,
+	      "name1": "Etisalat Headquaters Building A",
+	      "name2": "Abu Dhabi City",
+	      "name3": "Abu Dhabi",
+	      "subclass": "BU"
+	    }],
+	
 	// given landmark, and precision
 	// 	precision: 0 (very close, any type), 1 (close, bigger landmark), or 2 (important landmark)
 	// passes an array of landmark objects — ranked by "landmarkiness" and "proximity"
 	
 	//nextfunction - pass the name of the function that handles landmarks further
 	getLandmarks: function(map, dest, precision, all, nextfunction) {
+		console.log('Are we here');
+		var resource;
+		if (placer.count == 1 || placer.count == 2) {
+			// Return data 1
+			resource = placer.fakeData[0];
+		} else if (placer.count == 3) {
+			// Return data 2
+			resource = placer.fakeData[1];
+		} else {
+			//return nextFunction();
+		}
+		placer.count++;
+		if (resource) {
+			var obj = {
+	        name:resource.name1,
+	        latlong: new google.maps.LatLng(resource.lat,resource.lon),
+	        importance: 0 //or i+1, Moiri seems to use 0
+	    };
+			nextfunction([obj]);
+		}
+		/*
 		$.ajax({
 
 			method: 'GET',
@@ -65,7 +112,7 @@ var placer = {
 					var status = 200;
 			    if (status == 200) {
 			        var resource = data.landmarks;
-							console.log( data );
+							//console.log( data );
 			        var landmarks = [];
 			        for (var i = 0; i < resource.length; i++) {
 			            if (resource[i].class == 'P') {
@@ -98,7 +145,8 @@ var placer = {
 			        else nextfunction([landmarks[0]]);
 			    }
 				}
-		});	
+		});
+		*/	
 	},
 	
 	// given a latilong( lat, long), and precision, returns the "best" landmark from getLandmarks

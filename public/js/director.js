@@ -22,18 +22,15 @@ var director = {
 		return director.service.route(request, function(response, status) {
             var listOfLandMarks = {};
 
-			function getLandMarks(step){
+						function getLandMarks(step){
                 placer.getLandmarks(mapper.map, step['end_point'], 0, false,
                     function(landmarks){
                         mapper.addMarker(landmarks[0].latlong, landmarks[0].importance, landmarks[0].name);
-
-                        //console.log(landmarks[0]);
-                        //console.log(i);
-                        if (typeof listOfLandMarks[landmarks[0]['name']] == 'undefined'){
+											  if (typeof listOfLandMarks[landmarks[0]['name']] == 'undefined'){
                             var name = director.getName(step);
-                            director.setName(step, name+'<span class="nearby">&mdash;near '+ landmarks[0]['name']+'</span>');
+                            director.setName(step, name+'<span class="nearby">&mdash;near <b>'+ landmarks[0]['name']+'</b></span>');
                             listOfLandMarks[landmarks[0]['name']] = 1;
-                        }
+                       }
 
                     }
                 );
