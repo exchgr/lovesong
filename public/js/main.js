@@ -56,7 +56,7 @@ var main = {
 	smser: function() {
 		this.infobox = $('<div>');
 		
-		this.infobox.popover({content: 'sam'});
+		// this.infobox.popover({content: 'sam'});
 		
 		this.infobox.append('<p>Smith</p>');
 		
