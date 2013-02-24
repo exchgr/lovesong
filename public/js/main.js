@@ -198,7 +198,7 @@ var main = {
 
 				landmark = {
 					latlong: new google.maps.LatLng( 24.484062194824219, 54.359064102172852),
-					importance: 2,
+					importance: 0,
 					name: "Etisalat Headquaters Building A"
 				}
 				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );	
@@ -209,7 +209,7 @@ var main = {
 
 				landmark = {
 					latlong: new google.maps.LatLng( 24.493632316589355, 54.361381530761719),
-					importance: 2,
+					importance: 0,
 					name: "Hilton Corniche Hotel"
 				}
 				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
