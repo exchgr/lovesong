@@ -9,6 +9,7 @@ var main = {
 		var searchBox = new google.maps.places.Autocomplete(input, {
 		  bounds: defaultBounds
 		});
+
 		searchBox.bindTo('bounds', mapper.map);
 
 		
@@ -54,6 +55,8 @@ var main = {
 	
 	smser: function() {
 		this.infobox = $('<div>');
+		
+		this.infobox.popover({content: 'sam'});
 		
 		this.infobox.append('<p>Smith</p>');
 		
@@ -131,7 +134,7 @@ var main = {
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
 
 			marker = mapper.addMarker( landmark.latlong, landmark.importantce, landmark.name );
-									
+			
 			$('p', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
 			
 		});

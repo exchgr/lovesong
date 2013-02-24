@@ -46,24 +46,26 @@ app.get('/', function(req, res){
 });
 
 app.get('/json', function( req, res ) {
+	// data = require('./data.json');
+	// res.send( data );
 	var options = url.parse(req.url, true);
-	options.host = 'api.geckolandmarks.com'
+		options.host = 'api.geckolandmarks.com'
+			
+		http.get(options, function(response){
+		  var str = '';
 		
-	http.get(options, function(response){
-	  var str = '';
-	
-	  //another chunk of data has been recieved, so append it to `str`
-	  response.on('data', function (chunk) {
-	    str += chunk;
-	  });
-	
-	  //the whole response has been recieved, so we just print it out here
-	  response.on('end', function () {
-	    res.send( str );
-	  });
-	}).on("error", function(e){
-	  console.log("Got error: " + e.message);
-	});	
+		  //another chunk of data has been recieved, so append it to `str`
+		  response.on('data', function (chunk) {
+		    str += chunk;
+		  });
+		
+		  //the whole response has been recieved, so we just print it out here
+		  response.on('end', function () {
+		    res.send( str );
+		  });
+		}).on("error", function(e){
+		  console.log("Got error: " + e.message);
+		});	
 });
 
 app.get('/sms', function( req, res ) {

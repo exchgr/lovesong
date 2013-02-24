@@ -116,6 +116,11 @@ html, body, #map, #panel {
 	width: 100%;
 }
 
+/* ==INFOBOX */
+.infoBox {
+	background: white;
+}
+
 /* ==GMPAPS */
 #map label { width: auto; display:inline; }
 #map img, #panel img { max-width: none; }
