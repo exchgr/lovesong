@@ -1,4 +1,6 @@
 html, body, #map , .wrapper{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
 	height: 100%;
 	overflow:hidden;
 }
