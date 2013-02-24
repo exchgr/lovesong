@@ -19,8 +19,13 @@ var main = {
 				navigator.geolocation.getCurrentPosition( function( position ) {
 					console.log( $('#myonoffswitch').val() );
 					main.setDest(new google.maps.LatLng( position.coords.latitude, position.coords.longitude ), "Destination");
+					if ($('#myonoffswitch').is(':checked')){
+						$('#myonoffswitch').prop('checked', false);
+						main.enterMode( 'origin' );
+					} else {
 					$('#myonoffswitch').prop('checked', true);
-					main.enterMode( 'origin' );
+						main.enterMode( 'dest' );
+					}
 				});
 				return false;
 			});
