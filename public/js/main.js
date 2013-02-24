@@ -6,15 +6,11 @@ var main = {
 		
 		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
 		var input = document.getElementById('search-query');
+		var sbService = new google.maps.places.AutocompleteService();
 		var searchBox = new google.maps.places.Autocomplete(input, {
 		  bounds: defaultBounds
 		});
 		searchBox.bindTo('bounds', mapper.map);
-
-		
-		google.maps.event.addListener(searchBox, 'place_changed', function() {
-			main.setDest(searchBox.getPlaces()[0].geometry.location, "test")
-		}),
 		main.enterMode( 'dest' );
 		
 		if (navigator.geolocation) {
@@ -36,15 +32,54 @@ var main = {
 		director.init();
 		
 		$('#myonoffswitch').change(function() {
-			console.log( $(this).val() );
+			//console.log( $('#myonoffswitch'));
+			console.log( $('#myonoffswitch').is(':checked') );
 		});
 
 
 		$(input).keypress(function(e) {
 			if (e.which == 13){
+				//console.log($(input).val());
 				if($(input).val()=='SPQR'){
-					main.origin.setPosition(new google.maps.LatLng(24.485743,54.354086));
+					pos = new google.maps.LatLng(24.485743,54.354086);
+					if ($('#myonoffswitch').is(':checked')==false){
+						if(main.destination)main.destination.setPosition(pos);
+						else main.destination = mapper.addMarker(pos, 4, 'Destination');
+						main.enterMode('origin');
+					} else {
+						if(main.origin)main.origin.setPosition(pos);
+						else main.origin = mapper.addMarker(pos, 3, 'Origin');
+						main.enterMode('dest');
+					}
 					main.startNav();
+				}
+				else{
+					//console.log(searchBox.getPlace());
+					sbService.getPlacePredictions({input:$(input).val()}, function(predictions) {
+						var address = predictions[0].description;
+						
+						var geo = new google.maps.Geocoder;
+						geo.geocode({'address':address},function(results, status){
+							  if (status == google.maps.GeocoderStatus.OK) {
+								var pos = results[0].geometry.location;
+								console.log($('#myonoffswitch').val());
+								if ($('#myonoffswitch').is(':checked')==false){
+									if(main.destination)main.destination.setPosition(pos);
+									else main.destination = mapper.addMarker(pos, 4, 'Destination');
+									main.enterMode('origin');
+								} else {
+									if(main.origin)main.origin.setPosition(pos);
+									else main.origin = mapper.addMarker(pos, 3, 'Origin');
+									main.enterMode('dest');
+								}
+								main.startNav();
+							  } else {
+								console.log("Geocode was not successful for the following reason: " + status);
+							  }
+
+						});
+						
+					});
 				}
 			}
 		});
@@ -92,6 +127,7 @@ var main = {
 		
 		if( mode == 'dest' )
 		{
+			console.log("dest");
 			$('#myonoffswitch').prop('checked', false);
 			google.maps.event.addListener(mapper.map, 'click', function(event) {			
 				main.setDest(event.latLng, "Destination");
@@ -100,7 +136,7 @@ var main = {
 		else
 		{
 			$('#myonoffswitch').prop('checked', true);
-			
+			console.log("origin");
 			google.maps.event.addListener(mapper.map, 'click', function(event) {
 				if (main.origin){
 					main.origin.setPosition(event.latLng);
@@ -154,5 +190,20 @@ var main = {
 		director.getDirections( main.origin.position, main.destination.position );
 	},
 }
+
+function getLatLong(address){
+      var geo = new google.maps.Geocoder;
+      geo.geocode({'address':address},function(results, status){
+              if (status == google.maps.GeocoderStatus.OK) {
+				console.log(results[0].geometry.location);
+                return results[0].geometry.location;
+              } else {
+                alert("Geocode was not successful for the following reason: " + status);
+              }
+
+       });
+
+  }
+
 
 $(document).ready( main.init );
