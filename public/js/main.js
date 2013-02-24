@@ -44,15 +44,13 @@ var main = {
 				if($(input).val()=='SPQR'){
 					pos = new google.maps.LatLng(24.485743,54.354086);
 					if ($('#myonoffswitch').is(':checked')==false){
-						if(main.destination)main.destination.setPosition(pos);
-						else main.destination = mapper.addMarker(pos, 4, 'Destination');
-						main.enterMode('origin');
+						main.setDest(pos)
 					} else {
 						if(main.origin)main.origin.setPosition(pos);
-						else main.origin = mapper.addMarker(pos, 3, 'Origin');
+						else main.origin = mapper.addMarker(pos, 4, 'Origin');
 						main.enterMode('dest');
 					}
-					main.startNav();
+					if(main.destination && main.origin) main.startNav();
 				}
 				else{
 					//console.log(searchBox.getPlace());
@@ -65,15 +63,13 @@ var main = {
 								var pos = results[0].geometry.location;
 								console.log($('#myonoffswitch').val());
 								if ($('#myonoffswitch').is(':checked')==false){
-									if(main.destination)main.destination.setPosition(pos);
-									else main.destination = mapper.addMarker(pos, 4, 'Destination');
-									main.enterMode('origin');
+									main.setDest(pos)
 								} else {
 									if(main.origin)main.origin.setPosition(pos);
-									else main.origin = mapper.addMarker(pos, 3, 'Origin');
+									else main.origin = mapper.addMarker(pos, 4, 'Origin');
 									main.enterMode('dest');
 								}
-								main.startNav();
+								if(main.destination && main.origin) main.startNav();
 							  } else {
 								console.log("Geocode was not successful for the following reason: " + status);
 							  }
