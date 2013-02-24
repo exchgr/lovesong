@@ -49,7 +49,7 @@ var mapper = {
 	
 	clearOverlays: function() {
 		for (var i in markers) {
-		  markers[i].setMap(null);
+		  if (markers[i].title != "Destination" && markers[i].title != "Origin") markers[i].setMap(null);
 		}
 	},
 	

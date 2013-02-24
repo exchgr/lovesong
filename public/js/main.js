@@ -6,12 +6,13 @@ var main = {
 		
 		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
 		var input = document.getElementById('search-query');
-		var searchBox = new google.maps.places.SearchBox(input, {
+		var searchBox = new google.maps.places.Autocomplete(input, {
 		  bounds: defaultBounds
 		});
 		searchBox.bindTo('bounds', mapper.map);
 
-		google.maps.event.addListener(searchBox, 'places_changed', function() {
+		
+		google.maps.event.addListener(searchBox, 'place_changed', function() {
 			main.setDest(searchBox.getPlaces()[0].geometry.location, "test")
 		}),
 		main.enterMode( 'dest' );
@@ -144,7 +145,7 @@ var main = {
 	},
 	
 	startNav: function() {
-	
+		mapper.clearOverlays();
 		mapper.deleteOverlays();
 		
 		$('#panel').show().animate( {width: '20%'} );
