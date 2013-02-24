@@ -1,4 +1,4 @@
-html, body, #map {
+html, body, #map , .wrapper{
 	height: 100%;
 }
 
@@ -103,6 +103,7 @@ html, body, #map, #panel {
 	display: none;
 	width: 0%;
 	float: left;
+	overflow-y:auto;
 }
 
 /* ==MAP */
@@ -122,7 +123,7 @@ html, body, #map, #panel {
 }
 
 /* ===MOBILE */
-@media (max-width: 767px) {
+@media (max-width: 1137px) {
 	.search-query {
 		width:400px;
 	}

@@ -15,9 +15,20 @@
 	<script src="public/js/director.js" type="text/javascript" charset="utf-8"></script>
 	<script src="public/js/destinator.js" type="text/javascript" charset="utf-8"></script>
 	<script src="public/js/main.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		setSizes();
+		$(window).resize(function() { setSizes(); });
+	});
+	function setSizes() {
+		var containerHeight = $(".wrapper").height();
+		$(".mapping").height(containerHeight - 44);
+	}
+	</script>
 	
 </head>
 <body>
+<div class="wrapper">
 	<div class="navbar">
 		<div class="navbar-inner">
 			<div class="name pull-left">
@@ -38,7 +49,8 @@
 			</div>
 		</div>
 	</div>
-	<div id="panel"></div>
-	<div id="map"></div>
+	<div id="panel" class="mapping"></div>
+	<div id="map" class="mapping"></div>
+</div>
 </body>
 </html>
