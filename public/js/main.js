@@ -19,13 +19,20 @@ var main = {
 		if (navigator.geolocation) {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
-					main.setDest(new google.maps.LatLng( position.coords.latitude, position.coords.longitude ), "Destination");
-					if ($('#myonoffswitch').is(':checked')){
-						$('#myonoffswitch').prop('checked', false);
-						main.enterMode( 'origin' );
-					} else {
-					$('#myonoffswitch').prop('checked', true);
-						main.enterMode( 'dest' );
+
+			  var pos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude);
+
+			  if (!$('#myonoffswitch').is(':checked')){
+			      main.setDest(pos, "Destination");
+			  } else {
+
+
+			      if(main.origin)main.origin.setPosition(pos);
+			      else main.origin = mapper.addMarker(pos, 4, 'Origin');
+
+			      main.startNav();
+
+			      main.enterMode('dest');
 					}
 				});
 				return false;
@@ -49,7 +56,7 @@ var main = {
 			if (e.which == 13){
 				//console.log($(input).val());
 				if($(input).val()=='SPQR'){
-					pos = new google.maps.LatLng(24.477657769266397,54.37314033508301); // 24.477657769266397, lon: 54.37314033508301
+					pos = new google.maps.LatLng(24.494334531633775,54.3623685836792); // 24.494334531633775, lon: 54.3623685836792
 					// Your destination is 234 metres W of Al Falah Plaza
 					if ($('#myonoffswitch').is(':checked')==false){
 						main.setDest(pos)
@@ -88,7 +95,9 @@ var main = {
 				}
 			}
 		});
-
+		$('#clearAll').click(function(){
+			mapper.deleteAllMarkers();
+		})
 		main.smser();
 	},
 	
@@ -103,6 +112,7 @@ var main = {
 		
 		$('p.directions a', this.infobox).click( function( ev ) {
 			main.enterMode('origin');
+			$('#search-query').val('');
 			return false;
 		});
 		
@@ -195,13 +205,13 @@ var main = {
 				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );	
 			}
 			else if( main.i == 1 ) {
-				$('p.location', main.infobox).html('<strong class="destination">Your destination</strong> is <strong class="distance">129 metres E</strong> of <strong class="landmark">Al Falah Plaza</a>.');
+				$('p.location', main.infobox).html('<strong class="destination">Your destination</strong> is <strong class="distance">127 metres NE</strong> of <strong class="landmark">Hilton Corniche Hotel</a>.');
 				$('p.code', main.infobox).html('SPQR');
 
 				landmark = {
-					latlong: new google.maps.LatLng( 24.478054046630859, 54.371938705444336),
+					latlong: new google.maps.LatLng( 24.493632316589355, 54.361381530761719),
 					importance: 2,
-					name: "Al Falah Plaza"
+					name: "Hilton Corniche Hotel"
 				}
 				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
 			}
@@ -236,9 +246,7 @@ var main = {
 		director.getDirections( main.origin.position, main.destination.position );
 	},
 }
-$('#clearAll').click(function(){
-	
-})
+
 function getLatLong(address){
       var geo = new google.maps.Geocoder;
       geo.geocode({'address':address},function(results, status){
