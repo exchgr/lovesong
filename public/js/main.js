@@ -39,8 +39,9 @@ var main = {
 		director.init();
 		
 		$('#myonoffswitch').change(function() {
-			//console.log( $('#myonoffswitch'));
-			console.log( $('#myonoffswitch').is(':checked') );
+			if ($('#myonoffswitch').is(':checked')) main.enterMode('origin');
+			else main.enterMode('dest');
+			$('#search-query').val('');
 		});
 
 
@@ -139,6 +140,7 @@ var main = {
 		if( mode == 'dest' )
 		{
 			$('#myonoffswitch').prop('checked', false);
+			$('#search-query').attr("placeholder", "Select Destination");
 			google.maps.event.addListener(mapper.map, 'click', function(event) {			
 				main.setDest(event.latLng, "Destination");
 			});
@@ -146,7 +148,7 @@ var main = {
 		else
 		{
 			$('#myonoffswitch').prop('checked', true);
-
+			$('#search-query').attr("placeholder", "Select Origin");
 			google.maps.event.addListener(mapper.map, 'click', function(event) {
 				if (main.origin){
 					main.origin.setPosition(event.latLng);
@@ -212,7 +214,7 @@ var main = {
 		
 		main.i++;
 		
-		main.enterMode( 'origin' );
+		//main.enterMode( 'origin' );
 		
 		if( main.origin ) {
 			main.startNav();
@@ -220,8 +222,7 @@ var main = {
 	},
 	
 	startNav: function() {
-		mapper.clearOverlays();
-		mapper.deleteOverlays();
+		mapper.deleteLmMarkers();
 		
 		$('#panel').show().animate( {width: '20%'} );
 		$('#map').animate( {width: '80%'} );
@@ -229,7 +230,9 @@ var main = {
 		director.getDirections( main.origin.position, main.destination.position );
 	},
 }
-
+$('#clearAll').click(function(){
+	
+})
 function getLatLong(address){
       var geo = new google.maps.Geocoder;
       geo.geocode({'address':address},function(results, status){
