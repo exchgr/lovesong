@@ -37,6 +37,8 @@ var img_array = [
 var mapper = {
 
 	addMarker: function(location, importance, name) {		
+		console.log('marker is added');
+		
 		marker = new google.maps.Marker({
 			position: location,
 			icon: img_array[importance],
@@ -44,13 +46,15 @@ var mapper = {
 			title: name
 		});
 		markers.push(marker);
+		console.log(markers);
 		return marker;
 	},
 	
-	deleteODMarkers: function() {
+	deleteAllMarkers: function() {
 		for (var i in markers) {
-		  if (markers[i].title == "Destination" && markers[i].title == "Origin") markers[i].setMap(null);
+		  markers[i].setMap(null);
 		}
+		markers.length = 0;
 	},
 	
 	showOverlays: function() {
