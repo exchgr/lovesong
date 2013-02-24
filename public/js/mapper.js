@@ -3,31 +3,31 @@
 var markers = [];
 var img_array = [
 		{
-	    	url: 'images/marker0.png',
+	    	url: 'public/images/marker0.png',
 	    	size: new google.maps.Size(32, 37),
 	    	origin: new google.maps.Point(0,0),
 	    	anchor: new google.maps.Point(15, 37)
 		},
 		{
-	    	url: 'images/marker1.png',
+	    	url: 'public/images/marker1.png',
 	    	size: new google.maps.Size(32, 37),
 	    	origin: new google.maps.Point(0,0),
 	    	anchor: new google.maps.Point(15, 37)
 		},
 		{
-	    	url: 'images/marker1.png',
+	    	url: 'public/images/marker1.png',
 	    	size: new google.maps.Size(32, 37),
 	    	origin: new google.maps.Point(0,0),
 	    	anchor: new google.maps.Point(10, 37)
 		},
 		{
-	    	url: 'images/marker_start.png',
+	    	url: 'public/images/marker_start.png',
 	    	size: new google.maps.Size(20, 34),
 	    	origin: new google.maps.Point(0,0),
 	    	anchor: new google.maps.Point(10, 34)
 		},
 		{
-	    	url: 'images/marker_end.png',
+	    	url: 'public/images/marker_end.png',
 	    	size: new google.maps.Size(20, 34),
 	    	origin: new google.maps.Point(0,0),
 	    	anchor: new google.maps.Point(10, 34)
@@ -47,9 +47,9 @@ var mapper = {
 		return marker;
 	},
 	
-	clearOverlays: function() {
+	deleteODMarkers: function() {
 		for (var i in markers) {
-		  if (markers[i].title != "Destination" && markers[i].title != "Origin") markers[i].setMap(null);
+		  if (markers[i].title == "Destination" && markers[i].title == "Origin") markers[i].setMap(null);
 		}
 	},
 	
@@ -60,7 +60,7 @@ var mapper = {
 	},
 	
 	//don't delete the function
-	deleteOverlays: function() {
+	deleteLmMarkers: function() {
 	  if (markers) {
 		for (i in markers) {
 		  if (markers[i].title != "Destination" && markers[i].title != "Origin") markers[i].setMap(null);

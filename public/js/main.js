@@ -1,7 +1,3 @@
-function p(a){
-    console.log(a);
-}
-
 var main = {
 	init: function() {
 		
@@ -22,20 +18,13 @@ var main = {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
 					console.log( $('#myonoffswitch').val() );
-
-                    var pos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude);
-
-                    if (!$('#myonoffswitch').is(':checked')){
-                        main.setDest(pos, "Destination");
-                    } else {
-
-
-                        if(main.origin)main.origin.setPosition(pos);
-                        else main.origin = mapper.addMarker(pos, 4, 'Origin');
-
-                        main.startNav();
-
-                        main.enterMode('dest');
+					main.setDest(new google.maps.LatLng( position.coords.latitude, position.coords.longitude ), "Destination");
+					if ($('#myonoffswitch').is(':checked')){
+						$('#myonoffswitch').prop('checked', false);
+						main.enterMode( 'origin' );
+					} else {
+					$('#myonoffswitch').prop('checked', true);
+						main.enterMode( 'dest' );
 					}
 				});
 				return false;
@@ -49,8 +38,9 @@ var main = {
 		director.init();
 		
 		$('#myonoffswitch').change(function() {
-			//console.log( $('#myonoffswitch'));
-			console.log( $('#myonoffswitch').is(':checked') );
+			if ($('#myonoffswitch').is(':checked')) main.enterMode('origin');
+			else main.enterMode('dest');
+			$('#search-query').val('');
 		});
 
 
@@ -63,8 +53,7 @@ var main = {
 						main.setDest(pos)
 					} else {
 						if(main.origin)main.origin.setPosition(pos);
-						else main.origin = mapper.addMarker(pos, 4, 'Origin');
-
+						else main.origin = mapper.addMarker(pos, 3, 'Origin');
 						main.enterMode('dest');
 					}
 					if(main.destination && main.origin) main.startNav();
@@ -83,7 +72,7 @@ var main = {
 									main.setDest(pos)
 								} else {
 									if(main.origin)main.origin.setPosition(pos);
-									else main.origin = mapper.addMarker(pos, 4, 'Origin');
+									else main.origin = mapper.addMarker(pos, 3, 'Origin');
 									main.enterMode('dest');
 								}
 								if(main.destination && main.origin) main.startNav();
@@ -144,6 +133,7 @@ var main = {
 		if( mode == 'dest' )
 		{
 			$('#myonoffswitch').prop('checked', false);
+			$('#search-query').attr("placeholder", "Select Destination");
 			google.maps.event.addListener(mapper.map, 'click', function(event) {			
 				main.setDest(event.latLng, "Destination");
 			});
@@ -151,7 +141,7 @@ var main = {
 		else
 		{
 			$('#myonoffswitch').prop('checked', true);
-
+			$('#search-query').attr("placeholder", "Select Origin");
 			google.maps.event.addListener(mapper.map, 'click', function(event) {
 				if (main.origin){
 					main.origin.setPosition(event.latLng);
@@ -188,7 +178,7 @@ var main = {
 			
 		});
 		
-		main.enterMode( 'origin' );
+		//main.enterMode( 'origin' );
 		
 		if( main.origin ) {
 			main.startNav();
@@ -196,8 +186,7 @@ var main = {
 	},
 	
 	startNav: function() {
-		mapper.clearOverlays();
-		mapper.deleteOverlays();
+		mapper.deleteLmMarkers();
 		
 		$('#panel').show().animate( {width: '20%'} );
 		$('#map').animate( {width: '80%'} );
@@ -205,12 +194,14 @@ var main = {
 		director.getDirections( main.origin.position, main.destination.position );
 	},
 }
-
+$('#clearAll').click(function(){
+	
+})
 function getLatLong(address){
       var geo = new google.maps.Geocoder;
       geo.geocode({'address':address},function(results, status){
               if (status == google.maps.GeocoderStatus.OK) {
-				console.log(results[0].geometry.location);
+								console.log(results[0].geometry.location);
                 return results[0].geometry.location;
               } else {
                 alert("Geocode was not successful for the following reason: " + status);
