@@ -73,26 +73,25 @@ var placer = {
 	
 	//nextfunction - pass the name of the function that handles landmarks further
 	getLandmarks: function(map, dest, precision, all, nextfunction) {
-		var resource;
-		if (placer.count == 1 || placer.count == 2) {
-			// Return data 1
-			resource = placer.fakeData[0];
-		} else if (placer.count == 3) {
-			// Return data 2
-			resource = placer.fakeData[1];
-		} else {
-			//return nextFunction();
-		}
-		placer.count++;
-		if (resource) {
-			var obj = {
-	        name:resource.name1,
-	        latlong: new google.maps.LatLng(resource.lat,resource.lon),
-	        importance: 0 //or i+1, Moiri seems to use 0
-	    };
-			nextfunction([obj]);
-		}
-		/*
+		// var resource;
+		// 		if (placer.count == 1 || placer.count == 2) {
+		// 			// Return data 1
+		// 			resource = placer.fakeData[0];
+		// 		} else if (placer.count == 3) {
+		// 			// Return data 2
+		// 			resource = placer.fakeData[1];
+		// 		} else {
+		// 			//return nextFunction();
+		// 		}
+		// 		placer.count++;
+		// 		if (resource) {
+		// 			var obj = {
+		// 	        name:resource.name1,
+		// 	        latlong: new google.maps.LatLng(resource.lat,resource.lon),
+		// 	        importance: 0 //or i+1, Moiri seems to use 0
+		// 	    };
+		// 			nextfunction([obj]);
+		// 		}
 		$.ajax({
 
 			method: 'GET',
@@ -100,7 +99,7 @@ var placer = {
 			data: {
 				'user_id':'TEST_USER',
 				'api_key':'EXAMPLE_KEY_3edaba1953abf86',
-				'count':20, //play with the value
+				'count':1, //play with the value
 				'lat':dest.lat(),
 				'lon':dest.lng()
 				},
@@ -145,7 +144,6 @@ var placer = {
 			    }
 				}
 		});
-		*/	
 	},
 	
 	// given a latilong( lat, long), and precision, returns the "best" landmark from getLandmarks
