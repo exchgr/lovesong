@@ -125,6 +125,11 @@ html, body, #map, #panel {
 	overflow-y:auto;
 }
 
+#panel .nearby {
+	font-size: 90%;
+	display: block;
+}
+
 /* ==MAP */
 #map {
 	float: left;

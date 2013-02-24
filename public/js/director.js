@@ -31,7 +31,7 @@ var director = {
                         //console.log(i);
                         if (typeof listOfLandMarks[landmarks[0]['name']] == 'undefined'){
                             var name = director.getName(step);
-                            director.setName(step, name+' You will see '+ landmarks[0]['name']+' nearby');
+                            director.setName(step, name+'<span class="nearby">&mdash;near '+ landmarks[0]['name']+'</span>');
                             listOfLandMarks[landmarks[0]['name']] = 1;
                         }
 
