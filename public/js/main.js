@@ -3,7 +3,7 @@ var main = {
 		
 		var center = new google.maps.LatLng(24.485743,54.354086);
 		mapper.start( document.getElementById("map"), center, 15 );	
-		
+		var infowindow;
 		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
 		var input = document.getElementById('search-query');
 		var sbService = new google.maps.places.AutocompleteService();
@@ -174,11 +174,11 @@ var main = {
 			$('p', main.infobox).html('Al Markaziyah');
 		}
 		
-		var infowindow = new InfoBox({content:main.infobox.get(0)});
-		infowindow.open(mapper.map, main.destination);
-		google.maps.event.addListener(main.destination, 'click', function() {			
-			infowindow.open(mapper.map, main.destination);
-		});
+		if(!main.infowindow) {
+			main.infowindow = new InfoBox({content:main.infobox.get(0)});
+		}
+		main.infowindow.open(mapper.map, main.destination);
+
 
 		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
 
