@@ -1,6 +1,8 @@
 var main = {
 	init: function() {
 		
+		main.i = 0;
+		
 		var center = new google.maps.LatLng(24.485743,54.354086);
 		mapper.start( document.getElementById("map"), center, 15 );	
 		var infowindow;
@@ -17,22 +19,19 @@ var main = {
 		if (navigator.geolocation) {
 			$('.nav-current').click( function(ev) {
 				navigator.geolocation.getCurrentPosition( function( position ) {
-					console.log( $('#myonoffswitch').val() );
-					
-                    var pos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude);
 
-                    if (!$('#myonoffswitch').is(':checked')){
-                        main.setDest(pos, "Destination");
-                    } else {
+			  var pos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude);
 
+			  if (!$('#myonoffswitch').is(':checked')){
+			      main.setDest(pos, "Destination");
+			  } else {
 
-                        if(main.origin)main.origin.setPosition(pos);
-                        else main.origin = mapper.addMarker(pos, 3, 'Origin');
+			      if(main.origin)main.origin.setPosition(pos);
+			      else main.origin = mapper.addMarker(pos, 3, 'Origin');
 
-                        main.startNav();
+			      main.startNav();
 
-                        main.enterMode('dest');
-
+			      main.enterMode('dest');
 					}
 				});
 				return false;
@@ -56,7 +55,8 @@ var main = {
 			if (e.which == 13){
 				//console.log($(input).val());
 				if($(input).val()=='SPQR'){
-					pos = new google.maps.LatLng(24.485743,54.354086);
+					pos = new google.maps.LatLng(24.494334531633775,54.3623685836792); // 24.494334531633775, lon: 54.3623685836792
+					// Your destination is 234 metres W of Al Falah Plaza
 					if ($('#myonoffswitch').is(':checked')==false){
 						main.setDest(pos)
 					} else {
@@ -104,15 +104,25 @@ var main = {
 		this.infobox = $('<div>');
 		
 		// this.infobox.popover({content: 'sam'});
+				
+		this.infobox.append('<p class="location">Smith</p>');
 		
-		this.infobox.append('<p>Smith</p>');
+		this.infobox.append('<p class="directions"><a href="#directions">Get directions to here</a></p>');
+		
+		$('p.directions a', this.infobox).click( function( ev ) {
+			main.enterMode('origin');
+			$('#search-query').val('');
+			return false;
+		});
 		
 		this.infobox.append('<form id="sms">');
 		form = $('form', this.infobox)
 		
 		form.append('<label for="sms">Send to:</label>');
 		form.append('<input type="text" id="sms" name="sms" placeholder="SMS">');
-				
+		
+		this.infobox.append( '<p class="code">STAD</p>' );
+		
 		form.submit( function( ev ) {
 			to = $('input', this).val();
 			
@@ -133,6 +143,8 @@ var main = {
 				    }
 					}
 			});
+			
+			
 			return false;
 		});
 	},
@@ -171,22 +183,50 @@ var main = {
 			main.destination = mapper.addMarker( location, 4, "Destination" );
 			// main.destination.setVisible(false);
 		
-			$('p', main.infobox).html('Al Markaziyah');
+			$('p.location', main.infobox).html('Al Markaziyah');
 		}
 		
 		if(!main.infowindow) {
 			main.infowindow = new InfoBox({content:main.infobox.get(0)});
 		}
 		main.infowindow.open(mapper.map, main.destination);
+		
+		if( main.i < 3 ) {
+			if( main.i == 0 ) {
+				$('p.location', main.infobox).html('<strong class="destination">Sama Tower</strong> is by <strong class="landmark">NMC Hospital</strong>, across from <strong>Etisalat Headquaters Building A</strong>.');
 
+				landmark = {
+					latlong: new google.maps.LatLng( 24.484062194824219, 54.359064102172852),
+					importance: 0,
+					name: "Etisalat Headquaters Building A"
+				}
+				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );	
+			}
+			else if( main.i == 1 ) {
+				$('p.location', main.infobox).html('<strong class="destination">Your destination</strong> is <strong class="distance">127 metres NE</strong> of <strong class="landmark">Hilton Corniche Hotel</a>.');
+				$('p.code', main.infobox).html('SPQR');
 
-		placer.getLandmark( mapper.map, location, 0, function( landmark ) {
+				landmark = {
+					latlong: new google.maps.LatLng( 24.493632316589355, 54.361381530761719),
+					importance: 0,
+					name: "Hilton Corniche Hotel"
+				}
+				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
+			}
+		}
+		// 24.486914231203183, lon: 54.36957836151123
+		else
+		{
+			placer.getLandmark( mapper.map, location, 0, function( landmark ) {
 
-			marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
-			
-			$('p', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
-			
-		});
+				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
+
+				$('p', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
+
+			});
+		}
+		
+		main.i++;
 		
 		//main.enterMode( 'origin' );
 		

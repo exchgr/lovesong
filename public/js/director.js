@@ -5,7 +5,7 @@ var director = {
 		director.service = new google.maps.DirectionsService();
 		director.display = new google.maps.DirectionsRenderer(
 		{
-			preserveViewport: false,
+			preserveViewport: true,
 			suppressMarkers: true
 		});
         director.display.setMap(mapper.map);
@@ -22,16 +22,23 @@ var director = {
 		return director.service.route(request, function(response, status) {
             var listOfLandMarks = {};
 
-						function getLandMarks(step){
+						var returnedSteps = 0;
+						function getLandMarks(step, expectedSteps){
                 placer.getLandmarks(mapper.map, step['end_point'], 0, false,
                     function(landmarks){
-                        mapper.addMarker(landmarks[0].latlong, landmarks[0].importance, landmarks[0].name);
-											  if (typeof listOfLandMarks[landmarks[0]['name']] == 'undefined'){
-                            var name = director.getName(step);
-                            director.setName(step, name+'<span class="nearby">&mdash;near <b>'+ landmarks[0]['name']+'</b></span>');
-                            listOfLandMarks[landmarks[0]['name']] = 1;
-                       }
-
+											var landmark = landmarks[0];
+											if (landmark) {
+                        mapper.addMarker(landmark.latlong, landmark.importance, landmarks[0].name);
+											  if (typeof listOfLandMarks[landmark['name']] == 'undefined'){
+                        	var name = director.getName(step);
+                          director.setName(step, name+'<span class="nearby">&mdash;near <b>'+ landmark['name']+'</b></span>');
+                          listOfLandMarks[landmark['name']] = 1;
+                       	}
+												console.log('returned steps', returnedSteps, 'expected steps', expectedSteps)
+									   	 }
+											 if (++returnedSteps == expectedSteps) {
+											 		director.display.setDirections(response);
+											 }
                     }
                 );
             }
@@ -39,12 +46,12 @@ var director = {
             if (status == google.maps.DirectionsStatus.OK) {
                 var tmp = response['routes'][0]['legs'][0]['steps'];
                 for(var i = 0; i<tmp.length; i++){
-                    getLandMarks(tmp[i]);
+                    getLandMarks(tmp[i], tmp.length);
                 }
 
                 setTimeout(function() {
-                    director.display.setDirections(response);
-                },1000);
+                    
+                },10000);
 
 				var markerLatLngs = response['routes'][0]['overview_path'];
 				//mapper.addMarker(markerLatLngs[0], 1, "som");

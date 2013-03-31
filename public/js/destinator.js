@@ -1,7 +1,9 @@
 var destinator = {
 
 	get:function (map, dest, land) {
-
+		
+		console.log( dest );
+		
 		destPos = dest.latlong;
 		landPos= land.latlong;
 		
