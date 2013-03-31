@@ -152,7 +152,7 @@ html, body, #map, #panel {
 
 .infoBox {
   z-index: 1010;
-  max-width: 276px;
+  width: 250px;
   padding: 1px;
   text-align: left;
   white-space: normal;
@@ -311,6 +311,11 @@ html, body, #map, #panel {
 }
 .gmnoprint {
 	margin-right: 20px !important;
+}
+
+/* ==SMS */
+#sms {
+	display: none;
 }
 
 /* ===MOBILE */
