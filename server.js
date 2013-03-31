@@ -56,8 +56,8 @@ app.get('/json', function( req, res ) {
 		host: 'api.geckolandmarks.com/json'
 	}
 		
-	options.query.user_id = 'og402@nyu.edu';
-	options.query.api_key = 'go4ICUdT2y1iTWU2qjyLaLeFLsbpsLrzsqR34RR277g';
+	options.query.user_id = process.env.GECKO_USER;
+	options.query.api_key = process.env.GECKO_KEY;
 		// options.search = null;
 		
 		console.log( url.format(options) );
