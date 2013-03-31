@@ -182,9 +182,9 @@ var main = {
 		} else {
 			main.destination = mapper.addMarker( location, 4, "Destination" );
 			// main.destination.setVisible(false);
-		
-			$('p.location', main.infobox).html('Loading...');
 		}
+		
+		$('p.location', main.infobox).html('Loading...');
 		
 		if(!main.infowindow) {
 			main.infowindow = new InfoBox({content:main.infobox.get(0)});
