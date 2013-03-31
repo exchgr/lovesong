@@ -48,10 +48,21 @@ app.get('/', function(req, res){
 app.get('/json', function( req, res ) {
 	// data = require('./data.json');
 	// res.send( data );
-	var options = url.parse(req.url, true);
-		options.host = 'api.geckolandmarks.com'
-			
-		http.get(options, function(response){
+	// var options = url.parse(req.url, true);
+		
+	var options = {
+		protocol: 'http',
+		query: req.query,
+		host: 'api.geckolandmarks.com/json'
+	}
+		
+	options.query.user_id = 'og402@nyu.edu';
+	options.query.api_key = 'go4ICUdT2y1iTWU2qjyLaLeFLsbpsLrzsqR34RR277g';
+		// options.search = null;
+		
+		console.log( url.format(options) );
+		
+		http.get(url.format(options), function(response){
 		  var str = '';
 		
 		  //another chunk of data has been recieved, so append it to `str`

@@ -183,7 +183,7 @@ var main = {
 			main.destination = mapper.addMarker( location, 4, "Destination" );
 			// main.destination.setVisible(false);
 		
-			$('p.location', main.infobox).html('Al Markaziyah');
+			$('p.location', main.infobox).html('Loading...');
 		}
 		
 		if(!main.infowindow) {
@@ -191,7 +191,7 @@ var main = {
 		}
 		main.infowindow.open(mapper.map, main.destination);
 		
-		if( main.i < 3 ) {
+		if( false ) { // faker
 			if( main.i == 0 ) {
 				$('p.location', main.infobox).html('<strong class="destination">Sama Tower</strong> is by <strong class="landmark">NMC Hospital</strong>, across from <strong>Etisalat Headquaters Building A</strong>.');
 
@@ -221,7 +221,7 @@ var main = {
 
 				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
 
-				$('p', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
+				$('p.location', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
 
 			});
 		}

@@ -97,8 +97,6 @@ var placer = {
 			method: 'GET',
 			dataType: 'json',
 			data: {
-				'user_id':'TEST_USER',
-				'api_key':'EXAMPLE_KEY_3edaba1953abf86',
 				'count':1, //play with the value
 				'lat':dest.lat(),
 				'lon':dest.lng()
