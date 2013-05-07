@@ -1,263 +1,100 @@
 var main = {
+	bookTemplate: _.template('<li class="media book"><a class="pull-left" href="<%= permalink_url %>"><img width="120" class="media-object" src="<%= cover_url %>"></a><div class="media-body"><h4 class="media-heading"><%= title %></h4><h5 class="author"><%= author %></h5><p><%= story %></p><p class="stats"><span class="badge"><%= reading %></span> reading | <span class="badge"><%= finished %></span> finished | <span class="badge"><%= interesting %></span> interesting | <span class="badge"><%= abandoned %></span> abandoned<div class="readers"><% _.each(readers, function(reader) { %><div class="media reader"><a href="<%= reader.permalink_url %>" class="pull-left"><img width="50" class="media-object" src="<%= reader.avatar_url %>" /></a><div class="media-body"><a href="<%= reader.permalink_url %>"><%= reader.fullname %></a></div></div> <% }); %></div></div></li>'),
+	hiLite: _.template('<li class="media highlight"><a class="pull-left" href="<%= user.permalink_url %>"><img width="50" class="media-object" src="<%= user.avatar_url %>"></a><div class="media-body"><p><a href="<%= user.permalink_url %>"><%= user.fullname %></a> highlighted: <span class="likes">(<strong class="badge"><%= likes_count %></strong> likes)</span></p><blockquote><%= content %></blockquote><p>in <a href="<%= reading.book.permalink_url %>"><%= reading.book.title %></a> by <%= reading.book.author %></div></li>'),
+
+	getHighlights: function( term, cb ) {
+		$.getJSON( '/highlights?term=' + term, function( body ) {
+			
+			// console.log( body );
+			
+			cb( body );
+		});
+	},
+	fillHighlights: function( highlights ) {
+		$('#loading').hide();
+		
+		if( highlights.length < 1 )
+		{
+			$('#highlightList').html('<h2>Sorry, no highlights found.</h2>')
+		}
+		
+		// console.log( highlights );
+		_.each( highlights, function( hlt ) {
+			// console.log( hlt );
+		
+			$('#highlightList').append( main.hiLite( hlt ) );
+		});
+	},
+	getBooks: function( term, cb ) {
+		$.getJSON( '/search?term=' + term, function( body ) {			
+			cb( body );
+		});
+	},
+	fillBooks: function( books ) {
+		
+		$('#loading').hide();
+		
+		if( books.length < 1 )
+		{
+			$('#bookList').html('<h2>Sorry, no books found.</h2>')
+		}
+		
+		_.each( books, function( book ) {
+			book.reading = 0;
+			book.finished = 0;
+			book.interesting = 0;
+			book.abandoned = 0;
+			book.readers = [];
+			
+			_.each( book.readings, function( reading ) {
+				if( reading.reading.state == 'reading' ) {
+					// console.log( reading.reading );
+					book.readers.push( reading.reading.user );
+					book.reading++;
+				}
+				else if( reading.reading.state == 'finished' ) {
+					book.finished++;
+				}
+				else if( reading.reading.state == 'interesting' ) {
+					book.interesting++;
+				}
+				else if( reading.reading.state == 'abandoned' ) {
+					book.abandoned++;
+				}
+			});
+			
+			if( book.story == null )
+			{
+				book.story = 'No story or description available.'
+			}
+												
+			$('#bookList').append( main.bookTemplate( book ) );
+		});
+	},
+	doSearch: function( term ) {
+		main.reset();
+		
+		main.getBooks( term, main.fillBooks);
+		main.getHighlights( term, main.fillHighlights);
+	},
+	reset: function() {
+		$('#bookList').html('');
+		$('#highlightList').html('');
+	},
 	init: function() {
-		
-		main.i = 0;
-		
-		var center = new google.maps.LatLng(24.485743,54.354086);
-		mapper.start( document.getElementById("map"), center, 15 );	
-		var infowindow;
-		var defaultBounds = new google.maps.LatLngBounds(center, new google.maps.LatLng(30, 50));
-		var input = document.getElementById('search-query');
-		var sbService = new google.maps.places.AutocompleteService();
-		var searchBox = new google.maps.places.Autocomplete(input, {
-		  bounds: defaultBounds
-		});
-
-		searchBox.bindTo('bounds', mapper.map);
-		main.enterMode( 'dest' );
-		
-		if (navigator.geolocation) {
-			$('.nav-current').click( function(ev) {
-				navigator.geolocation.getCurrentPosition( function( position ) {
-
-			  var pos = new google.maps.LatLng( position.coords.latitude, position.coords.longitude);
-
-			  if (!$('#myonoffswitch').is(':checked')){
-			      main.setDest(pos, "Destination");
-			  } else {
-
-			      if(main.origin)main.origin.setPosition(pos);
-			      else main.origin = mapper.addMarker(pos, 3, 'Origin');
-
-			      main.startNav();
-
-			      main.enterMode('dest');
-					}
-				});
-				return false;
-			});
-		}
-		else
-		{
-			$('.nav-current').hide();
-		}
-		
-		director.init();
-		
-		$('#myonoffswitch').change(function() {
-			if ($('#myonoffswitch').is(':checked')) main.enterMode('origin');
-			else main.enterMode('dest');
-			$('#search-query').val('');
-		});
-
-
-		$(input).keypress(function(e) {
-			if (e.which == 13){
-				//console.log($(input).val());
-				if($(input).val()=='SPQR'){
-					pos = new google.maps.LatLng(24.494334531633775,54.3623685836792); // 24.494334531633775, lon: 54.3623685836792
-					// Your destination is 234 metres W of Al Falah Plaza
-					if ($('#myonoffswitch').is(':checked')==false){
-						main.setDest(pos)
-					} else {
-						if(main.origin)main.origin.setPosition(pos);
-						else main.origin = mapper.addMarker(pos, 3, 'Origin');
-						main.enterMode('dest');
-					}
-					if(main.destination && main.origin) main.startNav();
-				}
-				else{
-					//console.log(searchBox.getPlace());
-					sbService.getPlacePredictions({input:$(input).val()}, function(predictions) {
-						var address = predictions[0].description;
-						
-						var geo = new google.maps.Geocoder;
-						geo.geocode({'address':address},function(results, status){
-							  if (status == google.maps.GeocoderStatus.OK) {
-								var pos = results[0].geometry.location;
-								console.log($('#myonoffswitch').val());
-								if ($('#myonoffswitch').is(':checked')==false){
-									main.setDest(pos)
-								} else {
-									if(main.origin)main.origin.setPosition(pos);
-									else main.origin = mapper.addMarker(pos, 3, 'Origin');
-									main.enterMode('dest');
-								}
-								if(main.destination && main.origin) main.startNav();
-							  } else {
-								console.log("Geocode was not successful for the following reason: " + status);
-							  }
-
-						});
-						
-					});
-				}
-			}
-		});
-		$('#clearAll').click(function(){
-			mapper.deleteAllMarkers();
-		})
-		main.smser();
-	},
-	
-	smser: function() {
-		this.infobox = $('<div>');
-		
-		// this.infobox.popover({content: 'sam'});
-				
-		this.infobox.append('<p class="location">Smith</p>');
-		
-		this.infobox.append('<p class="directions"><a href="#directions">Get directions to here</a></p>');
-		
-		$('p.directions a', this.infobox).click( function( ev ) {
-			main.enterMode('origin');
-			$('#search-query').val('');
+		// main.doSearch( 'Twain' );
+		$('form').submit( function() {
+			$('#prompt').slideUp();
+			$('#loading').slideDown();
+			main.doSearch( $('#search-query').val() );
 			return false;
 		});
 		
-		this.infobox.append('<form id="sms">');
-		form = $('form', this.infobox)
-		
-		form.append('<label for="sms">Send to:</label>');
-		form.append('<input type="text" id="sms" name="sms" placeholder="SMS">');
-		
-		this.infobox.append( '<p class="code">STAD</p>' );
-		
-		form.submit( function( ev ) {
-			to = $('input', this).val();
-			
-			$.ajax({
-				method: 'GET',
-				dataType: 'json',
-				data: {
-					'to': to,
-					'message': 'Sama Tower, by Etisalat Towers, Al Markaziyah'
-					},
-				//url: '/landmarkr/public/js/1.json',
-			    url: '/sms',
-			    success: function(data, status){
-						console.log( $('#sms').val() );
-						var status = 200;
-				    if (status == 200) {
-				        console.log( status );
-				    }
-					}
-			});
-			
-			
-			return false;
+		$('#reset').click( function() {
+			main.reset();
+			$('#prompt').slideDown();
+			$('#search-query').val('').focus();
 		});
-	},
-	
-	enterMode: function( mode ) {
-		google.maps.event.clearListeners(mapper.map, 'click');
-		
-		if( mode == 'dest' )
-		{
-			$('#myonoffswitch').prop('checked', false);
-			$('#search-query').attr("placeholder", "Select Destination");
-			google.maps.event.addListener(mapper.map, 'click', function(event) {			
-				main.setDest(event.latLng, "Destination");
-			});
-		}
-		else
-		{
-			$('#myonoffswitch').prop('checked', true);
-			$('#search-query').attr("placeholder", "Select Origin");
-			google.maps.event.addListener(mapper.map, 'click', function(event) {
-				if (main.origin){
-					main.origin.setPosition(event.latLng);
-				} else {
-					main.origin = mapper.addMarker(event.latLng, 3, 'Origin');
-				}
-				main.startNav();
-				main.enterMode( 'dest' );
-			});
-		}
-	},
-	
-	setDest: function( location, info ) {
-		if ( main.destination ) {
-			main.destination.setPosition(location);
-		} else {
-			main.destination = mapper.addMarker( location, 4, "Destination" );
-			// main.destination.setVisible(false);
-		}
-		
-		$('p.location', main.infobox).html('Loading...');
-		
-		if(!main.infowindow) {
-			main.infowindow = new InfoBox({content:main.infobox.get(0)});
-		}
-		main.infowindow.open(mapper.map, main.destination);
-		
-		if( false ) { // faker
-			if( main.i == 0 ) {
-				$('p.location', main.infobox).html('<strong class="destination">Sama Tower</strong> is by <strong class="landmark">NMC Hospital</strong>, across from <strong>Etisalat Headquaters Building A</strong>.');
-
-				landmark = {
-					latlong: new google.maps.LatLng( 24.484062194824219, 54.359064102172852),
-					importance: 0,
-					name: "Etisalat Headquaters Building A"
-				}
-				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );	
-			}
-			else if( main.i == 1 ) {
-				$('p.location', main.infobox).html('<strong class="destination">Your destination</strong> is <strong class="distance">127 metres NE</strong> of <strong class="landmark">Hilton Corniche Hotel</a>.');
-				$('p.code', main.infobox).html('SPQR');
-
-				landmark = {
-					latlong: new google.maps.LatLng( 24.493632316589355, 54.361381530761719),
-					importance: 0,
-					name: "Hilton Corniche Hotel"
-				}
-				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
-			}
-		}
-		// 24.486914231203183, lon: 54.36957836151123
-		else
-		{
-			placer.getLandmark( mapper.map, location, 0, function( landmark ) {
-
-				marker = mapper.addMarker( landmark.latlong, landmark.importance, landmark.name );
-
-				$('p.location', main.infobox).html(destinator.get( mapper.map, { latlong: main.destination.position, name: 'Your destination' }, landmark ));
-
-			});
-		}
-		
-		main.i++;
-		
-		//main.enterMode( 'origin' );
-		
-		if( main.origin ) {
-			main.startNav();
-		}
-	},
-	
-	startNav: function() {
-		mapper.deleteLmMarkers();
-		
-		$('#panel').show().animate( {width: '20%'} );
-		$('#map').animate( {width: '80%'} );
-
-		director.getDirections( main.origin.position, main.destination.position );
-	},
+	}
 }
-
-function getLatLong(address){
-      var geo = new google.maps.Geocoder;
-      geo.geocode({'address':address},function(results, status){
-              if (status == google.maps.GeocoderStatus.OK) {
-								console.log(results[0].geometry.location);
-                return results[0].geometry.location;
-              } else {
-                alert("Geocode was not successful for the following reason: " + status);
-              }
-
-       });
-
-  }
-
-
 $(document).ready( main.init );

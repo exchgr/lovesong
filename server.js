@@ -1,6 +1,8 @@
 var express = require('express')
 		, http = require('http')
-		, url = require('url');
+		, url = require('url')
+		, async = require('async')
+		, request = require('request');
   // , passport = require('passport')
   // , mongodb = require('mongodb')
   // , mongoose = require('mongoose')
@@ -45,38 +47,92 @@ app.get('/', function(req, res){
   res.render('index', { user: req.user });
 });
 
-app.get('/json', function( req, res ) {
-	// data = require('./data.json');
-	// res.send( data );
-	// var options = url.parse(req.url, true);
+client_id = 'd96c041239920faac684a72ac05d06bb';
+
+app.get('/highlights', function( req, res ) {
+	request('https://api.readmill.com/v2/highlights/search?client_id=' + client_id + '&query=' + req.query.term, function (error, response, body) {
+	  if (!error && response.statusCode == 200) {
+			body = JSON.parse( body );
+			
+			items = body.items;
+			highlights = [];
+				
+			async.each(
+				items,
+				function( highlight, cb ) {
+					// hlt = highlight.highlight;
+					
+					// console.log( hlt );
+					
+					// highlights.push( hlt );
+					
+					// consol
+					
+					// cb();
+					
+					request('https://api.readmill.com/v2/readings/' + highlight.highlight.reading.id + '?client_id=' + client_id, function( err, resp, bd ) {
+						bd = JSON.parse( bd );
+						
+						hlt = highlight.highlight;
+						
+						hlt.reading = bd.reading;
+						
+						highlights.push( hlt );
+						
+						cb();
+					});
+					
+				},
+				function() {
+					res.send( highlights );
+				}
+			);
+			
+	    // res.send( books );
+	  }
+	});
+});
+
+
+app.get('/search', function( req, res ) {
+	request('https://api.readmill.com/v2/books/search?client_id=' + client_id + '&query=' + req.query.term, function (error, response, body) {
+	  if (!error && response.statusCode == 200) {
+			body = JSON.parse( body );
 		
-	var options = {
-		protocol: 'http',
-		query: req.query,
-		host: 'api.geckolandmarks.com/json'
-	}
+			books = [];
 		
-	options.query.user_id = process.env.GECKO_USER;
-	options.query.api_key = process.env.GECKO_KEY;
-		// options.search = null;
-		
-		console.log( url.format(options) );
-		
-		http.get(url.format(options), function(response){
-		  var str = '';
-		
-		  //another chunk of data has been recieved, so append it to `str`
-		  response.on('data', function (chunk) {
-		    str += chunk;
-		  });
-		
-		  //the whole response has been recieved, so we just print it out here
-		  response.on('end', function () {
-		    res.send( str );
-		  });
-		}).on("error", function(e){
-		  console.log("Got error: " + e.message);
-		});	
+			// body.items.forEach( function( book ) {
+			// 	book = book.book;
+			// 	
+			// 	books.push( book );
+			// });
+			// 
+			// console.log( body.items );
+						
+			async.each(
+				body.items,
+				function( book, cb ) {
+					book = book.book;
+					
+					request('https://api.readmill.com/v2/books/' + book.id + '/readings?client_id=' + client_id + '&count=100', function( err, resp, body ) {
+						body = JSON.parse( body );
+						book.readings = body.items;
+						
+						// s = "LOL";
+						
+						books.push( book );
+						
+						cb();
+					});
+				},
+				function() {
+					res.send( books );
+				}
+			);
+			
+	    // res.send( books );
+	  }
+	});
 });
 
 app.get('/sms', function( req, res ) {

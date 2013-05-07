@@ -2,50 +2,61 @@
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
-	<title>Landmarkr</title>
+	<title>Reedie</title>
 	
 	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" title="Main Stype" charset="utf-8">
-	
- 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyC_CCb3QZEVi6VDLUJ8v3EgQvPe0ZWKD4o&sensor=false"></script>
-	
+		
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	
 	<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
 	
-	<script src="js/infobox.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/placer.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/mapper.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/director.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/destinator.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
 	
 </head>
 <body>
-	<div class="navbar">
+	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="name pull-left">
 				<img src='images/logo.png' class='pull-left' alt='landmarkr'/>
-				<a class="brand pull-left" href="#">Landmarkr</a>
+				<a class="brand pull-left" href="#">Reedie</a>
 			</div>
-			<div class="navbar-search">
-				<div class="switch pull-left">
-				<label class="desc" for="myonoffswitch">Pick:</label>
-				<div class="onoffswitch">
-				    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch">
-				    <label class="onoffswitch-label" for="myonoffswitch">
-				        <div class="onoffswitch-inner"></div>
-				        <div class="onoffswitch-switch"></div>
-				    </label>
-				</div>
-				</div>
-				<a href="#current" id="use-current" class="nav-current pull-right"></a>
-				<input type="text" class="search-query" id="search-query" placeholder="Search for destination">
-			</div>
-			<div class="pull-right"><button class="btn" id="clearAll">Clear all</button></div>
+			<div class="pull-right"><button class="btn" id="reset">Reset</button></div>
+			<form class="navbar-form navbar-search">
+				<input type="text" class="search-query" id="search-query" placeholder="Search for books and highlights" />
+				<input class="btn" type="submit" value="Search" />
+			</form>
 		</div>
 	</div>
-	<div id="panel"></div>
-	<div id="map"></div>
+	
+	<div class="container meta" id="prompt">
+		<div class="hero-unit">
+			<h1>Enter your search term above!</h1>
+			<p>I recommend <em>father</em> as a term to see the bonus features.</p>
+		</div>
+	</div>
+	
+	<div class="container meta hide" id="loading">
+		<div class="hero-unit">
+			<h1>Loading...</h1>
+			<div class="progress progress-striped active">
+			  <div class="bar" style="width: 100%;"></div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span6">
+				<ul class="media-list books" id="bookList">
+				</ul>
+			</div>
+			<div class="span6">
+				<ul class="media-list highlights" id="highlightList">
+				</ul>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

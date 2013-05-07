@@ -1,6 +1,4 @@
-NYU Abu Dhabi Hackathon
+ArabNet Dubai 2013
 ===
 
-Landmark provides simple landmark-based navigation which makes it easy to describe a location and give directions to humans.
-
-This is a client-side application which runs on a Node.js server. It should serve fine from Heroku.
+This is a simple interface to Readmill created in 2 hours for the ArabNet developer competition.
