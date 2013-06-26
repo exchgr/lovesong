@@ -1,5 +1,5 @@
 {
-    "name": "projectname",
+    "name": "NodePack",
     "version": "0.1.0",
     "dependencies": {
         "express": "3.x.x",

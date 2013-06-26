@@ -18,19 +18,19 @@ db.once('open', function callback() {
 });
 
 var app = express();
-
 // configure Express
 app.configure(function() {
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
-  app.engine('ejs', require('ejs-locals'));
-  app.use(express.logger());
-  app.use(express.cookieParser());
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.session({ secret: process.env.SECRET })); // CHANGE THIS SECRET!
-  app.use(app.router);
-  app.use(express.static(__dirname + '/public'));
+	app.set('views', __dirname + '/views');
+	app.set('view engine', 'ejs');
+	app.engine('ejs', require('ejs-locals'));
+
+	app.use(express.logger());
+	app.use(express.cookieParser());
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(express.session({ secret: process.env.SECRET }));
+	app.use(app.router);
+	app.use(express.static(__dirname + '/public'));
 });
 
 // set up routes

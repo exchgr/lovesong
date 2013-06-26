@@ -1,4 +1,5 @@
 var Sample = require('../models/sample')
+	, pkg = require('../package.json')
 
 exports.index = function( req, res ) {
 	
@@ -7,5 +8,6 @@ exports.index = function( req, res ) {
 	});
 	
 	res.render("index", {
+		project: pkg.name
 	});
 }
