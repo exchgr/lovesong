@@ -1,6 +1,16 @@
+@font-face {
+  font-family: "Gotham Black";
+  src: url("../fonts/Gotham-Black.odf") format("opentype");
+}
+@font-face {
+  font-family: "Gotham Bold";
+  src: url("../fonts/Gotham-Bold.odf") format("opentype");
+}
+@font-face {
+  font-family: "Gotham Book";
+  src: url("../fonts/Gotham-Book.odf") format("opentype");
+}
 body {
-  font: 14px "Lato";
+  font: 14px Gotham Book, serif;
   background: #fff;
 }
-
-
