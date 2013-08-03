@@ -1,13 +1,18 @@
-var Sample = require('../models/sample')
+var models = require('../models')
 	, pkg = require('../package.json')
 
 exports.index = function( req, res ) {
 	
-	Sample.create({ "first": "Bob", "last": "Sam"}, function( err, smpl ) {
-		console.log( smpl.getName() );
-	});
+	if (req.user != undefined) {
+		res.render("home", {
+			project: pkg.name,
+			user: req.user
+		});
+	} else {
+		res.render("landing", {
+			project: pkg.name
+		});
+	}
 	
-	res.render("index", {
-		project: pkg.name
-	});
+	
 }
