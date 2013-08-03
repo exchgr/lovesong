@@ -10,6 +10,11 @@ body,
 .jumbotron {
   background-color: #93e7e0;
 }
+h1.logo,
+a.logo {
+  color: #e8475f;
+  font-family: 'Courgette', cursive;
+}
 header.navbar {
   background-color: rgba(0,0,0,0.1);
   border-radius: 0;
@@ -17,14 +22,13 @@ header.navbar {
 header.navbar .logo {
   font-size: 2em;
 }
-.logo {
-  color: #e8475f;
-  font-family: 'Courgette', cursive;
-}
-h1.logo {
-  font-size: 7em;
+header.navbar .logo:hover {
+  color: #d71b37;
 }
 .jumbotron {
   padding-top: 20%;
   text-align: center;
+}
+.jumbotron .logo {
+  font-size: 7em;
 }
