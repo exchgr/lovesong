@@ -5,6 +5,7 @@ var mongoose	= require('mongoose')
 var artistSchema = mongoose.Schema({
 	"name": String,
 	"mbid": String,
+	"fbid": Number,
 	"lastfm": String,
 	"_image": {type: mongoose.Schema.Types.Mixed},
 	"similar": [new mongoose.Schema({
@@ -14,7 +15,7 @@ var artistSchema = mongoose.Schema({
 });
 
 artistSchema.statics.modcreate = function( name, properties, cb ) {
-	console.log(properties);
+	// console.log(properties);
 	Artist.findOneAndUpdate({'name': name}, properties, {upsert:true}, function(err, artist) {
 		if(cb != undefined ) {
 			cb(err,artist);
