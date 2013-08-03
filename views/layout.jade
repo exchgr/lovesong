@@ -1,7 +1,10 @@
 doctype 5
 html
   head
-    title= 'lovesong'
+    if user
+      title lovesong | #{user.name}
+    else
+      title lovesong
     link(rel="shortcut icon", href="img/favicon.png?v=2")
     link(rel='stylesheet', href='stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='stylesheets/style.css')
