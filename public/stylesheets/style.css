@@ -25,6 +25,11 @@ header.navbar .logo {
 header.navbar .logo:hover {
   color: #d71b37;
 }
+header.navbar .avatar {
+  margin: -0.25em 1em -0.25em -0.25em;
+  border-radius: 50%;
+  height: 2em;
+}
 .jumbotron {
   padding-top: 20%;
   text-align: center;

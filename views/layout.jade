@@ -21,7 +21,9 @@ html
           a.navbar-brand.logo(href='/') LoveSong
           ul.nav.navbar-nav.pull-right
             li
-              a(href='/settings') #{user.name}
+              a(href='/settings')
+                img.avatar(src=user.image)
+                | #{user.name}
             li
               a(href='/logout') Log out
     .container
