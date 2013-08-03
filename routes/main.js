@@ -1,5 +1,6 @@
 var models = require('../models')
 	, pkg = require('../package.json')
+	, music = require('../lib/music')
 
 routes = {
 	index: function( req, res ) {
@@ -10,7 +11,8 @@ routes = {
 		}
 	},
 	home: function(req, res) {
-
+		console.log(req.user.artists);
+		
 		res.render("home", {
 			project: pkg.name,
 			user: req.user
