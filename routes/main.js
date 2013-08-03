@@ -12,11 +12,17 @@ routes = {
 			routes.landing(req,res);
 		}
 	},
-	home: function(req, res) {		
-		req.user.getFriends(function(err, friends) {
-			
+	home: function(req, res) {
+		
+		req.user.getArtists(function(err, artists) {
+			_.each(artists, function(artist) {
+				artist.getFans(function(err, fans) {
+					_.each(fans, function(fan) {
+						console.log(artist.name, fan.displayName);
+					})
+				});
+			});
 		});
-		// req.user.get
 		
 		res.render("home", {
 			project: pkg.name,

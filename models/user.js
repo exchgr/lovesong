@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 	fbgraph = require('fbgraph'),
 	async = require('async')
 
-	var Artist = require('./artist');
+var Artist = require('./artist');
 
 schema = new mongoose.Schema({
 	username: String,
@@ -181,4 +181,4 @@ schema.statics.modcreate = function(fbid, properties, cb) {
 	});
 }
 
-User = module.exports = mongoose.model('users', schema);
+var User = module.exports = mongoose.model('users', schema);
