@@ -5,10 +5,10 @@ $logoColor = #e8475f
 *
   font-family: Lato, sans-serif
 
-body, .jumbotron, .btn
+body, .btn
   background-image: $background-image
 
-body, .jumbotron
+body
   background-color: $background
 
 h1.logo, a.logo
@@ -31,8 +31,24 @@ header.navbar
     height: 2em
 
 .jumbotron
-  padding-top: 20% // Change me, this is terrible. I need to be centered vertically
+  padding: 0
+  background: transparent
   text-align: center
+  position: absolute
+  left: 0
+  top: 0
+  height: 100%
+  width: 100%
+
+  .vert-center
+    position: absolute
+    top: 50%
+    width: 100%
 
   .logo
     font-size: 7em
+
+@media (max-width: 560px)
+  .jumbotron
+    .logo
+      font-size: 3em
