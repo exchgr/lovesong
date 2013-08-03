@@ -35,6 +35,7 @@ app.configure(function() {
 	// Passport
 	app.use(passport.initialize());
 	app.use(passport.session());
+	app.use(auth.debug);
 
 	app.use(app.router);
 	app.use(require('stylus').middleware(__dirname + '/public'));

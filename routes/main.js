@@ -10,7 +10,6 @@ routes = {
 		}
 	},
 	home: function(req, res) {
-
 		res.render("home", {
 			project: pkg.name,
 			user: req.user
