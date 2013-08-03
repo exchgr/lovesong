@@ -13,11 +13,9 @@ routes = {
 		}
 	},
 	home: function(req, res) {
-		_.each(req.user.artists, function(artist) {
-			music.getSimilar(artist, function(data) {
-				console.log(data);
-			});
-		});
+		req.user.getSimilarArtists({}, function(err, artists) {
+			console.log(artists);
+		})
 		
 		res.render("home", {
 			project: pkg.name,
