@@ -7,6 +7,7 @@ html
     link(rel='stylesheet', href='stylesheets/style.css')
     link(href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700', rel='stylesheet', type='text/css')
     link(href='http://fonts.googleapis.com/css?family=Courgette', rel='stylesheet', type='text/css')
+    meta(name="viewport", content="width=device-width, initial-scale=1")
 
 
     block scripts
@@ -14,6 +15,18 @@ html
       script(src='lib/underscore.js')
       script(src='lib/backbone.js')
       script(src='/scripts/layout.js')
+      script(src='/scripts/jquery-2.0.3.min.js')
   body
-    #header
-    block content
+    if user
+      header.navbar
+        .container
+          a.navbar-brand.logo(href='/') LoveSong
+          ul.nav.navbar-nav.pull-right
+            li
+              a(href='/settings')
+                img.avatar(src=user.image)
+                | #{user.name}
+            li
+              a(href='/logout') Log out
+    .container
+      block content

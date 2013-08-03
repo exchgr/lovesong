@@ -1,18 +1,38 @@
 $background = #93e7e0
+$background-image = url('../img/noise.png')
+$logoColor = #e8475f
 
 *
   font-family: Lato, sans-serif
 
-body
-  background: $background
+body, .jumbotron, .btn
+  background-image: $background-image
 
-h1.logo
-  color: #e8475f
+body, .jumbotron
+  background-color: $background
+
+h1.logo, a.logo
+  color: $logoColor
   font-family: 'Courgette', cursive
-  font-size: 7em;
+
+header.navbar
+  background-color: rgba(0, 0, 0, 0.1)
+  border-radius: 0
+
+  .logo
+    font-size: 2em
+
+    &:hover
+      color: darken($logoColor, 20%)
+
+  .avatar
+    margin: -.25em 1em -.25em -.25em
+    border-radius: 50%
+    height: 2em
 
 .jumbotron
-  padding-top: 20%
+  padding-top: 20% // Change me, this is terrible. I need to be centered vertically
   text-align: center
-  background: $background
 
+  .logo
+    font-size: 7em
