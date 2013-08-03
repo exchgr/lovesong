@@ -14,5 +14,14 @@ html
       script(src='lib/backbone.js')
       script(src='/scripts/layout.js')
   body
-    #header
-    block content
+    if user
+      header.navbar
+        .container
+          a.navbar-brand.logo(href='/') LoveSong
+          ul.nav.navbar-nav.pull-right
+            li
+              a(href='/settings') #{user.name}
+            li
+              a(href='/logout') Log out
+    .container
+      block content
