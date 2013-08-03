@@ -11,6 +11,7 @@
   src: url("../fonts/Gotham-Book.odf") format("opentype");
 }
 body {
-  font: 14px Gotham Book, serif;
+  font: 20px "Lato" serif;
+  font-weight: 300;
   background: #fff;
 }
