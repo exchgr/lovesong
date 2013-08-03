@@ -14,8 +14,9 @@ routes = {
 	},
 	home: function(req, res) {		
 		req.user.getFriends(function(err, friends) {
-			// _.each(friends, )
+			
 		});
+		// req.user.get
 		
 		res.render("home", {
 			project: pkg.name,

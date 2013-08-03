@@ -1,7 +1,8 @@
 // Boilerplate User Schema
 var mongoose	= require('mongoose'),
 	_			= require('underscore'),
-	fbgraph		= require('fbgraph')
+	fbgraph		= require('fbgraph'),
+	async		= require('async')
 	
 var Artist		= require('./artist');
 
@@ -13,7 +14,8 @@ schema =  new mongoose.Schema({
 	externals: {type: mongoose.Schema.Types.Mixed, default: {}},
 	_artists: {
 		facebook: [{ type: mongoose.Schema.Types.ObjectId, ref: 'artists' }]
-	}
+	},
+	_friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }]
 });
 
 schema.virtual('image').get(function () {
@@ -45,21 +47,61 @@ schema.virtual('artists').get(function () {
 });
 
 schema.methods.getFriends = function(cb) {
-	fbgraph
-		.setAccessToken(this.fbToken)
-		.get("me/friends", function(err, res) {
-						
-			_.each(res.data, function(fnd) {
-				User.modcreate(fnd.id, {'displayName': fnd.name}, function(err, friend) {
-					fbgraph.get(friend.fbid + '/music', function(err, res) {
-						if(res.data.length == 0) {
-							
+	var self = this;
+	
+	if (this._friends.length == 0) {
+		fbgraph
+			.setAccessToken(this.fbToken)
+			.get("me/friends", function(err, res) {
+
+				var friends = [];
+
+				async.each(res.data, function(fnd, cb) {
+					User.modcreate(fnd.id, {'displayName': fnd.name}, function(err, friend) {
+						friends.push(friend);
+						cb(err);
+
+						// fill in missing data
+						if(friend._artists.facebook.length == 0) {
+							fbgraph.get(friend.fbid + '/music', function(err, res) {
+								if(res.data.length > 0) {
+									var artists = [];
+
+									async.each(res.data, function(artist, cb) {
+										Artist.modcreate(artist.name, {
+											name: artist.name,
+											fbid: artist.id
+										}, function(err, artist) {
+											artists.push(artist._id);
+											cb(err);
+										});
+									}, function(err) {
+										friend._artists.facebook = artists;
+										friend.save(function(err,n) {
+										})
+									});
+								}
+							});
 						}
 					});
-				});
-			})
+				}, function(err) {
+					self._friends = [];
+					_.each(friends, function(friend) {
+						self._friends.push(friend._id)
+					});
+					self.save(function() {
 						
+					});
+					
+					cb(err, friends);
+				});
+
+			});
+	} else {
+		User.find({'_id': {'$in': self._friends}}, function(err, friends) {
+			console.log(friends);
 		});
+	}
 }
 
 schema.methods.getArtists = function(cb) {
