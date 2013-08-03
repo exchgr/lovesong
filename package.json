@@ -7,7 +7,10 @@
         "jade": ">= 0.0.0",
         "async": ">= 0.0.0",
         "request": ">= 0.0.0",
-        "mongoose": ">= 0.0.0"
+        "mongoose": ">= 0.0.0",
+		"passport": "0.1.x",
+		"passport-facebook": "0.1.x",
+		"underscore": ">= 0.0.0"
     },
     "engines": {
         "node": "0.8.x",

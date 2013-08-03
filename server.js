@@ -4,10 +4,12 @@ var express = require('express')
 		, async = require('async')
 		, request = require('request')
 		, mongoose = require('mongoose')
+		, passport = require('passport')
 		, _ = require('./public/lib/underscore')
 		
 var pkg = require('./package.json')
 		, main = require('./routes/main')
+		, auth = require(__dirname+'/lib/auth')
 
 // set up Mongoose
 mongoose.connect('localhost', pkg.name);
@@ -29,8 +31,11 @@ app.configure(function() {
 	app.use(express.methodOverride());
 	app.use(express.cookieParser( process.env.SECRET ));
 	app.use(express.session({ key: 'lovesong.sess', secret: process.env.SECRET }));
-	// app.use(passport.initialize());
-	// app.use(passport.session());
+
+	// Passport
+	app.use(passport.initialize());
+	app.use(passport.session());
+
 	app.use(app.router);
 	app.use(require('stylus').middleware(__dirname + '/public'));
 	app.use(express.static(__dirname + '/public'));
@@ -39,7 +44,11 @@ app.configure(function() {
 // set up routes
 app.get('/', main.index);
 
+// --- facebook
+app.get('/auth/facebook', auth.facebook.start);
+app.get('/auth/facebook/callback', auth.facebook.end);
+
 // start listening
-app.listen( process.env.PORT , function() {
+app.listen( process.env.PORT, function() {
   console.log('Express server listening on port ' + process.env.PORT);
 });
