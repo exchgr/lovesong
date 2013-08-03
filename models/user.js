@@ -12,9 +12,9 @@ schema =  new mongoose.Schema({
 	}
 });
 
-// schema.virtual('url').get(function () {
-  // return 'http://caus.io/' + this.username;
-// });
+schema.virtual('image').get(function () {
+  return 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn1/c19.19.243.243/s160x160/73253_10151143232340814_480281695_n.jpg';
+});
 
 schema.virtual('name').get(function () {
 	if( this.externals.facebook != undefined ) {

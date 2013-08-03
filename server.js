@@ -16,7 +16,7 @@ mongoose.connect('localhost', pkg.name);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback() {
-  console.log('Connected to DB');
+	console.log('Connected to DB');
 });
 
 var app = express();
@@ -45,7 +45,9 @@ app.configure(function() {
 // set up routes
 app.get('/', main.index);
 
-// --- facebook
+// --- auth
+app.get('/login', auth.login);
+app.get('/logout', auth.logout);
 app.get('/auth/facebook', auth.facebook.start);
 app.get('/auth/facebook/callback', auth.facebook.end);
 
