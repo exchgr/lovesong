@@ -2,7 +2,8 @@
 var mongoose	= require('mongoose')
 	, _ 		= require('../public/lib/underscore')
 	
-var music		= require('../lib/music')	
+var music		= require('../lib/music'),
+	models		= require('./')
 
 var schema = mongoose.Schema({
 	"name": String,
@@ -16,6 +17,14 @@ var schema = mongoose.Schema({
 		'artist': { type: mongoose.Schema.Types.ObjectId, ref: 'artists' }
 	}]
 });
+
+schema.methods.getFans = function(cb) {
+	var self = this;
+	models.User.find({'_artists.facebook': {'$in': [self._id]}}, function(err, users) {
+		cb(err, users);
+	});
+}
+
 
 schema.methods.fillSimilar = function(cb) {
 	music.getSimilar(this, function(data) {
