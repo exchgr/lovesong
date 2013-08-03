@@ -2,12 +2,10 @@
   font-family: Lato, sans-serif;
 }
 body,
-.jumbotron,
 .btn {
   background-image: url("../img/noise.png");
 }
-body,
-.jumbotron {
+body {
   background-color: #93e7e0;
 }
 h1.logo,
@@ -31,8 +29,19 @@ header.navbar .avatar {
   height: 2em;
 }
 .jumbotron {
-  padding-top: 20%;
+  padding: 0;
+  background: transparent;
   text-align: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+.jumbotron .vert-center {
+  position: absolute;
+  top: 50%;
+  width: 100%;
 }
 .jumbotron .logo {
   font-size: 7em;
