@@ -46,3 +46,8 @@ header.navbar .avatar {
 .jumbotron .logo {
   font-size: 7em;
 }
+@media (max-width: 560px) {
+  .jumbotron .logo {
+    font-size: 3em;
+  }
+}
