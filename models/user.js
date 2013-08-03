@@ -1,11 +1,14 @@
 // Boilerplate User Schema
 var mongoose	= require('mongoose'),
-	_			= require('underscore')
+	_			= require('underscore'),
+	fbgraph		= require('fbgraph')
 	
 var Artist		= require('./artist');
 
 schema =  new mongoose.Schema({
 	username: String,
+	fbid: {type: Number},
+	displayName: String,
 	joined:   {type: Date, default: Date.now},
 	externals: {type: mongoose.Schema.Types.Mixed, default: {}},
 	_artists: {
@@ -40,6 +43,24 @@ schema.virtual('artists').get(function () {
 	
 	return artists;
 });
+
+schema.methods.getFriends = function(cb) {
+	fbgraph
+		.setAccessToken(this.fbToken)
+		.get("me/friends", function(err, res) {
+						
+			_.each(res.data, function(fnd) {
+				User.modcreate(fnd.id, {'displayName': fnd.name}, function(err, friend) {
+					fbgraph.get(friend.fbid + '/music', function(err, res) {
+						if(res.data.length == 0) {
+							
+						}
+					});
+				});
+			})
+						
+		});
+}
 
 schema.methods.getArtists = function(cb) {
 	Artist.find({'_id': {'$in': this.artists}}, function(err, artists) {
@@ -81,4 +102,12 @@ schema.methods.getSimilarArtists = function(options, cb) {
 	});
 }
 
-module.exports = mongoose.model('users', schema);
+schema.statics.modcreate = function( fbid, properties, cb ) {	
+	User.findOneAndUpdate({'fbid': fbid}, properties, {upsert:true}, function(err, user) {
+		if(cb != undefined ) {
+			cb(err, user);
+		}
+	});
+}
+
+User = module.exports = mongoose.model('users', schema);

@@ -12,10 +12,10 @@ routes = {
 			routes.landing(req,res);
 		}
 	},
-	home: function(req, res) {
-		req.user.getSimilarArtists({}, function(err, artists) {
-			console.log(artists);
-		})
+	home: function(req, res) {		
+		req.user.getFriends(function(err, friends) {
+			// _.each(friends, )
+		});
 		
 		res.render("home", {
 			project: pkg.name,
