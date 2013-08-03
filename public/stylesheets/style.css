@@ -1,17 +1,16 @@
-@font-face {
-  font-family: "Gotham Black";
-  src: url("../fonts/Gotham-Black.odf") format("opentype");
-}
-@font-face {
-  font-family: "Gotham Bold";
-  src: url("../fonts/Gotham-Bold.odf") format("opentype");
-}
-@font-face {
-  font-family: "Gotham Book";
-  src: url("../fonts/Gotham-Book.odf") format("opentype");
+* {
+  font-family: Lato, sans-serif;
 }
 body {
-  font: 20px Lato, serif;
-  background: #fff;
-  font-weight: 100;
+  background: #93e7e0;
+}
+h1.logo {
+  color: #e8475f;
+  font-family: 'Courgette', cursive;
+  font-size: 7em;
+}
+.jumbotron {
+  padding-top: 20%;
+  text-align: center;
+  background: #93e7e0;
 }
