@@ -45,7 +45,9 @@ app.configure(function() {
 // set up routes
 app.get('/', main.index);
 
-// --- facebook
+// --- auth
+app.get('/login', auth.login);
+app.get('/logout', auth.logout);
 app.get('/auth/facebook', auth.facebook.start);
 app.get('/auth/facebook/callback', auth.facebook.end);
 
