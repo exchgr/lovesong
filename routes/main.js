@@ -24,7 +24,7 @@ index = function(req, res) {
 		landing(req,res);
 	}
 }
-g
+
 module.exports = {
 	landing: landing,
 	home: home,
