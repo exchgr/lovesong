@@ -1,14 +1,11 @@
 define([
 	'jquery'
 ], function ($) {
-	if ($('.navbar.loggedin').length > 0) {
-		console.log('d');
-		
+	if ($('.navbar.loggedin').length > 0) {		
 		// load the full app
 		require(["app/views/dash"],
 			function(Dashboard) {
-				console.log('d2');
-				console.log(Dashboard);
+				new Dashboard;
 			}
 		);
 	} else {
