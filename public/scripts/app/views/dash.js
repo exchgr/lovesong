@@ -22,10 +22,9 @@ define([
 			// fetch default profiles
 			profiles.fetch({reset: true});
 			
-			// console.log( Profiles );
-		},
-
-		render: function () {
+			// init the modal
+		    $('#match').modal({});
+			
 		},
         
         setMatch: function () {

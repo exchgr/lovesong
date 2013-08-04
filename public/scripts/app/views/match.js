@@ -1,9 +1,10 @@
 define([
 	'jquery',
+	'bootstrap',
 	'underscore',
     'backbone',
 	'app/models/profile'
-], function ($, _, Backbone, Profiles) {
+], function ($, bootstrap, _, Backbone, Profiles) {
 
     _.templateSettings = {
         interpolate : /\{\{(.+?)\}\}/g,
@@ -35,9 +36,7 @@ define([
             var model = this.model.toJSON();
                         
             this.$el.html(this.template({model: model, bands: model.shared}));
-            
-            $('#match').modal({});
-            
+                        
             return this;
         },
     });

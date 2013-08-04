@@ -8,6 +8,9 @@ require.config({
 		'jquery': {
              exports: '$'
          },
+        'bootstrap': {
+            deps: ['jquery']
+        },
 		'underscore': {
 			exports: '_'
 		},
