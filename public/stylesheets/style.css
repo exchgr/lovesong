@@ -90,12 +90,17 @@ h1 {
 }
 .bands ul li {
   display: inline-block;
+  vertical-align: top;
   margin-bottom: 1em;
+  margin-right: 1em;
   width: 30%;
 }
 .bands ul li img {
+  float: left;
   height: 4em;
-  margin-right: 1em;
+}
+.bands ul li .name {
+  margin-left: 5em;
 }
 @media (max-width: 560px) {
   .jumbotron .logo {
