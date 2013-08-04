@@ -22,5 +22,10 @@ define([
     } else {
         // keep the landing page lightweight; ie. don't load Backbone, etc.
         $('.vert-center').css('margin-top', -$('.vert-center').outerHeight()/2 + 'px');
+        
+        $('#login').click(function(e) {
+            FB.login();
+            e.preventDefault();
+        });
     }
 });

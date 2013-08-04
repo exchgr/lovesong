@@ -1,33 +1,39 @@
 extends layout
 
 block content
-  #loading
-    Loading...
-  #match.modal.fade
-    .modal-dialog
-  #profile
-  script#profile-template(type='text/template')
-    .row
-      .col-lg-4.col-sm-12.card
-        h1 {{ profile.firstName }}
-        .pull-right
-          h2 {{ match }}%
-          | &nbsp;match
-        br
-        img.avatar(src!='{{ profile.image }}')
-        // I'm sorry
-        .center
-          .btn-group
-            button#dislike.btn.btn-default(type='button')
-              img(src='/img/broken-heart.png')
-            button#like.btn.btn-default(type='button', data-toggle='modal', href='#match')
-              img(src='/img/heart.png')
-      .col-lg-8.col-sm-1.bands
-        h1 Bands they like
-        ul
+  #landing.jumbotron
+    .vert-center
+      h1.logo LoveSong
+      p Melt with your musical match.
+      a#login.btn.btn-primary.btn-large(href='/login') Log in with Facebook
+  #home
+    #loading
+      Loading...
+    #match.modal.fade
+      .modal-dialog
+    #profile
+    script#profile-template(type='text/template')
+      .row
+        .col-lg-4.col-sm-12.card
+          h1 {{ profile.firstName }}
+          .pull-right
+            h2 {{ match }}%
+            | &nbsp;match
+          br
+          img.avatar(src!='{{ profile.image }}')
+          // I'm sorry
+          .center
+            .btn-group
+              button#dislike.btn.btn-default(type='button')
+                img(src='/img/broken-heart.png')
+              button#like.btn.btn-default(type='button', data-toggle='modal', href='#match')
+                img(src='/img/heart.png')
+        .col-lg-8.col-sm-1.bands
+          h1 Bands they like
+          ul
 
-           | {( bands.forEach(function(band) { )}
-           li
-            .art(style="background: url('{{ band.image.large }}') 50% 50%")
-            .name {{ band.name }}
-           | {( }) )}
+             | {( bands.forEach(function(band) { )}
+             li
+              .art(style="background: url('{{ band.image.large }}') 50% 50%")
+              .name {{ band.name }}
+             | {( }) )}

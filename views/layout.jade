@@ -16,15 +16,17 @@ html
     block scripts
       <script data-main="/scripts/app/app" src="/scripts/lib/require.js"></script>
   body
-    if user
       header.navbar.loggedin
         .container
           a.navbar-brand.logo(href='/') LoveSong
           ul.nav.navbar-nav.pull-right
             li
               a(href='/profile')
-                img.avatar(src=user.image)
-                | #{user.name}
+                if(user)
+                  img.avatar(src=user.image)
+                  | #{user.name}
+                else
+                  img.avatar
             li
               a(href='/logout') Log out
     #content.container
