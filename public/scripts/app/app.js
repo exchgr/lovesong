@@ -2,7 +2,8 @@ require.config({
 	baseUrl: "/scripts/lib",
 	paths: {
 		"app": "../app",
-		"jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min"
+		"jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
+		'facebook': '//connect.facebook.net/en_US/all' 
 	},
 	shim: {
 		'jquery': {
@@ -17,6 +18,9 @@ require.config({
 		'backbone': {
 			deps: ['underscore', 'jquery'],
 			exports: 'Backbone'
+		},
+		'facebook': {
+		    exports: 'FB'
 		}
 	}
 });

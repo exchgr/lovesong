@@ -19,7 +19,7 @@ define([
 
 			// this.listenTo(app.todos, 'reset', this.refresh);
             this.listenTo(profiles, 'reset', this.setMatch);
-            this.listenTo(profiles, 'remove', this.setMatch);
+            this.listenTo(profiles, 'remove', this.switchMatch);
 
 			// fetch default profiles
 			profiles.fetch({reset: true});
@@ -30,16 +30,25 @@ define([
             });
 
 		},
-
-        setMatch: function () {
-            var profile = profiles.at(0);
+		
+		switchMatch: function() {
+		    
+		    // fetch more profiles
+		    profiles.fetch();
+		    
+		    var profile = profiles.at(0);
 
             var view = new Match({model: profile});
 
-            $('#loading').slideUp();
             $('#profile').slideDown();
 
             $('#profile').html(view.render().el);
+		},
+
+        setMatch: function () {
+            $('#loading').slideUp();
+            
+            this.switchMatch();
         },
 
 	});

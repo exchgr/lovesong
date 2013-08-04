@@ -36,14 +36,14 @@ define([
             this.model.destroy();
             this.remove();
             
-            // $.post('/api/dislike?id=' + this.model.get('_id'), function() {  
-            // });
         },
 
         // Re-render the titles of the todo item.
         render: function () {
             var model = this.model.toJSON();
-                                                                        
+            
+            model.firstName = model.displayName.split(" ")[0];
+                                                                                    
             this.$el.html(this.template({profile: model, bands: model.shared, match: Math.floor(model.percent)}));
                         
             return this;
