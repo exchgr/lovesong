@@ -30,7 +30,8 @@ routes = {
                 async.each(_.keys(shared), function(id, done) {
                     models.Artist.getty(id, function(err, artist) {
                         var artist = artist.toJSON({'virtuals': true});
-                        artist.match = shared[artist._id];
+                        artist.match = shared[artist._id].match;
+                        artist.source = shared[artist._id].source;
                         match.shared.push(artist);
                         done();
                     });
@@ -39,8 +40,13 @@ routes = {
                     delete match._friends;
                     delete match._artists;
                     delete match._recommendations;
-    		        
-                                    
+                    
+                    if(match.source != undefined) {
+                        delete match.source._similar;
+                    }
+                    
+                    console.log(match);
+                    
                     recommendations.push(match);
                     cb();
                 });

@@ -55,7 +55,7 @@ define([
             var model = this.model.toJSON();
             
             model.firstName = model.displayName.split(" ")[0];
-                                                                                    
+                                                                                                
             this.$el.html(this.template({profile: model, bands: model.shared, match: Math.floor(model.percent)}));
                         
             return this;

@@ -38,5 +38,7 @@ block content
                 .art(style="background: url('{{ band.image.large }}') 50% 50%")
               .media-body  
                 h3.name {{ band.name }}
-                h4.like Like <strong>The Beatles</strong>
+                | {( if(band.source != undefined) { )}
+                h4.like Like <strong>{{ band.source.name }}</strong>
+                | {( } )}
              | {( }) )}

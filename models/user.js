@@ -163,7 +163,7 @@ schema.methods.getMatches = function(opts, cb) {
 		
 	if (opts.force || _.size(self._recommendations) == 0) {
 		// first we need all the similar artists
-		this.getSimilarArtists(artistOpts, function(err, similarity) {
+		this.getSimilarArtists(artistOpts, function(err, similarity) {		    
 			var artists = _.keys(similarity);
 			
 			var query = opts.search || {};
@@ -184,10 +184,11 @@ schema.methods.getMatches = function(opts, cb) {
 							artists
 						), function(artist) {
 							shared[artist] = similarity[artist];
-							score = score + similarity[artist];
+                            // console.log(similarity[artist]);
+							score = score + similarity[artist].match;
 						}
 					);
-
+					
 					user._recommendations[self._id] = {
 						shared: shared,
 						score: score
@@ -249,9 +250,12 @@ schema.methods.getSimilarArtists = function(options, cb) {
 		_.each(myArtists, function(artist) {
 			_.each(artist.similar, function(sa) {
 				if (similarity[sa.artist] == undefined) {
-					similarity[sa.artist] = 0;
+					similarity[sa.artist] = {
+					    match: 0,
+					    source: artist
+					};
 				}
-				similarity[sa.artist] = similarity[sa.artist] + sa.match;
+				similarity[sa.artist].match = similarity[sa.artist].match + sa.match;
 			});
 		});
 				
@@ -275,12 +279,12 @@ schema.methods.getSimilarArtists = function(options, cb) {
 				cb(err, artists);
 
 			});
-		} else {
-			if(options.injectOwn) {
-				_.each(myArtists, function(artist) {
-					similarity[artist._id] = 1; // we match 100% with ourselves
-				});
-			}
+		} else {		    
+            if(options.injectOwn) {
+                _.each(myArtists, function(artist) {
+                    similarity[artist._id] = {match: 1}; // we match 100% with ourselves
+                });
+            }
 			
 			cb(err, similarity);
 		}
