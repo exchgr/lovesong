@@ -49,24 +49,40 @@ header.navbar .avatar {
 h1 {
   font-family: Lato, sans-serif;
 }
+.choice {
+  text-align: center;
+  padding-top: 12em;
+}
 .card {
-  padding: 0;
   background: #fff;
-  box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
 }
 .card h1 {
   display: inline-block;
 }
 .card img.avatar {
   display: block;
-  width: 100%;
+  margin: 0 auto;
+  border-radius: 50%;
+  width: 80%;
 }
-.card ul.bands {
+.card .btn-group {
+  margin: 1em auto;
+}
+.bands {
+  padding-left: 2em;
+}
+.bands ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.card ul.bands li img {
+.bands ul li {
+  display: inline-block;
+  margin-bottom: 1em;
+  width: 30%;
+}
+.bands ul li img {
   height: 4em;
   margin-right: 1em;
 }
