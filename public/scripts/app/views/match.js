@@ -4,17 +4,17 @@ define([
     'backbone',
 	'app/models/profile'
 ], function ($, _, Backbone, Profiles) {
-    
+
     _.templateSettings = {
       interpolate : /\{\{(.+?)\}\}/g
     };
-        
+
     // cache the template
     var template = _.template($('#profile-template').html())
-    
+
     var Match = Backbone.View.extend({
         template: template,
-        
+
         // The DOM events specific to an item.
         events: {
             // 'click .meet': 'startMeet',
@@ -32,10 +32,11 @@ define([
         // Re-render the titles of the todo item.
         render: function () {
             this.$el.html(this.template({model: this.model.toJSON()}));
-            
+            $('#match').modal({});
+
             return this;
         },
     });
-    // 
+    //
     return Match;
 });
