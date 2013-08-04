@@ -36,9 +36,9 @@ define([
             var view = new Match({model: profile});
 
             $('#loading').slideUp();
-            $('#profile-template').slideDown();
+            $('#profile').slideDown();
 
-            $('#profile-template').html(view.render().el);
+            $('#profile').html(view.render().el);
         },
 
 	});

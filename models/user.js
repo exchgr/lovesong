@@ -44,7 +44,9 @@ schema.virtual('image').get(function() {
 });
 
 schema.virtual('name').get(function() {
-	if (this.externals.facebook != undefined) {
+    if (this.displayName != undefined) {
+        return this.displayName;
+    } else if (this.externals.facebook != undefined) {
 		return this.externals.facebook.displayName;
 	} else {
 		return this.username;

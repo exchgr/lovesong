@@ -33,9 +33,7 @@ define([
         // Re-render the titles of the todo item.
         render: function () {
             var model = this.model.toJSON();
-            
-            console.log(model.shared);
-                                                            
+                                                                        
             this.$el.html(this.template({profile: model, bands: model.shared, match: Math.floor(model.percent)}));
                         
             return this;

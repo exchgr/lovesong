@@ -13,7 +13,7 @@ var pkg = require('./package.json')
 		, auth = require(__dirname+'/lib/auth')
 
 // set up Mongoose
-mongoose.connect('localhost', pkg.name);
+mongoose.connect(process.env.MONGOURL || process.env.MONGOLAB_URI || process.env.MONGOHQ_URLL || 'mongodb://localhost/' + pkg.name);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback() {
