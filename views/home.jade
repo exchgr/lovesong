@@ -25,9 +25,9 @@ block content
       .col-lg-8.col-sm-1.bands
         h1 Bands they like
         ul
-                      
+
            | {( bands.forEach(function(band) { )}
            li
-            img(src!='{{ band.image.large }}')
+            .art(style="background: url('{{ band.image.large }}') 50% 50%")
             .name {{ band.name }}
            | {( }) )}

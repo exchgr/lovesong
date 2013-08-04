@@ -98,9 +98,11 @@ h1 {
   margin-right: 1em;
   width: 30%;
 }
-.bands ul li img {
+.bands ul li .art {
   float: left;
+  width: 4em;
   height: 4em;
+  background-size: cover;
 }
 .bands ul li .name {
   margin-left: 5em;
