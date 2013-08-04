@@ -33,10 +33,6 @@ define([
         render: function () {
             this.$el.html(this.template({model: this.model.toJSON()}));
             
-            console.log(this.template({model: this.model.toJSON()}));
-            
-            console.log('rendered');
-            
             return this;
         },
     });

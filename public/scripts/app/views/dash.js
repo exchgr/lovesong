@@ -5,9 +5,7 @@ define([
     'app/models/profile',
     'app/views/match'
 ], function ($, _, Backbone, Profiles, Match) {
-    _.templateSettings = {
-      interpolate : /\{\{(.+?)\}\}/g
-    };
+    
     
 	// The Dashboard View
 	// ---------------
@@ -22,27 +20,23 @@ define([
 			// this.listenTo(app.todos, 'reset', this.refresh);
             this.listenTo(profiles, 'reset', this.setMatch);
 			
-			// console.log( Profiles );
-			
-			// profiles.add({
-				// 'name': 'Samantha Xu'
-			// });
-			
 			// fetch default profiles
 			profiles.fetch({reset: true});
-			
-			console.log('this was reached');
 			
 			// console.log( Profiles );
 		},
 
 		render: function () {
 		},
-
+        
         setMatch: function () {
             var profile = profiles.at(0);
             
             var view = new Match({model: profile});
+            
+            $('#loading').slideUp();
+            $('#profile-template').slideDown();
+            
             $('#profile-template').html(view.render().el);
         },
 

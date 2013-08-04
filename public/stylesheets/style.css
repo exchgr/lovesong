@@ -54,6 +54,9 @@ header.navbar .avatar {
 .jumbotron .logo {
   font-size: 7em;
 }
+#profile-template {
+  display: none;
+}
 h1 {
   font-family: Lato, sans-serif;
 }
