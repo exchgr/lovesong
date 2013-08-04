@@ -1,4 +1,25 @@
 extends layout
 
 block content
-  p Hello, #{user.name}
+  .row
+    .col-lg-4.col-sm-12.col-lg-offset-4.card
+      h1 70%
+      | &nbsp;match
+      .pull-right
+        h1 3
+        | &nbsp;mutual friends
+      br
+      img.avatar(src=user.image)
+      ul.bands
+        li
+          img(src=user.image)
+          | Shigeto
+        li
+          img(src=user.image)
+          | Grizzly Bear
+        li
+          img(src=user.image)
+          | Radiohead
+        li
+          img(src=user.image)
+          | Panda Bear

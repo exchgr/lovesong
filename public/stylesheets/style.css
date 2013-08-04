@@ -46,6 +46,30 @@ header.navbar .avatar {
 .jumbotron .logo {
   font-size: 7em;
 }
+h1 {
+  font-family: Lato, sans-serif;
+}
+.card {
+  padding: 0;
+  background: #fff;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+}
+.card h1 {
+  display: inline-block;
+}
+.card img.avatar {
+  display: block;
+  width: 100%;
+}
+.card ul.bands {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.card ul.bands li img {
+  height: 4em;
+  margin-right: 1em;
+}
 @media (max-width: 560px) {
   .jumbotron .logo {
     font-size: 3em;
