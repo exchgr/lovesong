@@ -24,9 +24,9 @@ define([
 			profiles.fetch({reset: true});
 
 			// init the modal
-      $('#match').modal({
-        show: false
-      });
+			$('#match').modal({
+                show: false
+            });
 
 		},
 

@@ -6,7 +6,7 @@ var _ = require('underscore')
     , async = require('async')
 
 routes = {
-	recommendations: function( req, res, next ) {
+	recommendations: function( req, res, next ) {	    
 		req.user.getMatches({limit: 5}, function(err, matches) {
 		    		    
 		    var recommendations = [];
@@ -14,7 +14,7 @@ routes = {
 		    var maxMatch = req.user.artists.length;
 		    
 		    async.each(matches, function(match, cb) {
-		        var match = match.toJSON();
+		        var match = match.toJSON({'virtuals': true});
 		        
 		        match.score = match._recommendations[req.user._id].score;
 		        match.percent = match.score / maxMatch * 100;

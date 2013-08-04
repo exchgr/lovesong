@@ -14,13 +14,17 @@ schema = new mongoose.Schema({
 	displayName: String,
 	joined: {
 		type: Date,
-	default:
-		Date.now
+	    default: Date.now
 	},
+	
+	_picture: {type: String},
+	location: {type: mongoose.Schema.Types.Mixed},
+	status: String,
+	gender: {type: String, default: 'male'},
+	
 	externals: {
 		type: mongoose.Schema.Types.Mixed,
-	default:
-		{}
+	    default: {}
 	},
 	_recommendations: {type: mongoose.Schema.Types.Mixed, default: {}},
 	_artists: {
@@ -36,7 +40,7 @@ schema = new mongoose.Schema({
 });
 
 schema.virtual('image').get(function() {
-	return 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn1/c19.19.243.243/s160x160/73253_10151143232340814_480281695_n.jpg';
+    return 'http://graph.facebook.com/' + this.fbid + '/picture?type=large';
 });
 
 schema.virtual('name').get(function() {
@@ -48,6 +52,10 @@ schema.virtual('name').get(function() {
 });
 
 schema.virtual('fbToken').get(function() {
+    if (this.externals.facebook == undefined) {
+        return false;
+    }
+    
 	return this.externals.facebook.accessToken;
 });
 
@@ -64,17 +72,20 @@ schema.virtual('artists').get(function() {
 schema.methods.getFriends = function(cb) {
 	var self = this;
 
-	if (this._friends.length == 0) {
-		fbgraph.setAccessToken(this.fbToken).get("me/friends?fields=id,name,gender,location,picture,relationship_status,interested_in", function(err, res) {
-		    
-		    console.log(res.data);
-		    
+	if (this._friends.length == 0 && this.fbToken) {
+		fbgraph.setAccessToken(this.fbToken).get("me/friends?fields=id,name,gender,location,relationship_status", function(err, res) {
+		    		    		    
 			var friends = [];
 
 			async.each(res.data, function(fnd, cb) {
+			    			    
 				User.modcreate(fnd.id, {
-					'displayName': fnd.name
+					'displayName': fnd.name,
+                    'gender': fnd.gender || 'male',
+                    'status': fnd.relationship_status || 'Single',
+                    'location': fnd.location
 				}, function(err, friend) {
+				    				    
 					friends.push(friend);
 					cb(err);
 
@@ -103,13 +114,17 @@ schema.methods.getFriends = function(cb) {
 			}, function(err) {
 				self._friends = [];
 				_.each(friends, function(friend) {
-					self._friends.push(friend._id)
+				    if(friend != undefined ) {
+				        self._friends.push(friend._id)
+				    }
 				});
 				self.save(function() {
 
 				});
 
-				cb(err, friends);
+                if(cb != undefined) {
+                    cb(err, friends);
+                }
 			});
 
 		});
@@ -119,7 +134,9 @@ schema.methods.getFriends = function(cb) {
 				'$in': self._friends
 			}
 		}, function(err, friends) {
-			cb(err, friends);
+		    if (cb != undefined) {
+		        cb(err, friends);
+		    }
 		});
 	}
 }
