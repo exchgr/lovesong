@@ -7,6 +7,8 @@ define(['jquery', 'facebook'], function($, FB) {
     function loggedin(user) {
 
         $('.navbar').show();
+        
+        $('#fbid').text(user.fbid);
 
         $('.navbar .profile').html('<img class="avatar" src="' + user.image + '" /> ' + user.displayName);
 

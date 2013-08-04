@@ -1,6 +1,8 @@
 extends layout
 
 block content
+  .hidden
+    #fbid
   #landing.jumbotron
     .vert-center
       h1.logo LoveSong
@@ -15,9 +17,9 @@ block content
     script#profile-template(type='text/template')
       .row.card
         .col-lg-4.col-sm-12.profile
-          h1 {{ profile.firstName }}
+          h1.name {{ profile.firstName }}
           .match
-            h2 {{ match }}%
+            h1 {{ match }}%
             span match
           br
           img.avatar(src!='{{ profile.image }}')

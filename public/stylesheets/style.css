@@ -76,13 +76,16 @@ h1 {
 .card .profile {
   position: relative;
 }
-.card .profile h1 {
+.card .profile h1.name {
   display: inline-block;
 }
 .card .profile .match {
   position: absolute;
   top: 0;
   right: 15px;
+}
+.card .profile .match h1 {
+  margin-bottom: 1px;
 }
 .card .profile img.avatar {
   display: block;
