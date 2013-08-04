@@ -36,7 +36,7 @@ define([
             
             console.log(model);
                                     
-            this.$el.html(this.template({model: model, bands: model.shared}));
+            this.$el.html(this.template({profile: model, bands: model.shared, match: 3}));
                         
             return this;
         },

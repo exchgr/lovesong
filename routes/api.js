@@ -7,7 +7,9 @@ var _ = require('underscore')
 
 routes = {
 	recommendations: function( req, res, next ) {
-		req.user.getMatches({limit: 5}, function(err, matches) {
+		req.user.getMatches({limit: 5000}, function(err, matches) {
+		    
+		    console.log(req.user._artists);
 		    
 		    var recommendations = [];
 		    
