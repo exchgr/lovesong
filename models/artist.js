@@ -1,6 +1,6 @@
 // we need mongoose
 var mongoose	= require('mongoose')
-	, _ 		= require('../public/lib/underscore')
+	, _ 		= require('underscore')
 	
 var music		= require('../lib/music'),
 	models		= require('./')
