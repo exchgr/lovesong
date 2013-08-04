@@ -56,10 +56,14 @@ routes = {
 		});
 	},
 	dislike: function( req, res, next ) {
+	    if (req.user._disliked == undefined) {
+	        req.user._disliked == [];
+	    }
 	    req.user._disliked.push(req.params.id);	    
 	    req.user.save(function(err) {
-	       res.send('s'); 
+	        console.log(err);
 	    });
+	    res.send('s');
 	}
 }
 
