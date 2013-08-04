@@ -4,17 +4,18 @@ define([
     'backbone',
 	'app/models/profile'
 ], function ($, _, Backbone, Profiles) {
+
     _.templateSettings = {
         interpolate : /\{\{(.+?)\}\}/g,
         evaluate : /\{\>(.+?)\}\}/g
     };
-       
+
     // cache the template
     var template = _.template($('#profile-template').html())
-    
+
     var Match = Backbone.View.extend({
         template: template,
-        
+
         // The DOM events specific to an item.
         events: {
             // 'click .meet': 'startMeet',
@@ -35,9 +36,11 @@ define([
                         
             this.$el.html(this.template({model: model, bands: model.shared}));
             
+            $('#match').modal({});
+            
             return this;
         },
     });
-    // 
+    //
     return Match;
 });

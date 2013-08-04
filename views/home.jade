@@ -4,6 +4,9 @@ block content
   #loading
     Loading...
   #profile-template
+    .modal.fade#match
+      .modal-dialog
+
     .row
       .col-lg-4.col-sm-12.card
         h1 70%
@@ -18,7 +21,7 @@ block content
           .btn-group
             button.btn.btn-default(type='button')
               img(src='/img/broken-heart.png')
-            button.btn.btn-default(type='button')
+            button.btn.btn-default(type='button', data-toggle='modal', href='#match')
               img(src='/img/heart.png')
       .col-lg-8.col-sm-1.bands
         h1 Bands they like
