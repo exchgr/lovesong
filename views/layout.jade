@@ -21,12 +21,10 @@ html
           a.navbar-brand.logo(href='/') LoveSong
           ul.nav.navbar-nav.pull-right
             li
-              a(href='/profile')
+              a.profile(href='/profile')
                 if(user)
                   img.avatar(src=user.image)
                   | #{user.name}
-                else
-                  img.avatar
             li
               a(href='/logout') Log out
     #content.container

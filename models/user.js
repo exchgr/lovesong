@@ -169,9 +169,7 @@ schema.methods.getMatches = function(opts, cb) {
 			query['_artists.facebook'] = {'$in': artists};
 			query['_id'] = {'$ne': self._id};
 			query['_id'] = {'$nin': self._disliked};
-			
-            // console.log(self.)
-						
+									
 			User.find(query).limit(opts.limit).exec(function(err, users) {
 			    
 				_.each(users, function(user) {

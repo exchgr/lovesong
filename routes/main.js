@@ -3,13 +3,6 @@ var models = require('../models')
 	, music = require('../lib/music')
 
 var _ = require('underscore')
-
-landing = function(req, res) {
-	res.render("landing", {
-		project: pkg.name
-	});
-}
-
 home = function(req, res) {
 	res.render("home", {
 		project: pkg.name,
@@ -17,16 +10,8 @@ home = function(req, res) {
 	});
 }
 
-index = function(req, res) {
-	if (req.user != undefined) {
-		home(req,res);
-	} else {
-		landing(req,res);
-	}
-}
-
 module.exports = {
-	landing: landing,
+	landing: home,
 	home: home,
-	index: index
+	index: home
 };

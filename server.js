@@ -51,6 +51,7 @@ app.get('/login', auth.login);
 app.get('/logout', auth.logout);
 app.get('/auth/facebook', auth.facebook.start);
 app.get('/auth/facebook/callback', auth.facebook.end);
+app.post('/auth/confirm', auth.facebook.confirm);
 
 // --- api
 app.get('/api/recommendations', api.recommendations);

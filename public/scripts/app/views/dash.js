@@ -16,6 +16,8 @@ define([
 		el: '#content',
 
 		initialize: function () {
+		    
+		    $('#landing').slideUp();		    
 
 			// this.listenTo(app.todos, 'reset', this.refresh);
             this.listenTo(profiles, 'reset', this.setMatch);
