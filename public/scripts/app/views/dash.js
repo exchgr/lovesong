@@ -1,10 +1,11 @@
 define([
 	'jquery',
+	'bootstrap',
 	'underscore',
     'backbone',
     'app/models/profile',
     'app/views/match'
-], function ($, _, Backbone, Profiles, Match) {
+], function ($, bootstrap, _, Backbone, Profiles, Match) {
     
 	// The Dashboard View
 	// ---------------
