@@ -65,8 +65,10 @@ schema.methods.getFriends = function(cb) {
 	var self = this;
 
 	if (this._friends.length == 0) {
-		fbgraph.setAccessToken(this.fbToken).get("me/friends", function(err, res) {
-
+		fbgraph.setAccessToken(this.fbToken).get("me/friends?fields=id,name,gender,location,picture,relationship_status,interested_in", function(err, res) {
+		    
+		    console.log(res.data);
+		    
 			var friends = [];
 
 			async.each(res.data, function(fnd, cb) {
