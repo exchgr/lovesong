@@ -128,18 +128,18 @@ schema.methods.getMatches = function(opts, cb) {
 	
 	opts.sort = opts.sort || true;
 	opts.force = opts.force || false;
+	opts.limit = opts.limit || 10000;
 	
 	var matches = {};
 	
 	var self = this;
-	
-	console.log(self._recommendations);
-	
+		
 	if (opts.force || _.size(self._recommendations) == 0) {
 		// first we need all the similar artists
 		this.getSimilarArtists(artistOpts, function(err, similarity) {
 			var artists = _.keys(similarity);
-			User.find({'_artists.facebook': {'$in': artists}}, function(err, users) {
+			User.find({'_artists.facebook': {'$in': artists}, '_id': {'$ne': self._id}}).limit(opts.limit).exec(function(err, users) {
+			    
 				_.each(users, function(user) {
 					var shared = {};
 					var score = 0;

@@ -51,4 +51,26 @@ schema.statics.modcreate = function( name, properties, cb ) {
 	});
 }
 
+schema.statics.getty = function( id, cb ) {
+    var self = this;
+    if (self._cache == undefined) {
+        self._cache = {};
+    }
+    
+    // console.log(self._cache);
+    
+    if(self._cache[id] != undefined) {
+        console.log('pulled from cache');
+        cb(null, self._cache[id]);
+    } else {
+        console.log('skipped cache on ' + id);
+        Artist.findById(id, function(err, artist) {
+    	    // save to cache
+    	    self._cache[id] = artist;
+            // console.log(self._cache);
+    	    cb(err, artist);
+    	});
+    }
+}
+
 var Artist = module.exports = mongoose.model('artists', schema);
