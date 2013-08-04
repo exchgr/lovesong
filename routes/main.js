@@ -4,30 +4,29 @@ var models = require('../models')
 
 var _ = require('underscore')
 
-routes = {
-	index: function( req, res ) {
-		if (req.user != undefined) {
-			routes.home(req,res);
-		} else {
-			routes.landing(req,res);
-		}
-	},
-	home: function(req, res) {
-		
-		req.user.getMatches({}, function(err, matches) {
-			console.log(matches);
-		});
-		
-		res.render("home", {
-			project: pkg.name,
-			user: req.user
-		});
-	},
-	landing: function(req, res) {
-		res.render("landing", {
-			project: pkg.name
-		});
+landing = function(req, res) {
+	res.render("landing", {
+		project: pkg.name
+	});
+}
+
+home = function(req, res) {
+	res.render("home", {
+		project: pkg.name,
+		user: req.user
+	});
+}
+
+index = function(req, res) {
+	if (req.user != undefined) {
+		home(req,res);
+	} else {
+		landing(req,res);
 	}
 }
 
-module.exports = routes;
+module.exports = {
+	landing: landing,
+	home: home,
+	index: index
+};
