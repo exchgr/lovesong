@@ -5,9 +5,9 @@ html
       title LoveSong | #{user.name}
     else
       title LoveSong
-    link(rel="shortcut icon", href="img/favicon.png?v=2")
-    link(rel='stylesheet', href='stylesheets/bootstrap.min.css')
-    link(rel='stylesheet', href='stylesheets/style.css')
+    link(rel="shortcut icon", href="/img/favicon.png?v=2")
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
     link(href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700', rel='stylesheet', type='text/css')
     link(href='http://fonts.googleapis.com/css?family=Courgette', rel='stylesheet', type='text/css')
     meta(name="viewport", content="width=device-width, initial-scale=1")
@@ -16,16 +16,4 @@ html
     block scripts
       <script data-main="/scripts/app/app" src="/scripts/lib/require.js"></script>
   body
-      header.navbar.loggedin
-        .container
-          a.navbar-brand.logo(href='/') LoveSong
-          ul.nav.navbar-nav.pull-right
-            li
-              a.profile(href='/profile')
-                if(user)
-                  img.avatar(src=user.image)
-                  | #{user.name}
-            li
-              a(href='/logout') Log out
-    #content.container
-      block content
+    block body

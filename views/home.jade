@@ -1,46 +1,58 @@
 extends layout
 
-block content
-  .hidden
-    #fbid
-  #landing.jumbotron
-    .vert-center
-      h1.logo LoveSong
-      p Melt with your musical match.
-      a#login.btn.btn-primary.btn-large(href='/asd24') Log in with Facebook
-  #home
-    #loading
-      p Reticulating spines...
-    #match.modal.fade
-      .modal-dialog
-    #profile
-    script#profile-template(type='text/template')
-      .row.card
-        .col-lg-4.col-sm-12.profile
-          h1.name {{ profile.firstName }}
-          .match
-            h1 {{ match }}%
-            span match
-          br
-          img.avatar(src!='{{ profile.image }}')
-          .center
-            .btn-group
-              button#dislike.btn.btn-default(type='button')
-                img(src='/img/broken-heart.png')
-              button#like.btn.btn-default(type='button')
-                img(src='/img/heart.png')
-        .col-lg-8.col-sm-1.bands
-          h1 Artists they listen to
+block body
+  header.navbar.loggedin
+    .container
+      a.navbar-brand.logo(href='/') LoveSong
+      ul.nav.navbar-nav.pull-right
+        li
+          a.profile(href='/profile')
+            if(user)
+              img.avatar(src=user.image)
+              | #{user.name}
+        li
+          a(href='/logout') Log out
+  #content.container
+    .hidden
+      #fbid
+    #landing.jumbotron
+      .vert-center
+        h1.logo LoveSong
+        p Melt with your musical match.
+        a#login.btn.btn-primary.btn-large(href='/asd24') Log in with Facebook
+    #home
+      #loading
+        p Reticulating spines...
+      #match.modal.fade
+        .modal-dialog
+      #profile
+      script#profile-template(type='text/template')
+        .row.card
+          .col-lg-4.col-sm-12.profile
+            h1.name {{ profile.firstName }}
+            .match
+              h1 {{ match }}%
+              span match
+            br
+            img.avatar(src!='{{ profile.image }}')
+            .center
+              .btn-group
+                button#dislike.btn.btn-default(type='button')
+                  img(src='/img/broken-heart.png')
+                button#like.btn.btn-default(type='button')
+                  img(src='/img/heart.png')
+          .col-lg-8.col-sm-1.bands
+            h1 Artists they listen to
           
-          ul.media-list
+            ul.media-list
 
-             | {( bands.forEach(function(band) { )}
-             li.media
-              span.pull-left
-                .art(style="background: url('{{ band.image.large }}') 50% 50%")
-              .media-body  
-                h3.name {{ band.name }}
-                | {( if(band.source != undefined) { )}
-                h4.like Like <strong>{{ band.source.name }}</strong>
-                | {( } )}
-             | {( }) )}
+               | {( bands.forEach(function(band) { )}
+               li.media
+                span.pull-left
+                  .art(style="background: url('{{ band.image.large }}') 50% 50%")
+                .media-body  
+                  h3.name {{ band.name }}
+                  | {( if(band.source != undefined) { )}
+                  h4.like Like <strong>{{ band.source.name }}</strong>
+                  | {( } )}
+               | {( }) )}

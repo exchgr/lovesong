@@ -59,6 +59,10 @@ schema.virtual('name').get(function() {
 	}
 });
 
+schema.virtual('firstName').get(function() {
+    return this.name.split(" ")[0];
+});
+
 schema.virtual('fbToken').get(function() {
     if (this.externals.facebook == undefined) {
         return false;

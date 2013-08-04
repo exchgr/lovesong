@@ -1,0 +1,31 @@
+extends layout
+
+block scripts
+
+block body
+  header.navbar.show
+    .container
+      a.navbar-brand.logo(href='/') LoveSong
+      ul.nav.navbar-nav.pull-right
+        li
+          a(href='/login') Join
+  #content.container
+    .row.card
+      .col-lg-4.col-sm-12.profile
+        h1.name Hi, #{to.firstName}
+        p #{from.firstName} thinks you might enjoy each other's music and company.
+        img.avatar(src=from.image)
+        br
+        .center
+          a.btn.btn-primary.btn-large(href='/login') Join
+                
+      .col-lg-8.col-sm-1.bands
+        h1 You could listen to these artists together
+      
+        ul.media-list
+          each band in bands
+            li.media
+              span.pull-left
+                .art(style="background: url('#{band.image.large}') 50% 50%")
+              .media-body  
+                h3.name=band.name

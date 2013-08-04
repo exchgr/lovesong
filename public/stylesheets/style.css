@@ -26,6 +26,9 @@ header.navbar {
   background-color: rgba(0,0,0,0.1);
   border-radius: 0;
 }
+header.navbar.show {
+  display: block;
+}
 header.navbar .logo {
   font-size: 2em;
 }

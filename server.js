@@ -10,6 +10,7 @@ var express = require('express')
 var pkg = require('./package.json')
 		, main = require('./routes/main')
 		, api = require('./routes/api')
+		, social = require('./routes/social')
 		, auth = require(__dirname+'/lib/auth')
 
 // set up Mongoose
@@ -57,6 +58,9 @@ app.post('/auth/confirm', auth.facebook.confirm);
 app.get('/api/recommendations', api.recommendations);
 app.del('/api/recommendations/:id', api.dislike);
 app.get('/api/artists', api.artists);
+
+// --- social
+app.get('/s/:from/:to', social.date);
 
 // start listening
 app.listen( process.env.PORT, function() {
