@@ -15,7 +15,7 @@ block content
           h2 {{ match }}%
           | &nbsp;match
         br
-        img.avatar(src=user.image)
+        img.avatar(src!='{{ profile.image }}')
         // I'm sorry
         .center
           .btn-group
