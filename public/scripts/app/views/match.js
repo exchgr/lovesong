@@ -4,11 +4,11 @@ define([
     'backbone',
 	'app/models/profile'
 ], function ($, _, Backbone, Profiles) {
-    
     _.templateSettings = {
-      interpolate : /\{\{(.+?)\}\}/g
+        interpolate : /\{\{(.+?)\}\}/g,
+        evaluate : /\{\>(.+?)\}\}/g
     };
-        
+       
     // cache the template
     var template = _.template($('#profile-template').html())
     
@@ -31,7 +31,9 @@ define([
 
         // Re-render the titles of the todo item.
         render: function () {
-            this.$el.html(this.template({model: this.model.toJSON()}));
+            var model = this.model.toJSON();
+                        
+            this.$el.html(this.template({model: model, bands: model.shared}));
             
             return this;
         },

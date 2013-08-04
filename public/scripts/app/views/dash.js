@@ -6,7 +6,6 @@ define([
     'app/views/match'
 ], function ($, _, Backbone, Profiles, Match) {
     
-    
 	// The Dashboard View
 	// ---------------
 	
