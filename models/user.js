@@ -40,7 +40,7 @@ schema = new mongoose.Schema({
 });
 
 schema.virtual('image').get(function() {
-    return 'http://graph.facebook.com/' + this.fbid + '/picture?type=large';
+    return 'http://graph.facebook.com/' + this.fbid + '/picture?width=400&height=400';
 });
 
 schema.virtual('name').get(function() {
@@ -148,7 +148,7 @@ schema.methods.getMatches = function(opts, cb) {
 	opts.sort = opts.sort || true;
 	opts.force = opts.force || false;
 	opts.limit = opts.limit || 10000;
-	
+		
 	var matches = {};
 	
 	var self = this;
@@ -157,7 +157,14 @@ schema.methods.getMatches = function(opts, cb) {
 		// first we need all the similar artists
 		this.getSimilarArtists(artistOpts, function(err, similarity) {
 			var artists = _.keys(similarity);
-			User.find({'_artists.facebook': {'$in': artists}, '_id': {'$ne': self._id}}).limit(opts.limit).exec(function(err, users) {
+			
+			var query = opts.search || {};
+			query['_artists.facebook'] = {'$in': artists};
+			query['_id'] = {'$ne': self._id};
+			
+            // console.log(self.)
+						
+			User.find(query).limit(opts.limit).exec(function(err, users) {
 			    
 				_.each(users, function(user) {
 					var shared = {};

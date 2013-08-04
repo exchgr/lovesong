@@ -18,6 +18,21 @@ var schema = mongoose.Schema({
 	}]
 });
 
+schema.virtual('image').get(function() {
+    if(this._image != undefined) {
+        return this._image;
+    } else {
+        return {
+            small: '/img/default-artist.jpg',
+            medium: '/img/default-artist.jpg',
+            large: '/img/default-artist.jpg',
+            extralarge: '/img/default-artist.jpg',
+            mega: '/img/default-artist.jpg'
+        }
+    }
+   
+});
+
 schema.methods.getFans = function(cb) {
 	var self = this;
 	models.User.find({'_artists.facebook': {'$in': [self._id]}}, function(err, users) {

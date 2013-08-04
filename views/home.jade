@@ -27,8 +27,8 @@ block content
         h1 Bands they like
         ul
                       
-           {( bands.forEach(function(band) { )}
+           | {( bands.forEach(function(band) { )}
            li
             img(src!='{{ band.image.large }}')
             .name {{ band.name }}
-           {( }) )}
+           | {( }) )}

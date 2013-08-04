@@ -7,7 +7,12 @@ var _ = require('underscore')
 
 routes = {
 	recommendations: function( req, res, next ) {	    
-		req.user.getMatches({limit: 5}, function(err, matches) {
+		req.user.getMatches({
+		    limit: 5,
+		    search: {
+		        gender: 'female'
+		    }
+		}, function(err, matches) {
 		    		    
 		    var recommendations = [];
 		    
@@ -24,9 +29,8 @@ routes = {
 		        
                 async.each(_.keys(shared), function(id, done) {
                     models.Artist.getty(id, function(err, artist) {
-                        var artist = artist.toJSON();
+                        var artist = artist.toJSON({'virtuals': true});
                         artist.match = shared[artist._id];
-                        artist.image = artist._image;
                         match.shared.push(artist);
                         done();
                     });
