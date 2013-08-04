@@ -29,10 +29,16 @@ define(['jquery', 'facebook'], function($, FB) {
         } else {
             // keep the landing page lightweight; ie. don't load Backbone, etc.
             $('.vert-center').css('margin-top', -$('.vert-center').outerHeight() / 2 + 'px');
-
+                        
             $('#login').click(function(e) {
+                e.preventDefault();
+                
                 FB.login(function(response) {
                     if (response.authResponse) {
+                        
+                        $('#landing').slideUp();
+                        $('#loading').slideDown();
+                        
                         $.post('/auth/confirm', {
                             data: {
                                 id: response.authResponse.userID,
@@ -43,8 +49,6 @@ define(['jquery', 'facebook'], function($, FB) {
                         });
                     }
                 });
-
-                e.preventDefault();
             });
         }
     });

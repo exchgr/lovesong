@@ -21,6 +21,7 @@ schema = new mongoose.Schema({
 	location: {type: mongoose.Schema.Types.Mixed},
 	status: String,
 	gender: {type: String, default: 'male'},
+	interested_in: [String],
 	
 	externals: {
 		type: mongoose.Schema.Types.Mixed,
