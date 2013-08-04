@@ -3,25 +3,27 @@ define(['jquery', 'facebook'], function($, FB) {
         appId: '513897315346898'
         // channelUrl : '//yourdomain.com/channel.html'
     });
-    
+
     function loggedin(user) {
-        
+
         $('.navbar').show();
-        
+
         $('.navbar .profile').html('<img class="avatar" src="' + user.image + '" /> ' + user.displayName);
-                
+
         // load the full app
         require(["app/views/dash"], function(Dashboard) {
             new Dashboard;
         });
     }
-        
+
     FB.getLoginStatus(function(response) {
-        if (response.status == "connected") {            
-            $.post('/auth/confirm', {data: {
-                id: response.authResponse.userID,
-                accessToken: response.authResponse.accessToken
-            }}, function(data, status) {
+        if (response.status == "connected") {
+            $.post('/auth/confirm', {
+                data: {
+                    id: response.authResponse.userID,
+                    accessToken: response.authResponse.accessToken
+                }
+            }, function(data, status) {
                 loggedin(data);
             });
         } else {
@@ -29,7 +31,19 @@ define(['jquery', 'facebook'], function($, FB) {
             $('.vert-center').css('margin-top', -$('.vert-center').outerHeight() / 2 + 'px');
 
             $('#login').click(function(e) {
-                FB.login();
+                FB.login(function(response) {
+                    if (response.authResponse) {
+                        $.post('/auth/confirm', {
+                            data: {
+                                id: response.authResponse.userID,
+                                accessToken: response.authResponse.accessToken
+                            }
+                        }, function(data, status) {
+                            loggedin(data);
+                        });
+                    }
+                });
+
                 e.preventDefault();
             });
         }
