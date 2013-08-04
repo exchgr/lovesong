@@ -1,14 +1,13 @@
 define([
 	'jquery',
-	'bootstrap',
 	'underscore',
     'backbone',
 	'app/models/profile'
-], function ($, bootstrap, _, Backbone, Profiles) {
+], function ($, _, Backbone, Profiles) {
 
     _.templateSettings = {
-        interpolate : /\{\{(.+?)\}\}/g,
-        evaluate : /\{\>(.+?)\}\}/g
+        evaluate : /\{\( (.+?) \)\}/g,
+        interpolate : /\{\{ (.+?) \}\}/g,
     };
 
     // cache the template
@@ -34,7 +33,9 @@ define([
         // Re-render the titles of the todo item.
         render: function () {
             var model = this.model.toJSON();
-                        
+            
+            console.log(model);
+                                    
             this.$el.html(this.template({model: model, bands: model.shared}));
                         
             return this;

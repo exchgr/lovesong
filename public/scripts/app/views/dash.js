@@ -1,48 +1,49 @@
 define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'app/models/profile',
-  'app/views/match'
-], function ($, _, Backbone, Profiles, Match) {
+	'jquery',
+	'bootstrap',
+	'underscore',
+    'backbone',
+    'app/models/profile',
+    'app/views/match'
+], function ($, bootstrap, _, Backbone, Profiles, Match) {
 
-  // The Dashboard View
-  // ---------------
+	// The Dashboard View
+	// ---------------
 
-  profiles = Profiles;
+    profiles = Profiles;
 
-  var Dashboard = Backbone.View.extend({
-    el: '#content',
+	var Dashboard = Backbone.View.extend({
+		el: '#content',
 
-    initialize: function () {
+		initialize: function () {
 
-      // this.listenTo(app.todos, 'reset', this.refresh);
-      this.listenTo(profiles, 'reset', this.setMatch);
+			// this.listenTo(app.todos, 'reset', this.refresh);
+            this.listenTo(profiles, 'reset', this.setMatch);
 
-      // fetch default profiles
-      profiles.fetch({reset: true});
+			// fetch default profiles
+			profiles.fetch({reset: true});
 
-      // init the modal
+			// init the modal
       $('#match').modal({
         show: false
       });
 
-    },
+		},
 
-    setMatch: function () {
-      var profile = profiles.at(0);
+        setMatch: function () {
+            var profile = profiles.at(0);
 
-      var view = new Match({model: profile});
+            var view = new Match({model: profile});
 
-      $('#loading').slideUp();
-      $('#profile-template').slideDown();
+            $('#loading').slideUp();
+            $('#profile-template').slideDown();
 
-      $('#profile-template').html(view.render().el);
-    },
+            $('#profile-template').html(view.render().el);
+        },
 
-  });
+	});
 
-  // console.log( Dashboard );
+		// console.log( Dashboard );
 
-  return Dashboard;
+		return Dashboard;
 });
