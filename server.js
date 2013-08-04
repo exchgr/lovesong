@@ -5,7 +5,7 @@ var express = require('express')
 		, request = require('request')
 		, mongoose = require('mongoose')
 		, passport = require('passport')
-		, _ = require('./public/lib/underscore')
+		, _ = require('underscore')
 		
 var pkg = require('./package.json')
 		, main = require('./routes/main')

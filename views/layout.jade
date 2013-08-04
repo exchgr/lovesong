@@ -14,13 +14,10 @@ html
 
 
     block scripts
-      script(src='js/jquery-2.0.3.min.js')
-      script(src='lib/underscore.js')
-      script(src='lib/backbone.js')
-      script(src='js/main.js')
+      <script data-main="/scripts/app/app" src="/scripts/lib/require.js"></script>
   body
     if user
-      header.navbar
+      header.navbar.loggedin
         .container
           a.navbar-brand.logo(href='/') LoveSong
           ul.nav.navbar-nav.pull-right
@@ -30,5 +27,5 @@ html
                 | #{user.name}
             li
               a(href='/logout') Log out
-    .container
+    #content.container
       block content
