@@ -14,10 +14,7 @@ html
 
 
     block scripts
-      script(src='js/jquery-2.0.3.min.js')
-      script(src='lib/underscore.js')
-      script(src='lib/backbone.js')
-      script(src='js/main.js')
+      <script data-main="/scripts/app/app" src="/scripts/lib/require.js"></script>
   body
     if user
       header.navbar
