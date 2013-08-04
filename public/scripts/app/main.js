@@ -50,7 +50,7 @@ define(['jquery', 'facebook'], function($, FB) {
                             loggedin(data);
                         });
                     }
-                });
+                }, {scope: 'user_location,user_relationships,friends_relationships,user_relationship_details,friends_relationship_details,friends_location,user_likes,friends_likes'});
             });
         }
     });

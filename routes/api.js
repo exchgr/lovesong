@@ -16,13 +16,18 @@ routes = {
 		    		    
 		    var recommendations = [];
 		    
-		    var maxMatch = req.user.artists.length;
+		    var maxMatch = req.user.artists.length / 2;
 		    
 		    async.each(matches, function(match, cb) {
 		        var match = match.toJSON({'virtuals': true});
 		        
 		        match.score = match._recommendations[req.user._id].score;
 		        match.percent = match.score / maxMatch * 100;
+		        
+		        if(match.percent > 100) {
+		            match.percent = 99;
+		        }
+		        
 		        match.shared = [];
 		        		        		        
 		        var shared = match._recommendations[req.user._id].shared;

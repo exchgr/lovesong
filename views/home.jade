@@ -6,12 +6,12 @@ block body
       a.navbar-brand.logo(href='/') LoveSong
       ul.nav.navbar-nav.pull-right
         li
-          a.profile(href='/profile')
+          a.profile(href='#')
             if(user)
               img.avatar(src=user.image)
               | #{user.name}
         li
-          a(href='/logout') Log out
+          a#logout(href='/logout') Log out
   #content.container
     .hidden
       #fbid

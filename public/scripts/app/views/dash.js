@@ -2,10 +2,11 @@ define([
 	'jquery',
 	'bootstrap',
 	'underscore',
+	'facebook',
     'backbone',
     'app/models/profile',
     'app/views/match'
-], function ($, bootstrap, _, Backbone, Profiles, Match) {
+], function ($, bootstrap, _, FB, Backbone, Profiles, Match) {
 
 	// The Dashboard View
 	// ---------------
@@ -17,7 +18,13 @@ define([
 
 		initialize: function () {
 		    
-		    $('#landing').slideUp();		    
+		    $('#landing').slideUp();
+		    
+		    $('#logout').click(function() {
+		        FB.logout(function() {
+		            
+		        });
+		    });	    
 
 			// this.listenTo(app.todos, 'reset', this.refresh);
             this.listenTo(profiles, 'reset', this.setMatch);

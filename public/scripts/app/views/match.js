@@ -41,13 +41,11 @@ define([
         
         // like someone
         like: function() {
-            
-            console.log('http://lovesong.herokuapp.com/' + $('#fbid').text() + '/' + this.model.get('fbid'));
-            
+                                    
             FB.ui({
               method: 'send',
               to: this.model.get('fbid'),
-              link: 'http://lovesong.herokuapp.com/'
+              link: 'http://lovesong.morgante.net/s/' + $('#fbid').text() + '/' + this.model.get('fbid')
             });
             
         },
