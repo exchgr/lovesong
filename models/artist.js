@@ -71,9 +71,7 @@ schema.statics.getty = function( id, cb ) {
     if (self._cache == undefined) {
         self._cache = {};
     }
-    
-    // console.log(self._cache);
-    
+        
     if(self._cache[id] != undefined) {
         // console.log('pulled from cache');
         cb(null, self._cache[id]);

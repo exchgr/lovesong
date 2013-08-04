@@ -54,8 +54,8 @@ app.get('/auth/facebook/callback', auth.facebook.end);
 
 // --- api
 app.get('/api/recommendations', api.recommendations);
+app.del('/api/recommendations/:id', api.dislike);
 app.get('/api/artists', api.artists);
-
 
 // start listening
 app.listen( process.env.PORT, function() {

@@ -19,6 +19,7 @@ define([
 
 			// this.listenTo(app.todos, 'reset', this.refresh);
             this.listenTo(profiles, 'reset', this.setMatch);
+            this.listenTo(profiles, 'remove', this.setMatch);
 
 			// fetch default profiles
 			profiles.fetch({reset: true});

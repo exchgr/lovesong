@@ -36,6 +36,11 @@ schema = new mongoose.Schema({
 	_friends: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'users'
+	}],
+	
+	_disliked: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'users'
 	}]
 });
 
@@ -163,6 +168,7 @@ schema.methods.getMatches = function(opts, cb) {
 			var query = opts.search || {};
 			query['_artists.facebook'] = {'$in': artists};
 			query['_id'] = {'$ne': self._id};
+			query['_id'] = {'$nin': self._disliked};
 			
             // console.log(self.)
 						

@@ -18,7 +18,7 @@ define([
 
         // The DOM events specific to an item.
         events: {
-            // 'click .meet': 'startMeet',
+            'click #dislike': 'dislike',
             // 'dblclick label': 'edit',
             // 'click .destroy': 'clear',
             // 'keypress .edit': 'updateOnEnter',
@@ -28,6 +28,16 @@ define([
         initialize: function () {
             this.listenTo(this.model, 'change', this.render);
             this.listenTo(this.model, 'destroy', this.remove);
+        },
+        
+        // dislike someone
+        dislike: function() {
+            
+            this.model.destroy();
+            this.remove();
+            
+            // $.post('/api/dislike?id=' + this.model.get('_id'), function() {  
+            // });
         },
 
         // Re-render the titles of the todo item.

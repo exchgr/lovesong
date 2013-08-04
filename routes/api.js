@@ -54,6 +54,12 @@ routes = {
 		req.user.getSimilarArtists({}, function(err, artists) {
 			res.send(artists);
 		});
+	},
+	dislike: function( req, res, next ) {
+	    req.user._disliked.push(req.params.id);	    
+	    req.user.save(function(err) {
+	       res.send('s'); 
+	    });
 	}
 }
 
