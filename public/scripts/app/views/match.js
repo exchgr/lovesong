@@ -2,8 +2,9 @@ define([
 	'jquery',
 	'underscore',
     'backbone',
+    'facebook',
 	'app/models/profile'
-], function ($, _, Backbone, Profiles) {
+], function ($, _, Backbone, FB, Profiles) {
 
     _.templateSettings = {
         evaluate : /\{\( (.+?) \)\}/gi,
@@ -19,7 +20,7 @@ define([
         // The DOM events specific to an item.
         events: {
             'click #dislike': 'dislike',
-            // 'dblclick label': 'edit',
+            'click #like': 'like',
             // 'click .destroy': 'clear',
             // 'keypress .edit': 'updateOnEnter',
             // 'blur .edit': 'close'
@@ -35,6 +36,17 @@ define([
             
             this.model.destroy();
             this.remove();
+            
+        },
+        
+        // like someone
+        like: function() {
+            
+            FB.ui({
+              method: 'send',
+              to: this.model.get('fbid'),
+              link: 'http://google.com'
+            });
             
         },
 

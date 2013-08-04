@@ -21,12 +21,11 @@ block content
             | &nbsp;match
           br
           img.avatar(src!='{{ profile.image }}')
-          // I'm sorry
           .center
             .btn-group
               button#dislike.btn.btn-default(type='button')
                 img(src='/img/broken-heart.png')
-              button#like.btn.btn-default(type='button', data-toggle='modal', href='#match')
+              button#like.btn.btn-default(type='button')
                 img(src='/img/heart.png')
         .col-lg-8.col-sm-1.bands
           h1 Bands they like
