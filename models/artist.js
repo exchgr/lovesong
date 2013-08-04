@@ -60,10 +60,10 @@ schema.statics.getty = function( id, cb ) {
     // console.log(self._cache);
     
     if(self._cache[id] != undefined) {
-        console.log('pulled from cache');
+        // console.log('pulled from cache');
         cb(null, self._cache[id]);
     } else {
-        console.log('skipped cache on ' + id);
+        // console.log('skipped cache on ' + id);
         Artist.findById(id, function(err, artist) {
     	    // save to cache
     	    self._cache[id] = artist;

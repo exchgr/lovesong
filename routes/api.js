@@ -7,16 +7,17 @@ var _ = require('underscore')
 
 routes = {
 	recommendations: function( req, res, next ) {
-		req.user.getMatches({limit: 5000}, function(err, matches) {
-		    
-		    console.log(req.user._artists);
-		    
+		req.user.getMatches({limit: 5}, function(err, matches) {
+		    		    
 		    var recommendations = [];
+		    
+		    var maxMatch = req.user.artists.length;
 		    
 		    async.each(matches, function(match, cb) {
 		        var match = match.toJSON();
 		        
 		        match.score = match._recommendations[req.user._id].score;
+		        match.percent = match.score / maxMatch * 100;
 		        match.shared = [];
 		        		        		        
 		        var shared = match._recommendations[req.user._id].shared;

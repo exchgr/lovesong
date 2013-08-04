@@ -10,11 +10,10 @@ block content
 
     .row
       .col-lg-4.col-sm-12.card
-        h1 {{ match }}%
-        | &nbsp;match
+        h1 {{ profile.name }}
         .pull-right
-          h1 3
-          | &nbsp;mutual friends
+          h2 {{ match }}%
+          | &nbsp;match
         br
         img.avatar(src=user.image)
         // I'm sorry
