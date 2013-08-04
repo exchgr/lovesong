@@ -22,6 +22,7 @@ schema = new mongoose.Schema({
 	default:
 		{}
 	},
+	_recommendations: {type: mongoose.Schema.Types.Mixed, default: {}},
 	_artists: {
 		facebook: [{
 			type: mongoose.Schema.Types.ObjectId,
@@ -121,6 +122,80 @@ schema.methods.getFriends = function(cb) {
 	}
 }
 
+schema.methods.getMatches = function(opts, cb) {
+	artistOpts = opts.artistOpts || {};
+	artistOpts.expand = false;
+	
+	opts.sort = opts.sort || true;
+	opts.force = opts.force || false;
+	
+	var matches = {};
+	
+	var self = this;
+	
+	console.log(self._recommendations);
+	
+	if (opts.force || _.size(self._recommendations) == 0) {
+		// first we need all the similar artists
+		this.getSimilarArtists(artistOpts, function(err, similarity) {
+			var artists = _.keys(similarity);
+			User.find({'_artists.facebook': {'$in': artists}}, function(err, users) {
+				_.each(users, function(user) {
+					var shared = {};
+					var score = 0;
+					_.each(
+						_.intersection(
+							_.map(user.artists, function(artist) {
+								return artist.toString();
+							}),
+							artists
+						), function(artist) {
+							shared[artist] = similarity[artist];
+							score = score + similarity[artist];
+						}
+					);
+
+					user._recommendations[self._id] = {
+						shared: shared,
+						score: score
+					};
+					user.save(function() {
+						
+					});
+				});
+
+				// if we don't sort, return now
+				if( !opts.sort ) {
+					cb(err, users);
+				}
+
+				// sort the matches
+				var users = _.sortBy(users, function(user) {
+					return -1 * user._recommendations[self._id].score;
+				});
+
+				// we might need to return now
+				if (opts.sort) {
+					cb(err, users);
+				}
+
+				// let's cache this.... FYI THIS IS NOT WORKING
+				_.each(users, function(user) {
+					self._recommendations[user._id] = user._recommendations[self._id];
+				});
+
+				self.save(function(err, d) {
+					// console.log('d');
+					// console.log(err, d);
+				});
+			});
+		});
+	} else {
+		
+	}
+	
+}
+
 schema.methods.getArtists = function(cb) {
 	Artist.find({
 		'_id': {
@@ -129,14 +204,14 @@ schema.methods.getArtists = function(cb) {
 	}, function(err, artists) {
 		cb(err, artists);
 	});
-	// Artist.find({})
 }
 
 schema.methods.getSimilarArtists = function(options, cb) {
-	var injectOwn = options.injectOwn || true;
-
+	if(typeof(options.injectOwn)==='undefined') options.injectOwn = true;
+	if(typeof(options.expand)==='undefined') options.expand = true;
+	
 	this.getArtists(function(err, myArtists) {
-		var similarity = [];
+		var similarity = {};
 
 		_.each(myArtists, function(artist) {
 			_.each(artist.similar, function(sa) {
@@ -146,26 +221,36 @@ schema.methods.getSimilarArtists = function(options, cb) {
 				similarity[sa.artist] = similarity[sa.artist] + sa.match;
 			});
 		});
+				
+		if (options.expand) {
+			Artist.find({
+				'_id': {
+					'$in': _.keys(similarity)
+				}
+			}, function(err, artists) {
+				_.each(artists, function(artist) {
+					artist.match = similarity[artist._id];
+				});
 
-		Artist.find({
-			'_id': {
-				'$in': _.keys(similarity)
-			}
-		}, function(err, artists) {
-			_.each(artists, function(artist) {
-				artist.match = similarity[artist._id];
+				if (options.injectOwn) {
+					_.each(myArtists, function(artist) {
+						artist.match = 1; // we match 100% with our own artists
+						artists.push(artist);
+					})
+				}
+
+				cb(err, artists);
+
 			});
-
-			if (injectOwn) {
+		} else {
+			if(options.injectOwn) {
 				_.each(myArtists, function(artist) {
-					artist.match = 1; // we match 100% with our own artists
-					artists.push(artist);
-				})
+					similarity[artist._id] = 1; // we match 100% with ourselves
+				});
 			}
-
-			cb(err, artists);
-
-		});
+			
+			cb(err, similarity);
+		}
 	});
 }
 

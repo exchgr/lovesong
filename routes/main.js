@@ -14,14 +14,8 @@ routes = {
 	},
 	home: function(req, res) {
 		
-		req.user.getArtists(function(err, artists) {
-			_.each(artists, function(artist) {
-				artist.getFans(function(err, fans) {
-					_.each(fans, function(fan) {
-						console.log(artist.name, fan.displayName);
-					})
-				});
-			});
+		req.user.getMatches({}, function(err, matches) {
+			console.log(matches);
 		});
 		
 		res.render("home", {
