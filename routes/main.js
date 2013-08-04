@@ -15,7 +15,7 @@ routes = {
 	home: function(req, res) {
 		
 		req.user.getMatches({}, function(err, matches) {
-			console.log(matches.length);
+			console.log(matches);
 		});
 		
 		res.render("home", {

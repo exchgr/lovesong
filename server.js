@@ -9,6 +9,7 @@ var express = require('express')
 		
 var pkg = require('./package.json')
 		, main = require('./routes/main')
+		, api = require('./routes/api')
 		, auth = require(__dirname+'/lib/auth')
 
 // set up Mongoose
@@ -50,6 +51,11 @@ app.get('/login', auth.login);
 app.get('/logout', auth.logout);
 app.get('/auth/facebook', auth.facebook.start);
 app.get('/auth/facebook/callback', auth.facebook.end);
+
+// --- api
+app.get('/api/recommendations', api.recommendations);
+app.get('/api/artists', api.artists);
+
 
 // start listening
 app.listen( process.env.PORT, function() {

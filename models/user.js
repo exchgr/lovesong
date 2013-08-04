@@ -179,14 +179,14 @@ schema.methods.getMatches = function(opts, cb) {
 					cb(err, users);
 				}
 
-				// let's cache this
+				// let's cache this.... FYI THIS IS NOT WORKING
 				_.each(users, function(user) {
 					self._recommendations[user._id] = user._recommendations[self._id];
 				});
 
 				self.save(function(err, d) {
-					console.log('d');
-					console.log(err, d);
+					// console.log('d');
+					// console.log(err, d);
 				});
 			});
 		});
