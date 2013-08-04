@@ -73,16 +73,24 @@ h1 {
   overflow: hidden;
   max-height: 520px;
 }
-.card h1 {
+.card .profile {
+  position: relative;
+}
+.card .profile h1 {
   display: inline-block;
 }
-.card img.avatar {
+.card .profile .match {
+  position: absolute;
+  top: 0;
+  right: 15px;
+}
+.card .profile img.avatar {
   display: block;
   margin: 0 auto;
   border-radius: 50%;
   width: 80%;
 }
-.card .btn-group {
+.card .profile .btn-group {
   margin: 1em auto;
 }
 .bands {

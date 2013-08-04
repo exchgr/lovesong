@@ -14,11 +14,11 @@ block content
     #profile
     script#profile-template(type='text/template')
       .row.card
-        .col-lg-4.col-sm-12
+        .col-lg-4.col-sm-12.profile
           h1 {{ profile.firstName }}
-          .pull-right
+          .match
             h2 {{ match }}%
-            | &nbsp;match
+            span match
           br
           img.avatar(src!='{{ profile.image }}')
           .center
