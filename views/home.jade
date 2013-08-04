@@ -13,8 +13,8 @@ block content
       .modal-dialog
     #profile
     script#profile-template(type='text/template')
-      .row
-        .col-lg-4.col-sm-12.card
+      .row.card
+        .col-lg-4.col-sm-12
           h1 {{ profile.firstName }}
           .pull-right
             h2 {{ match }}%
@@ -28,11 +28,15 @@ block content
               button#like.btn.btn-default(type='button')
                 img(src='/img/heart.png')
         .col-lg-8.col-sm-1.bands
-          h1 Bands they like
-          ul
+          h1 Artists they listen to
+          
+          ul.media-list
 
              | {( bands.forEach(function(band) { )}
-             li
-              .art(style="background: url('{{ band.image.large }}') 50% 50%")
-              .name {{ band.name }}
+             li.media
+              span.pull-left
+                .art(style="background: url('{{ band.image.large }}') 50% 50%")
+              .media-body  
+                h3.name {{ band.name }}
+                h4.like Like <strong>The Beatles</strong>
              | {( }) )}
