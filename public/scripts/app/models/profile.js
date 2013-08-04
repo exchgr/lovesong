@@ -30,7 +30,7 @@ define([
 		// Reference to this collection's model.
 		model: Profile,
 		
-		url: 'http://localhost:3120',
+		url: '/api/recommendations',
 		
 	});
 	

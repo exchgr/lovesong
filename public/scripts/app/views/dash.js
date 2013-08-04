@@ -2,42 +2,51 @@ define([
 	'jquery',
 	'underscore',
     'backbone',
-], function ($, _, Backbone) {
+    'app/models/profile',
+    'app/views/match'
+], function ($, _, Backbone, Profiles, Match) {
+    _.templateSettings = {
+      interpolate : /\{\{(.+?)\}\}/g
+    };
+    
 	// The Dashboard View
 	// ---------------
 	
-	// profiles = Profiles;
-	// 
-		var Dashboard = Backbone.View.extend({
-			el: '#content',
+    profiles = Profiles;
 
-			initialize: function () {
-	
-				// this.listenTo(app.todos, 'reset', this.refresh);
-				// this.listenTo(profiles, 'add', this.setMatch);
-				
-				// console.log( Profiles );
-				
-				// profiles.add({
-					// 'name': 'Samantha Xu'
-				// });
-				
-				console.log('this was reached');
-				
-				// console.log( Profiles );
-			},
-	
-			render: function () {
-			},
-	
-			// setMatch: function (profile) {			
-			// 				var view = new Match({ model: profile });
-			// 				$('#quick-match').html(view.render().el);
-			// 				
-			// 				// console.log( view );
-			// 			},
-	
-		});
+	var Dashboard = Backbone.View.extend({
+		el: '#content',
+
+		initialize: function () {
+
+			// this.listenTo(app.todos, 'reset', this.refresh);
+            this.listenTo(profiles, 'reset', this.setMatch);
+			
+			// console.log( Profiles );
+			
+			// profiles.add({
+				// 'name': 'Samantha Xu'
+			// });
+			
+			// fetch default profiles
+			profiles.fetch({reset: true});
+			
+			console.log('this was reached');
+			
+			// console.log( Profiles );
+		},
+
+		render: function () {
+		},
+
+        setMatch: function () {
+            var profile = profiles.at(0);
+            
+            var view = new Match({model: profile});
+            $('#profile-template').html(view.render().el);
+        },
+
+	});
 		
 		// console.log( Dashboard );
 		
