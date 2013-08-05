@@ -41,6 +41,8 @@ define([
         
         // like someone
         like: function() {
+            
+            console.log('http://lovesong.morgante.net/s/' + $('#fbid').text() + '/' + this.model.get('fbid'));
                                     
             FB.ui({
               method: 'send',
